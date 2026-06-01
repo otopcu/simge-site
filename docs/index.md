@@ -10,7 +10,9 @@
 
 ## Download
 
-The latest SimGe installer is available from the [official site](https://sites.google.com/view/okantopcu/simge).
+- **[Download SimGe (latest installer)](https://github.com/otopcu/simge-site/releases/latest/download/SimGe.msi)**
+
+See the [Release Notes](ReleaseNotes.md) for what's new, or visit the [official site](https://sites.google.com/view/okantopcu/simge).
 
 ---
 
