@@ -55,3 +55,10 @@ markdown_extensions:
 
 plugins:
   - search
+
+extra:
+  analytics:
+    provider: google
+    # Set the GA_MEASUREMENT_ID repository variable (or env var) to a GA4 ID like "G-XXXXXXXXXX".
+    # When unset, no tracking script is injected.
+    property: !ENV [GA_MEASUREMENT_ID, '']
