@@ -1,0 +1,57 @@
+site_name: SimGe Documentation
+site_url: https://otopcu.github.io/simge-site/
+site_description: SimGe (Simulation Generator) — HLA object model editor, federation modeling, and code generation.
+site_author: Okan Topçu
+copyright: Copyright &copy; 2011–2026 oToT
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+    - toc.follow
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - User Manual:
+      - Overview: UserManual.md
+      - Workspaces: UserManual/Workspaces.md
+      - OME: UserManual/OME.md
+      - Diagrams: UserManual/Diagrams.md
+      - FAME: UserManual/FAME.md
+      - Code Generator: UserManual/CodeGenerator.md
+      - Project Explorer: UserManual/ProjectExplorer.md
+  - Release Notes: ReleaseNotes.md
+  - Disclaimer: Disclaimer.md
+
+markdown_extensions:
+  - admonition
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+
+plugins:
+  - search
