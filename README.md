@@ -1,2 +1,10 @@
-# simge-site
-Simulation Generator (SimGe) is a full-featured High Level Architecture (HLA) object model editor, simulation design and development environment, and a federation prototyping tool with its code generation capability. 
+<!-- Generated content — do not edit this repository directly. -->
+
+# simge-site (generated)
+
+This repository is **generated and published automatically** from the SimGe source
+repository. Do not edit files here by hand — changes will be overwritten on the next publish.
+
+- **Source of truth:** `docs/SimGeWiki` and `docs/site` in the SimGe source repo.
+- **Publish:** run `publish-site.ps1` (or `release-all.ps1`) in the source repo.
+- **Live site:** https://otopcu.github.io/simge-site/
