@@ -10,9 +10,9 @@ It explains:
 
 This document does **not** cover legacy RACoN / HLA 1.3 / HLA 1516e generators.
 
-![The Code Generator workspace with its settings sections and generation controls](images/code-generator.png)
+![The generated-code viewer showing a federate's generated C# source, with one tab per generated file](images/code-generator.png)
 
-*The Code Generator workspace. Its settings are grouped into sections (writer settings, metric-driven optimization, and Fora telemetry); from here you choose the target, configure options, and run generation. Results are reported in a structured per-federate report.*
+*The generated **code viewer** for a federate (here `ChatFdApp`). After a generation run, SimGe opens the produced C# files for read-only review — each generated file is a tab along the bottom — and you can copy (Ctrl+C) or export (Ctrl+E) the source. Generation is configured in the project's **Code Generator settings** (see [Project Structure & Settings](ProjectSettings.md)) and summarized in a per-federate report afterwards.*
 
 ---
 

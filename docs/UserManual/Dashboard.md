@@ -1,51 +1,44 @@
 # FOM Dashboard
 
-The FOM Dashboard gives a quantitative, at-a-glance view of a model — its size, complexity, capability, and health — so you can assess an object model without reading every table. It is especially useful for reviewing composed (merged) models.
+The **Module Analysis Dashboard** gives a quantitative, at-a-glance view of a model — its size, structure, semantics, and quality — so you can assess an object model without reading every table. It opens as the **Dashboard** tab of a module's [Object Model Editor](OME.md), and a **Composed / Module Only** toggle lets you analyze the merged composition or just the selected module.
 
-![The FOM Dashboard with metric cards grouped into Volume, Complexity, Capability, Health, and Architecture categories](images/dashboard.png)
+![The Module Analysis Dashboard Overview tab, showing the object-model archetype, a summary, and headline metric cards](images/dashboard.png)
 
-*The FOM Dashboard. Information cards summarize the model by category — Volume (inventory counts and the OC/IC ratio), Complexity, Capability, Health (flagged issues), and Architecture — computed separately for the Object Class and Interaction Class domains. The toolbar offers Refresh, Copy Summary, Copy Full Report, Export, and navigation to flagged elements.*
+*The dashboard's **Overview** tab. It reports the object-model **archetype** (here "Hybrid"), a written summary of the model, and headline metric cards — class count, property count, datatype count, and the **OC/IC ratio** — alongside an Object Model Archetype gauge.*
 
-## What the dashboard shows
+## The dashboard tabs
 
-The dashboard organizes its analysis into information cards grouped by category:
+The dashboard is organized into four tabs:
 
-| Category | Tells you |
+| Tab | Shows |
 |---|---|
-| **Volume** | Direct inventory counts — object classes, interaction classes, attributes, parameters, data types, dimensions, and the **OC/IC ratio**. |
-| **Complexity** | Derived structural metrics over the class hierarchies (depth, breadth, and related architectural indicators). |
-| **Capability** | What the model can express, based on its declared content. |
-| **Health** | Diagnostic findings — unresolved dependencies, structural issues, and other warnings that need attention. |
-| **Architecture** | Higher-level architectural information about how the model is put together. |
+| **Overview** | Module identity and context — archetype, summary, and the headline counts (classes, properties, datatypes, OC/IC ratio). |
+| **Structure** | Topology and hierarchy signals — max depth and breadth, class complexity, and architectural metrics (e.g. `WHL`, `S_top`, `CV_D`) — with an Architecture Shape matrix and a Structure Heat Map. |
+| **Semantics** | Payload saturation and dispersion — the Semantic Saturation Index (`SSI_n`) and coefficient of variation (`CV_p`) for each domain — with a saturation gauge. |
+| **Quality** | Integrity and maintenance risks — diagnostic findings and warnings. |
 
-The figures are computed separately for the **Object Class (OC)** and **Interaction Class (IC)** domains, and a single analysis engine is the source of truth, so the dashboard numbers stay consistent with the [reports](MetricsReports.md).
+Most figures are computed separately for the **Object Class (OC)** and **Interaction Class (IC)** domains, and a single analysis engine is the source of truth, so the dashboard numbers stay consistent with the [reports](MetricsReports.md).
 
-![The dashboard's structure/architecture view breaking the model down by class hierarchy and composition](images/dashboard-structure.png)
+![The Structure tab with hierarchy metrics and the Architecture Profile Matrix](images/dashboard-structure.png)
 
-*The structure (Architecture) view of the dashboard. It breaks the model down by how it is put together — the class hierarchy and, for composed models, how much each contributing module adds — giving an architectural picture beyond the raw counts.*
+*The **Structure** tab. It surfaces topology and hierarchy signals — object max depth and breadth, class complexity, and architectural metrics such as `WHL(OC)`, `S_top`, and `CV_D` — and visualizes the model's "structured shape" via an Architecture Profile Matrix (with an alternate Structure Heat Map view).*
 
-![The dashboard's semantics view showing per-class semantic weight and volatility characteristics](images/dashboard-semantics.png)
+![The Semantics tab with SSI_n and CV_p for the object and interaction domains](images/dashboard-semantics.png)
 
-*The semantics view of the dashboard. It characterizes classes by meaning rather than count — semantic weight and volatility (periodic, conditional, or static) — which feeds metric-driven code generation and highlights the model's most significant classes.*
+*The **Semantics** tab. It characterizes payload **saturation and dispersion** rather than raw counts: the Semantic Saturation Index `SSI_n` and dispersion `CV_p` are shown for both the Object and Interaction domains, with a Semantic Saturation Index gauge. These signals feed metric-driven code generation.*
 
 ## Toolbar actions
 
-| Action | What it does |
-|---|---|
-| **Refresh Analysis** | Recomputes the analysis for the current model. |
-| **Copy Summary** | Copies a short summary to the clipboard. |
-| **Copy Full Report** | Copies the complete textual analysis to the clipboard. |
-| **Export** | Saves the analysis for external use. |
-| **Navigate** | Jumps to a problematic element flagged under Health. |
+The dashboard toolbar lets you **refresh** the analysis, **copy** the summary or the full textual report to the clipboard, and toggle between **Composed** and **Module Only** scope.
 
 ## How to read it
 
-1. Start with **Volume** to understand the model's scale.
-2. Check **Health** for anything flagged — resolve unresolved dependencies and structural issues first (see [Managing Modules](ManagingModules.md) and [FOM Validation](Validation.md)).
-3. Use **Complexity** and **Architecture** to judge whether the model's structure matches your intent.
-4. Re-run **Refresh Analysis** after edits to see the effect.
+1. Start on **Overview** to grasp the model's archetype and scale.
+2. Check **Quality** for anything flagged — resolve unresolved dependencies and structural issues first (see [Managing Modules](ManagingModules.md) and [FOM Validation](Validation.md)).
+3. Use **Structure** and **Semantics** to judge whether the model's shape and payload profile match your intent.
+4. **Refresh** after edits to see the effect.
 
-> The dashboard reflects the analyzed snapshot. For a single composed model, run the analysis on the merged result so the numbers represent what will actually be exported.
+> Use the **Composed** scope to analyze the merged result that will actually be exported; use **Module Only** to focus on the selected module's own content.
 
 ---
 

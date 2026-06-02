@@ -39,7 +39,7 @@ To check which version you currently have, open **Help → About**.
 
 ![The SimGe About dialog showing the application name, version, and copyright](images/about.png)
 
-*The About dialog (Help → About) shows the installed SimGe version and copyright — handy for confirming whether you are on the latest release.*
+*The About dialog (Help → About) shows the installed version (here **0.4.8**), the license type (Non-Commercial / Academic Use), and copyright. Its links — **Check Updates**, **Release Notes**, **Feedback and Support**, and **Donate** — and a **Copy Info** button are handy when reporting an issue or confirming you are on the latest release.*
 
 ## Repairing or removing
 

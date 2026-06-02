@@ -4,7 +4,7 @@ The Object Model Editor (OME) is the main workspace for editing a FOM or SOM mod
 
 ![The OME table editor showing an OMT table with its rows and the editing toolbar](images/table-editor.png)
 
-*The OME table editor. The active OMT table (Objects, Interactions, Attributes, Parameters, Datatypes, and the other tables listed below) is shown as editable rows, with the toolbar's Add/edit controls adapting to what the current table supports. Double-clicking a row opens its dedicated item editor.*
+*The OME table editor, here showing a module's **Attribute** table as editable rows (name, object class, data type, update type/condition, P/S, transportation, order, …). The toolbar's Add/edit controls adapt to what the active table supports, and double-clicking a row opens its dedicated item editor. The module workspace also carries tabs along the bottom — **Dashboard**, **Table Editor**, **FED Viewer**, **FDD Viewer (2010)**, **FDD Viewer (2025)**, and **Diagram Editor** — covered in their own chapters.*
 
 ---
 

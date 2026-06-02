@@ -4,7 +4,7 @@ The Federation Architecture Modeling Environment (FAME) is the central workspace
 
 ![The FAME workspace: the Federation Structure Diagram in the center with the properties pane for the federation and federate applications](images/fame.png)
 
-*The FAME workspace. The central Federation Structure Diagram shows the federate applications connected to the RTI, while the properties pane configures the federation and the selected federate application. Double-clicking a federate's note icon jumps to its Object Model Editor.*
+*The FAME workspace showing the Chat federation in the **Federation Structure Diagram (FSD)** view (chosen from the **View** dropdown). The federate application `ChatFdApp` (containing the `ChatFd` federate) links to its `ChatFom` / `ChatSom` modules with `1..*` multiplicity and connects to the central **RTI**. The properties pane on the left configures the federation and the selected federate; double-clicking a federate's note icon jumps to its Object Model Editor.*
 
 ---
 
@@ -55,10 +55,6 @@ Located at the top of the tab:
 
 The Federation Structure Diagram (FSD) is a "living" model that provides real-time feedback.
 
-![The FAME deployment diagram: federate applications connected to the central RTI, with multiplicity and health indicators](images/fame-deployment.png)
-
-*The FSD as a deployment diagram: each federate application is connected to the central RTI, multi-instance federates appear as stacked boxes, and health badges flag modeling issues. Connection lines glow on hover, and double-clicking a federate's note icon opens its Object Model Editor.*
-
 ### Visual Indicators
 -   **Stacked Boxes**: If a federate's multiplicity is greater than one, it appears as a stack of boxes to indicate a multi-instance cluster.
 -   **Interactive Pulse**: Hovering over a federate box or its "Lollipop" icon makes the connection line to the RTI glow and thicken, representing an active link.
@@ -70,6 +66,16 @@ Diagnostic badges appear in the top-right corner of federate boxes to catch mode
 - 🛑 **Critical (Red)**: Severe errors like invalid names that would break code generation.
 - ⚠️ **Warning (Orange)**: Missing required associations like a SOM Module.
 - ℹ️ **Information (Gray)**: Optional fields like connection settings are empty.
+
+---
+
+## Deployment Diagram (UML)
+
+Switch the **View** dropdown from *Diagram (FSD)* to *Deployment Diagram (UML)* to see the same federation as a UML deployment diagram — useful for documenting how the federation maps onto physical hosts and the network.
+
+![The UML deployment diagram: device nodes for the RTI server and the host, joined by the HLA/RTI network bus, with the federate artifact and its Fora client component](images/fame-deployment.png)
+
+*The Deployment Diagram (UML) view of the Chat federation. UML «device» nodes — an `rti.server` «infrastructure» node and a `Localhost` node with a Windows / .NET Core «execution environment» — are joined by the «network» **HLA/RTI Bus** over TCP/IP (port 6001). The federate is shown as an «artifact» (`ChatFdApp`) together with its «component» (`ForaClient`). A legend in the bottom-left explains the node and federate symbols.*
 
 ---
 

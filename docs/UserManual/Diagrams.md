@@ -8,7 +8,7 @@ The OME Diagram Editor renders a module's **object classes** as a UML-style clas
 
 ![The OME Diagram Editor showing the object class hierarchy as a UML-style class diagram](images/oc-diagram.png)
 
-*The Object Class diagram in the OME Diagram Editor. Each box is an object class with its attributes; the connectors show the class hierarchy. Use it to grasp a model's structure at a glance and navigate large hierarchies. Pan, zoom, selection, and mini-map navigation work as described under [Interaction, Navigation, and Toolbar Controls](#interaction-navigation-and-toolbar-controls).*
+*The Object Class diagram in the OME's **Diagram Editor** tab. Each box is an object class with its attributes (here `ChatGroup`, `Poll`, and `User`, all generalizing `HLAobjectRoot`), and the connectors show the inheritance hierarchy. The **Graph Tools** panel on the left toggles what is shown — inherited members, base properties, base classes, inline data types, alphabetical sorting, and layout/navigator options. Pan, zoom, selection, and mini-map navigation work as described under [Interaction, Navigation, and Toolbar Controls](#interaction-navigation-and-toolbar-controls).*
 
 ## Federation Structure Diagram (FSD)
 The FSD provides a high-level overview of the federation architecture, showing how different federate applications interact with the RTI.
