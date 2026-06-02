@@ -57,7 +57,7 @@ The **Graph Tools** sidebar on the left of the Diagram Editor controls what each
 | Toggle | Default | What it does |
 |---|---|---|
 | **Layout Editing** | Off | Allow dragging nodes to adjust the layout manually. |
-| **Show Navigator** | Off | Reserved for a navigator overlay (not currently active). |
+| **Show Navigator** | Off | Show or hide the **mini-map** navigator overlay in the bottom-right of the canvas (see [Mini-Map Navigation](#mini-map-navigation)). |
 
 ---
 
