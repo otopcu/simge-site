@@ -2,6 +2,16 @@
 
 The Start Page is the landing workspace for opening projects and reviewing project metadata. It opens automatically at startup and stays available as a workspace tab.
 
+## Opening projects from the Start Page
+
+The Start Page complements the **SimGe — Get Started** dialog:
+
+- **Recent projects** — reopen a project you used recently.
+- **Open a project** — browse for an existing `.fap` file.
+- **Bundled samples** — open the Chat or STMS sample to explore SimGe.
+
+See [Opening & Saving Projects](OpeningSaving.md) for the full open/save behavior.
+
 ## FOM Modules Dependency Graph
 
 The Start Page hosts a dependency graph that displays the relationships between the FOM modules in your project.
@@ -12,14 +22,19 @@ The Start Page hosts a dependency graph that displays the relationships between 
 
 > The general diagram interaction model (pan, zoom, selection, mini-map) is described in [Diagrams](Diagrams.md).
 
+## Metadata panels
+
+The Start Page summarizes the open project's metadata in two panels:
+
+- **Project metadata** — project name, home folder, the object-model and FAM folders, and whether the project has unsaved changes.
+- **Object-model metadata** — the object-model index file name and its folder.
+
+Each panel's header has a **Copy** action that copies the table to the clipboard as plain text, handy for sharing or pasting into notes.
+
+## Folder shortcuts
+
+The Start Page exposes quick links to the project's key folders — **project home**, **FOM**, **FAM**, and **source** — opening them directly in Windows Explorer.
+
 ---
 
-> 🚧 **The sections below are being written.**
-
-## Planned contents
-
-- Recent projects and opening from disk
-- Opening bundled samples
-- Project and object-model metadata panels
-- Copying metadata to the clipboard
-- Folder shortcuts (project home, FOM, FAM, source)
+**Next:** [Creating a Project](CreatingProjects.md)
