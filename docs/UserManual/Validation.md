@@ -23,7 +23,7 @@ SimGe can validate against the standard you are targeting:
 
 Validation is available where you produce a standard document:
 
-- In the **FDD/FED preview** surface, choose the target standard and use **Validate**. SimGe builds the merged document and checks it.
+- In the **FDD viewer**, pick the **schema** from the toolbar selector (e.g. IEEE 1516-2010, IEEE 1516-2025, or DIF) and click **Validate** — SimGe builds the merged document and checks it against *that* schema. Changing the toolbar selection re-targets validation, so you can verify the same model against different standards.
 - Validation also runs **automatically during import**, so problems in a source file are reported as it is read (see [Importing & Exporting](ImportExport.md)).
 
 Because SimGe authors models as [modules](ModularFOM.md), validation runs against the **merged** result — the same composition that export and code generation use — so what you validate is what you ship.
@@ -35,6 +35,10 @@ Validation results open in a dedicated results window:
 - A clean run reports success.
 - Problems are listed with enough detail to locate them (the offending element and the rule or schema constraint involved).
 - The window is color-coded by outcome so you can tell success from warnings and errors at a glance.
+
+![The FDD validation results window listing schema findings for the validated document](images/validation-results.png)
+
+*The validation results for an FDD document. The report header records the FILE, KIND (`FDD`), the **SCHEMA** it was checked against (here `IEEE1516-FDD-2025.xsd`, set by the FDD viewer's toolbar selector), and the STATUS (`FAILED`). Findings are listed below the header, and **Copy Details** copies the full report to the clipboard.*
 
 Work through the listed items, fix them in the [OME](OME.md), and re-validate until the model is clean.
 

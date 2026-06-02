@@ -45,6 +45,10 @@ When you remove a module that **others depend on**, SimGe does not silently brea
 
 **Module Dependencies…** opens a dialog where you set which other modules a module depends on. Changes are reflected immediately in the Project Explorer hierarchy and in the [Start Page dependency graph](StartPage.md#fom-modules-dependency-graph). Removing a dependency that cannot be resolved leaves it as an orphan entry you can clean up later.
 
+![The Module Dependencies tool, where a module's dependencies on other modules are selected](images/module-dependencies.png)
+
+*The Module Dependencies tool. Pick the module to edit from the **FOM Modules** dropdown (here `RPR-Communication_v3.0`), then check the modules it may depend on; the **Depends on** column shows each candidate's own dependencies. Confirmed links appear in the Project Explorer hierarchy and the dependency graph, while unresolved references are flagged as orphan dependencies.*
+
 ## Recovering a module with missing files
 
 If a module's `.sfom` or `.xml` is missing on disk, the module is flagged with a warning badge and double-clicking it starts a recovery flow (locate, remove, or — for samples — repair). See [Project Explorer → Recovering Missing Module Files](ProjectExplorer.md#recovering-missing-module-files).
