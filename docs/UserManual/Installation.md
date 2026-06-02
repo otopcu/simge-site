@@ -35,6 +35,12 @@ The bundled samples live in a shared, machine-wide location (`C:\ProgramData\Sim
 
 To move to a newer version, download the latest `SimGe.msi` and run it. The installer performs a major upgrade — it replaces the previously installed version in place. Your own projects (saved outside the install location) are untouched.
 
+To check which version you currently have, open **Help → About**.
+
+![The SimGe About dialog showing the application name, version, and copyright](images/about.png)
+
+*The About dialog (Help → About) shows the installed SimGe version and copyright — handy for confirming whether you are on the latest release.*
+
 ## Repairing or removing
 
 Use **Windows Settings → Apps → Installed apps → SimGe** (or the classic **Control Panel → Programs and Features**):

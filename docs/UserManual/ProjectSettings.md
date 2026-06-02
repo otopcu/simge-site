@@ -46,6 +46,10 @@ Project settings are edited from the project's settings surface. Common settings
 | **Target HLA standard** | The standard the project works in (IEEE 1516-2025 is the modern default). |
 | **Code Generator settings** | Options that control code generation — see [Code Generator](CodeGenerator.md). |
 
+![The Code Generator settings page within the project settings](images/project-settings-codegen.png)
+
+*The Code Generator settings, part of the project settings. These options (writer settings, metric-driven optimization, and Fora telemetry) control how the [Code Generator](CodeGenerator.md) produces federate code. Like other settings, they are validated and a save is blocked while errors remain.*
+
 ## Validation guards
 
 SimGe validates settings as you edit them. If the project settings or code-generator settings contain errors:

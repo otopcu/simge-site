@@ -2,6 +2,10 @@
 
 The Start Page is the landing workspace for opening projects and reviewing project metadata. It opens automatically at startup and stays available as a workspace tab.
 
+![The SimGe Start Page: project and object-model metadata panels above the FOM Modules Dependency Graph](images/start-page.png)
+
+*The Start Page for the NETN sample. The metadata panels at the top summarize the project and its object model (with **Copy** buttons and folder links), while the **FOM Modules Dependency Graph** below visualizes all 29 modules. Dashed «use» arrows point from each module to the modules it depends on, with the standalone base modules (e.g. `RPR-Foundation`, `RPR-Switches`) at the bottom of the hierarchy.*
+
 ## Opening projects from the Start Page
 
 The Start Page complements the **SimGe — Get Started** dialog:

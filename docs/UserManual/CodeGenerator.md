@@ -10,6 +10,10 @@ It explains:
 
 This document does **not** cover legacy RACoN / HLA 1.3 / HLA 1516e generators.
 
+![The Code Generator workspace with its settings sections and generation controls](images/code-generator.png)
+
+*The Code Generator workspace. Its settings are grouped into sections (writer settings, metric-driven optimization, and Fora telemetry); from here you choose the target, configure options, and run generation. Results are reported in a structured per-federate report.*
+
 ---
 
 ## Scope

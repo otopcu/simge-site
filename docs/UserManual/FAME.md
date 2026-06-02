@@ -2,6 +2,10 @@
 
 The Federation Architecture Modeling Environment (FAME) is the central workspace for designing and managing your HLA federation structure. It allows you to define federate applications, link them to RTI settings, and associate them with specific Object Models.
 
+![The FAME workspace: the Federation Structure Diagram in the center with the properties pane for the federation and federate applications](images/fame.png)
+
+*The FAME workspace. The central Federation Structure Diagram shows the federate applications connected to the RTI, while the properties pane configures the federation and the selected federate application. Double-clicking a federate's note icon jumps to its Object Model Editor.*
+
 ---
 
 ## Workspace Layout
@@ -50,6 +54,10 @@ Located at the top of the tab:
 ## Interactive FSD Diagram
 
 The Federation Structure Diagram (FSD) is a "living" model that provides real-time feedback.
+
+![The FAME deployment diagram: federate applications connected to the central RTI, with multiplicity and health indicators](images/fame-deployment.png)
+
+*The FSD as a deployment diagram: each federate application is connected to the central RTI, multi-instance federates appear as stacked boxes, and health badges flag modeling issues. Connection lines glow on hover, and double-clicking a federate's note icon opens its Object Model Editor.*
 
 ### Visual Indicators
 -   **Stacked Boxes**: If a federate's multiplicity is greater than one, it appears as a stack of boxes to indicate a multi-instance cluster.

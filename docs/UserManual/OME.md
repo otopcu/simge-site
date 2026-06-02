@@ -2,6 +2,10 @@
 
 The Object Model Editor (OME) is the main workspace for editing a FOM or SOM module in tabular form. It combines hierarchy-oriented table views, flat property tables, and item editors for detailed OMT work.
 
+![The OME table editor showing an OMT table with its rows and the editing toolbar](images/table-editor.png)
+
+*The OME table editor. The active OMT table (Objects, Interactions, Attributes, Parameters, Datatypes, and the other tables listed below) is shown as editable rows, with the toolbar's Add/edit controls adapting to what the current table supports. Double-clicking a row opens its dedicated item editor.*
+
 ---
 
 ## Workspace Scope

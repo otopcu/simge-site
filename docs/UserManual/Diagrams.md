@@ -2,6 +2,14 @@
 
 SimGe provides powerful visualization tools for analyzing your object models and federation architectures.
 
+## Object Class Diagram (OME Diagram Editor)
+
+The OME Diagram Editor renders a module's **object classes** as a UML-style class diagram — a visual complement to the Objects table in the [OME](OME.md). Classes appear as boxes with their attributes, connected by generalization links that show the inheritance hierarchy.
+
+![The OME Diagram Editor showing the object class hierarchy as a UML-style class diagram](images/oc-diagram.png)
+
+*The Object Class diagram in the OME Diagram Editor. Each box is an object class with its attributes; the connectors show the class hierarchy. Use it to grasp a model's structure at a glance and navigate large hierarchies. Pan, zoom, selection, and mini-map navigation work as described under [Interaction, Navigation, and Toolbar Controls](#interaction-navigation-and-toolbar-controls).*
+
 ## Federation Structure Diagram (FSD)
 The FSD provides a high-level overview of the federation architecture, showing how different federate applications interact with the RTI.
 

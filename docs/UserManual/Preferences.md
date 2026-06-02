@@ -16,6 +16,10 @@ Control what happens when SimGe launches and how a project opens.
 | **Show Explorer on startup** | Shows the Project Explorer panel automatically when a project opens. |
 | **Show Properties on startup** | Shows the Properties panel automatically when a project opens. |
 
+![The Preferences window with the Startup section selected](images/preferences-startup.png)
+
+*The Startup section of Preferences. Toggle whether SimGe reopens your last project on launch and whether the Project Explorer and Properties panels appear automatically when a project opens. Sections are selected from the list on the left.*
+
 ## Recently used projects (MRU)
 
 | Setting | Effect |

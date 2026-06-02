@@ -2,6 +2,10 @@
 
 The FOM Dashboard gives a quantitative, at-a-glance view of a model — its size, complexity, capability, and health — so you can assess an object model without reading every table. It is especially useful for reviewing composed (merged) models.
 
+![The FOM Dashboard with metric cards grouped into Volume, Complexity, Capability, Health, and Architecture categories](images/dashboard.png)
+
+*The FOM Dashboard. Information cards summarize the model by category — Volume (inventory counts and the OC/IC ratio), Complexity, Capability, Health (flagged issues), and Architecture — computed separately for the Object Class and Interaction Class domains. The toolbar offers Refresh, Copy Summary, Copy Full Report, Export, and navigation to flagged elements.*
+
 ## What the dashboard shows
 
 The dashboard organizes its analysis into information cards grouped by category:
@@ -15,6 +19,14 @@ The dashboard organizes its analysis into information cards grouped by category:
 | **Architecture** | Higher-level architectural information about how the model is put together. |
 
 The figures are computed separately for the **Object Class (OC)** and **Interaction Class (IC)** domains, and a single analysis engine is the source of truth, so the dashboard numbers stay consistent with the [reports](MetricsReports.md).
+
+![The dashboard's structure/architecture view breaking the model down by class hierarchy and composition](images/dashboard-structure.png)
+
+*The structure (Architecture) view of the dashboard. It breaks the model down by how it is put together — the class hierarchy and, for composed models, how much each contributing module adds — giving an architectural picture beyond the raw counts.*
+
+![The dashboard's semantics view showing per-class semantic weight and volatility characteristics](images/dashboard-semantics.png)
+
+*The semantics view of the dashboard. It characterizes classes by meaning rather than count — semantic weight and volatility (periodic, conditional, or static) — which feeds metric-driven code generation and highlights the model's most significant classes.*
 
 ## Toolbar actions
 

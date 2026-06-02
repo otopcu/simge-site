@@ -39,6 +39,14 @@ Where to export from:
 
 When you export, SimGe writes the merged document to the location you choose. The generated file is suitable for initializing a federation in a compatible RTI.
 
+![The FED viewer showing the generated HLA 1.3 FED document with copy and export controls](images/fed-viewer.png)
+
+*The FED viewer (HLA 1.3). It renders the generated `.fed` document so you can review it before saving, with toolbar actions to copy the content (Ctrl+C) and export it to a file (Ctrl+E).*
+
+![The FDD viewer showing the generated IEEE 1516-2025 FDD document with copy, export, and validate controls](images/fdd2025-viewer.png)
+
+*The FDD viewer (IEEE 1516-2025). It renders the generated FDD for the current standard, where you can pick the standard, preview the document, validate it against the schema, and save — copy with Ctrl+C and export with Ctrl+E.*
+
 ## Choosing a format
 
 - Use **IEEE 1516-2025** unless a specific RTI or partner requires an older standard.
