@@ -15,9 +15,7 @@ The FSD provides a high-level overview of the federation architecture, showing h
 This diagram visualizes the flow of interactions between object and interaction classes. It helps in understanding the messaging patterns and coupling within the federation.
 
 ## FOM Modules Dependency Graph
-Available on the Start Page, this graph displays the relationships and dependencies between different FOM modules in your project.
-- **Visualization**: Shows base and dependent module links.
-- **Export**: The graph can be saved as an image file for external documentation.
+This graph displays the relationships and dependencies between the FOM modules in your project. It lives on the Start Page — see [Start Page → FOM Modules Dependency Graph](StartPage.md#fom-modules-dependency-graph) for details.
 
 ---
 

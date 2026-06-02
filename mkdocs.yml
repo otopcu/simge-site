@@ -32,12 +32,37 @@ nav:
   - Home: index.md
   - User Manual:
       - Overview: UserManual.md
-      - Workspaces: UserManual/Workspaces.md
-      - OME: UserManual/OME.md
-      - Diagrams: UserManual/Diagrams.md
-      - FAME: UserManual/FAME.md
-      - Code Generator: UserManual/CodeGenerator.md
-      - Project Explorer: UserManual/ProjectExplorer.md
+      - Getting Started:
+          - Introduction & Concepts: UserManual/Introduction.md
+          - Installation & Updates: UserManual/Installation.md
+          - Quick Start: UserManual/QuickStart.md
+          - The SimGe Workspace: UserManual/Workspaces.md
+          - Start Page: UserManual/StartPage.md
+      - Projects:
+          - Creating a Project: UserManual/CreatingProjects.md
+          - Opening & Saving: UserManual/OpeningSaving.md
+          - Project Structure & Settings: UserManual/ProjectSettings.md
+          - Project Explorer: UserManual/ProjectExplorer.md
+      - Object Modeling:
+          - Modular FOM Concepts: UserManual/ModularFOM.md
+          - Managing Modules: UserManual/ManagingModules.md
+          - OME — Object Model Editor: UserManual/OME.md
+          - Importing & Exporting: UserManual/ImportExport.md
+          - FOM Validation: UserManual/Validation.md
+      - Analysis & Visualization:
+          - Diagrams: UserManual/Diagrams.md
+          - FOM Dashboard: UserManual/Dashboard.md
+          - Model Metrics & Reports: UserManual/MetricsReports.md
+          - Telemetry Visualizer: UserManual/TelemetryVisualizer.md
+      - Federation Architecture (FAME): UserManual/FAME.md
+      - Code Generation:
+          - Code Generator: UserManual/CodeGenerator.md
+          - Fora Telemetry & Validation: UserManual/ForaTelemetry.md
+      - Preferences & Help:
+          - Preferences & Options: UserManual/Preferences.md
+          - Keyboard Shortcuts & Tips: UserManual/Shortcuts.md
+          - Troubleshooting: UserManual/Troubleshooting.md
+      - Glossary: UserManual/Glossary.md
   - Release Notes: ReleaseNotes.md
   - Disclaimer: Disclaimer.md
 
