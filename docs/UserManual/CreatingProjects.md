@@ -11,6 +11,10 @@ Open the wizard from any of:
 
 The wizard has four steps. Use **Next** / **Back** to move between them; the final step creates the project on disk.
 
+![The New Project wizard with its four steps and the current step's form](images/new-project-wizard.png)
+
+*The New Project wizard. The step rail on the left tracks progress through the four steps, the center pane shows the current step's form, and **Back / Next** (with **Create** on the final step) move between them.*
+
 ## Step 1 — Create Project
 
 Set the project's identity and location.

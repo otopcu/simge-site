@@ -10,6 +10,12 @@ The OME Diagram Editor renders a module's **object classes** as a UML-style clas
 
 *The Object Class diagram in the OME's **Diagram Editor** tab. Each box is an object class with its attributes (here `ChatGroup`, `Poll`, and `User`, all generalizing `HLAobjectRoot`), and the connectors show the inheritance hierarchy. The **Graph Tools** panel on the left toggles what is shown — inherited members, base properties, base classes, inline data types, alphabetical sorting, and layout/navigator options. Pan, zoom, selection, and mini-map navigation work as described under [Interaction, Navigation, and Toolbar Controls](#interaction-navigation-and-toolbar-controls).*
 
+The same Diagram Editor also renders the module's **interaction classes**. Switch the editor's **View** dropdown from *Object Class Diagram* to *Interaction Class Diagram* to see them.
+
+![The OME Diagram Editor showing the interaction class hierarchy as a UML-style class diagram](images/ic-diagram.png)
+
+*The Interaction Class diagram. Each box is an interaction class with its parameters (here `JoinGroup`, `LeaveGroup`, `ChatMessage`, `CastVote`, and `GroupManagement`), all generalizing `HLAinteractionRoot`; the connectors show the inheritance hierarchy. The same Graph Tools toggles and navigation controls apply as for the object-class view.*
+
 ## Federation Structure Diagram (FSD)
 The FSD provides a high-level overview of the federation architecture, showing how different federate applications interact with the RTI.
 
@@ -21,6 +27,10 @@ The FSD provides a high-level overview of the federation architecture, showing h
 
 ## Directed Interactions Diagram
 This diagram visualizes the flow of interactions between object and interaction classes. It helps in understanding the messaging patterns and coupling within the federation.
+
+![The Directed Interactions diagram showing interactions flowing between classes as directed arrows](images/directed-interaction.png)
+
+*The Directed Interactions diagram, available from the OME **Diagram Editor**'s View dropdown. A directed arrow links an interaction class to an object class and is labelled with its sharing (here `ChatMessage` «InteractionClass» → `User` «ObjectClass», `Sharing: PublishSubscribe`), making the publish/subscribe relationships and coupling visible at a glance. The same pan, zoom, selection, and mini-map controls apply.*
 
 ## FOM Modules Dependency Graph
 This graph displays the relationships and dependencies between the FOM modules in your project. It lives on the Start Page — see [Start Page → FOM Modules Dependency Graph](StartPage.md#fom-modules-dependency-graph) for details.
