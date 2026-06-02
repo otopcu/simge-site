@@ -10,7 +10,7 @@ Renders a module's **object classes** as a UML-style class diagram. Classes appe
 
 ![The OME Diagram Editor showing the object class hierarchy as a UML-style class diagram](images/oc-diagram.png)
 
-*The Object Class diagram in the OME's **Diagram Editor** tab. Each box is an object class with its attributes (here `ChatGroup`, `Poll`, and `User`, all generalizing `HLAobjectRoot`), and the connectors show the inheritance hierarchy. The **Graph Tools** panel on the left toggles what is shown — inherited members, base properties, base classes, inline data types, alphabetical sorting, and layout/navigator options. Pan, zoom, selection, and mini-map navigation work as described under [Interaction, Navigation, and Toolbar Controls](#interaction-navigation-and-toolbar-controls).*
+*The Object Class diagram in the OME's **Diagram Editor** tab. Each box is an object class with its attributes (here `ChatGroup`, `Poll`, and `User`, all generalizing `HLAobjectRoot`), and the connectors show the inheritance hierarchy. The **Graph Tools** sidebar on the left controls what is shown and how the diagram behaves (see [The Graph Tools sidebar](#the-graph-tools-sidebar)); pan, zoom, selection, and mini-map navigation work as described under [Interaction, Navigation, and Toolbar Controls](#interaction-navigation-and-toolbar-controls).*
 
 ## Interaction Class Diagram
 
@@ -27,6 +27,37 @@ Visualizes how interaction classes relate to object classes — the publish/subs
 ![The Directed Interactions diagram showing interactions flowing between classes as directed arrows](images/directed-interaction.png)
 
 *The Directed Interactions diagram, available from the **View** dropdown. A directed arrow links an interaction class to an object class and is labelled with its sharing (here `ChatMessage` «InteractionClass» → `User` «ObjectClass», `Sharing: PublishSubscribe`), making the publish/subscribe relationships and coupling visible at a glance. The same pan, zoom, selection, and mini-map controls apply.*
+
+---
+
+## The Graph Tools sidebar
+
+The **Graph Tools** sidebar on the left of the Diagram Editor controls what each diagram shows and how it behaves. Toggles apply immediately and re-render the diagram. The toolbar's sidebar button collapses the panel to maximize canvas space. It has three groups.
+
+### View Settings
+
+| Toggle | Default | What it does |
+|---|---|---|
+| **Properties** | On | Master switch — show or hide each class's properties (attributes / parameters) inside its node. When off, the options below are hidden. |
+| **Show Inherited** | Off | Also show properties inherited from parent classes **in the same module**. |
+| **Show Base Properties** | Off | Also show properties that come from **base-module** classes (drawn with a ◦ prefix in grey italic). |
+| **Show as Node** | Off | Draw each property as its own node instead of a line inside the class box. |
+| **Sort Alphabetically** | On | Sort each class's properties A–Z. |
+| **Data Types → Show Inline Type** | On | Show the datatype next to each property (e.g. `NickName: HLAunicodeString`). |
+| **Data Types → Show as Node** | Off | Render data types as separate nodes linked to the properties that use them (automatically turns Show Inline Type on). |
+
+### Base Module
+
+| Toggle | Default | What it does |
+|---|---|---|
+| **Base Classes** | On | Show or hide the **base-module** class nodes — the standard/dependency classes (such as `HLAobjectRoot`) drawn with a `«ModuleName»` stereotype. |
+
+### Interaction Settings
+
+| Toggle | Default | What it does |
+|---|---|---|
+| **Layout Editing** | Off | Allow dragging nodes to adjust the layout manually. |
+| **Show Navigator** | Off | Reserved for a navigator overlay (not currently active). |
 
 ---
 
