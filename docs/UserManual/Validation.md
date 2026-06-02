@@ -4,27 +4,33 @@ Validation checks that an object model is well-formed and standard-compliant bef
 
 ## What validation checks
 
-Validation combines two kinds of checks:
+Validation confirms that the generated XML document conforms to the official IEEE 1516 XML schema (`.xsd`) for the chosen standard and profile.
 
-- **Schema validation** — the generated document conforms to the official HLA OMT schema for the chosen standard.
-- **Structural rules** — model-level consistency beyond the raw schema (for example, references that must resolve and required identification fields).
+## Standards and schema profiles
 
-## Standards covered
+Schema validation applies to the two IEEE 1516 standards. For **each** standard you can validate against any of three schema profiles:
 
-SimGe can validate against the standard you are targeting:
-
-| Target | Validates |
+| Schema profile | Validates |
 |---|---|
-| **IEEE 1516-2010 FDD** | The 2010 FOM Document Data schema. |
-| **IEEE 1516-2025 FDD** | The current FDD schema. |
-| **DIF (2025)** | The 2025 dependency/interface document. |
+| **OMT** | The base Object Model Template document. |
+| **FDD** | The FOM Document Data (the form an RTI consumes). |
+| **DIF** | The Dependency/Interface document. |
+
+| Standard | Schema profiles available |
+|---|---|
+| **IEEE 1516-2010** | OMT, FDD, DIF (2010 `.xsd` files) |
+| **IEEE 1516-2025** | OMT, FDD, DIF (2025 `.xsd` files) |
+
+> **HLA 1.3 (FED) is not schema-validated.** The legacy `.fed` format has no XML schema, so the FED viewer offers no Validate action — only copy and export.
 
 ## Running validation
 
-Validation is available where you produce a standard document:
+Validation is performed in the **FDD viewer** (the **FDD Viewer (2010)** / **FDD Viewer (2025)** tab of a module's [OME](OME.md)). Two toolbar selectors control it:
 
-- In the **FDD viewer**, pick the **schema** from the toolbar selector (e.g. IEEE 1516-2010, IEEE 1516-2025, or DIF) and click **Validate** — SimGe builds the merged document and checks it against *that* schema. Changing the toolbar selection re-targets validation, so you can verify the same model against different standards.
-- Validation also runs **automatically during import**, so problems in a source file are reported as it is read (see [Importing & Exporting](ImportExport.md)).
+1. The **standard** selector — IEEE 1516-2010 or IEEE 1516-2025 (this also picks which viewer/document you see).
+2. The **schema** selector — **DIF**, **FDD**, or **OMT**.
+
+Click **Validate** to check the document against the selected *standard + schema profile*. Changing either selector re-targets validation, so you can verify the same model against several schemas. Validation also runs **automatically during import**, so problems in a source file are reported as it is read (see [Importing & Exporting](ImportExport.md)).
 
 Because SimGe authors models as [modules](ModularFOM.md), validation runs against the **merged** result — the same composition that export and code generation use — so what you validate is what you ship.
 
