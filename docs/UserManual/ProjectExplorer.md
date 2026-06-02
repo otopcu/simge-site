@@ -1,6 +1,20 @@
 # Project Explorer
 
-The Project Explorer is the central hub for managing your FOM and SOM modules and their contents.
+The Project Explorer is SimGe's single, **unified** navigation and control center. It consolidates modeling, configuration, and generated outputs into one coherent, IDE-style hierarchy — replacing the separate explorers used in earlier versions. From one tree you work with:
+
+- **Object Models** — inspect and navigate Federation/Simulation Object Models (FOM/SOM) and their structural elements.
+- **Federate Applications** — configure, inspect, and validate the federate applications taking part in the federation execution.
+- **Generated Code & Artifacts** — reach the generated source code and related artifacts, grouped under their owning federate application.
+
+## Integrated project navigation
+
+Project management is tightly integrated with the Project Explorer:
+
+- **One tree for everything** — all project assets (object models, federate applications, and generated outputs) are visible and managed from a single explorer tree.
+- **Context-aware commands** — each item's right-click menu and its commands are enabled only where they are semantically valid, so you cannot trigger an action that does not apply.
+- **Live updates** — changes to project state are reflected in the tree immediately, without a manual refresh.
+
+This keeps the project structure and its artifacts in sync at all times.
 
 ## The project tree
 
@@ -10,7 +24,7 @@ Under the project root, the tree groups everything into two top-level areas:
     - **FOM Modules** — your [FOM modules](ModularFOM.md) and their content trees.
     - **SOM Modules** — your SOM modules.
     - **MOM** — the read-only standard [Management Object Model](ModularFOM.md#fom-som-and-mom) library (see [MOM Explorer](#mom-explorer-system-library) below).
-- **Federate Applications** — the federation's [federate applications](FAME.md) and the code generated for them.
+- **Federate Applications** — the federation's [federate applications](FAME.md), each with its **generated code & artifacts** grouped beneath it.
 
 Double-clicking a module opens it in the [OME](OME.md); double-clicking a node in the dependency graph or an explorer item behaves the same way. Right-clicking any item opens a context menu tailored to that item.
 
@@ -113,44 +127,45 @@ SimGe automatically invokes the copy-paste validation, ensuring the element is p
 
 ## Copy and Paste OMT Elements
 
-Use this feature to copy a user-defined OMT element from one FOM/SOM module to another.
+Use this feature to copy an OMT element into one of your FOM/SOM modules. Whatever the source, the pasted item is created as a **new `UserDefined` element** in the target.
 
-### Requirements
+### What can be copied (source)
 
-- The source element must be inside a FOM or SOM module.
-- The source element must be `UserDefined`.
-- The target module must be a FOM or SOM with editable `UserDefined` content.
-- Built-in, MOM, MIM, read-only, and non-module tree items cannot be copied or used as paste targets.
+- **`UserDefined` elements** — your own classes, datatypes, dimensions, etc.
+- **MOM elements** — even though they are read-only, you can copy standard elements out of the **MOM** system library into your own model.
+- **Cannot be copied:** other read-only content (built-in / MIM), the module root, and OMT metadata nodes.
+
+### Where it can be pasted (target)
+
+- The target must be an **editable, `UserDefined` FOM or SOM** module. Read-only modules (MOM/MIM) cannot be paste targets.
+- SimGe pastes into the **matching OMT section** for the element's kind. If the target has no compatible section, the paste is refused with a warning.
 
 ### Copy
 
-1. In Project Explorer, expand a FOM/SOM module and its `Content` tree.
-2. Right-click a `UserDefined` OMT element.
-3. Select `Copy`.
-4. Review the confirmation dialog. It lists what will be copied, including child tree elements and owned details such as enum values.
-5. Confirm to store the copied element.
+1. In Project Explorer, expand a module and its `Content` tree (or open the MOM library).
+2. Right-click a copyable element and choose **Copy**.
+3. A confirmation dialog summarizes what will be copied: source module, element/OMT-node type, the number of child tree elements, and owned details (e.g. enumerators, record fields, variant alternatives, dimension input data-type references). It also notes that only `UserDefined` content is copied and the result becomes a new `UserDefined` element.
+4. Confirm to store the copied element on the internal clipboard.
 
 ### Paste
 
-1. Right-click the target FOM/SOM module.
-2. Select `Paste OMT Element`.
-3. SimGe places the copied element in the matching OMT section.
-
-#### Examples:
-
-- Enumerated data type -> `EnumeratedDataTypes`
-- Simple data type -> `SimpleDataTypes`
-- Object class -> `Objects` / `HLAobjectRoot`
-- Interaction class -> `Interactions` / `HLAinteractionRoot`
-- Dimension -> `Dimensions`
+1. Right-click the target FOM/SOM module and choose **Paste OMT Element**.
+2. SimGe places the element in the matching OMT section, for example:
+   - Enumerated data type → `EnumeratedDataTypes`
+   - Simple data type → `SimpleDataTypes`
+   - Object class → `Objects` / `HLAobjectRoot`
+   - Interaction class → `Interactions` / `HLAinteractionRoot`
+   - Dimension → `Dimensions`
+3. **Dependent data types are brought along.** If the copied element references data types that are not yet present in the target, SimGe copies those too and rebinds the element's references to the target's types.
+4. On success the destination section expands, the pasted element is selected, and the project is marked as having unsaved changes.
 
 ### Name Conflicts
 
-If the target already contains an element with the same name, SimGe asks whether to paste with a generated copy name, such as `StatusType_copy`.
+If the destination section already contains an element with the same name, SimGe offers a generated unique name (for example `StatusType_copy`) and asks you to confirm before pasting.
 
 ### Clipboard Behavior
 
-The paste buffer is cleared after every paste attempt, whether the operation succeeds, fails, or is cancelled. To paste again, copy the element again.
+The internal paste buffer is cleared after every paste **attempt** — whether it succeeds, is refused, or you cancel a name-conflict prompt. To paste again, copy the element again.
 
 ---
 
