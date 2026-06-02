@@ -623,4 +623,4 @@ In practice:
 
 ---
 
-**Next:** [Object Model Diagrams](Diagrams.md)
+**Next:** [Diagram Editor](Diagrams.md)

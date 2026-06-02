@@ -22,7 +22,7 @@ SimGe is an HLA object model editor, federation architecture modeling environmen
 10. [Modular FOM Concepts](UserManual/ModularFOM.md)
 11. [Managing Modules](UserManual/ManagingModules.md)
 12. [OME — Object Model Editor](UserManual/OME.md)
-13. [Object Model Diagrams](UserManual/Diagrams.md)
+13. [Diagram Editor](UserManual/Diagrams.md)
 14. [Importing & Exporting](UserManual/ImportExport.md)
 15. [FOM Validation](UserManual/Validation.md)
 

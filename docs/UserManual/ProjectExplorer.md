@@ -2,6 +2,96 @@
 
 The Project Explorer is the central hub for managing your FOM and SOM modules and their contents.
 
+## The project tree
+
+Under the project root, the tree groups everything into two top-level areas:
+
+- **Object Models** — the object-model repository:
+    - **FOM Modules** — your [FOM modules](ModularFOM.md) and their content trees.
+    - **SOM Modules** — your SOM modules.
+    - **MOM** — the read-only standard [Management Object Model](ModularFOM.md#fom-som-and-mom) library (see [MOM Explorer](#mom-explorer-system-library) below).
+- **Federate Applications** — the federation's [federate applications](FAME.md) and the code generated for them.
+
+Double-clicking a module opens it in the [OME](OME.md); double-clicking a node in the dependency graph or an explorer item behaves the same way. Right-clicking any item opens a context menu tailored to that item.
+
+## Context menus
+
+Each kind of item has its own right-click menu. Most menus also include **Expand** / **Collapse**.
+
+### Project root
+
+| Command | What it does |
+|---|---|
+| **Rename Project…** | Renames the project and its folder. See [Opening & Saving](OpeningSaving.md). |
+
+### "Object Models" folder
+
+| Command | What it does |
+|---|---|
+| **Load SimGe OM…** | Loads an existing object-model index into the project. |
+| **Create New OM…** | Creates a new (FOM) object model. |
+| **Clear All OM** | Removes all object models from the project. |
+
+### "FOM Modules" folder
+
+| Command | What it does |
+|---|---|
+| **Add New FOM Module…** | Creates a new, empty module. See [Managing Modules → Adding modules](ManagingModules.md#adding-modules). |
+| **Add Existing FOM Module(s)…** | Brings existing module file(s) into the project. See [Managing Modules → Adding modules](ManagingModules.md#adding-modules). |
+| **Module Dependencies…** | Opens the [Module Dependencies tool](ManagingModules.md#editing-dependencies). |
+| **Remove All Modules** | Clears every module in one batch. See [Managing Modules → Removing](ManagingModules.md#removing). |
+
+### "SOM Modules" folder
+
+| Command | What it does |
+|---|---|
+| **Create New SOM…** | Creates a new SOM module. |
+
+### A module (FOM / SOM)
+
+| Command | What it does |
+|---|---|
+| **Open in Editor** | Opens the module in the [OME](OME.md) (read-only for dependency/standard modules). |
+| **Rename Module…** | Renames the module and its files. See [Managing Modules → Renaming](ManagingModules.md#renaming). |
+| **Duplicate Module…** | Copies the module under a new name. See [Managing Modules → Duplicating](ManagingModules.md#duplicating). |
+| **Paste OMT Element** | Pastes a copied element into the module. See [Copy and Paste OMT Elements](#copy-and-paste-omt-elements). |
+| **Set as Project FOM** | Marks this module as the project's primary FOM. |
+| **Merge Modules…** | Merges modules into one. See [Managing Modules → Merging](ManagingModules.md#merging). |
+| **Module Dependencies…** | Edits this module's dependencies. See [Managing Modules → Editing dependencies](ManagingModules.md#editing-dependencies). |
+| **Remove Module** | Removes the module from the project. See [Managing Modules → Removing](ManagingModules.md#removing). |
+| **Export FDD… / Export FED…** | Exports the module to a standard file. See [Importing & Exporting](ImportExport.md). |
+| **Properties** | Shows the module's properties panel. |
+
+### An OMT element (inside a module's content)
+
+| Command | What it does |
+|---|---|
+| **Rename** | Renames the element. |
+| **Copy** | Copies the element. See [Copy and Paste OMT Elements](#copy-and-paste-omt-elements). |
+| **Delete** | Deletes the element. |
+| **Properties** | Shows the element's properties panel. |
+
+### "Federate Applications" folder
+
+| Command | What it does |
+|---|---|
+| **Generate All Code** | Generates code for every federate application. See [Code Generator](CodeGenerator.md). |
+
+### A federate application
+
+| Command | What it does |
+|---|---|
+| **Generate Code** | Generates code for this federate. See [Code Generator](CodeGenerator.md). |
+| **Open Latest Generated Code Folder** | Opens the most recent output folder in Windows Explorer. |
+| **Rename** | Renames the federate application. See [FAME](FAME.md). |
+| **Delete** | Removes the federate application. |
+
+### Generated code (run folder / file)
+
+| Command | What it does |
+|---|---|
+| **Open in File Explorer** | Reveals the generated folder or file in Windows Explorer. |
+
 ## MOM Explorer (System Library)
 SimGe includes a dedicated "MOM" folder under the "Object Models" root node in the Project Explorer. This acts as a System Library providing the standard IEEE 1516-2025 Management Object Model (MOM).
 - **Read-Only**: System-defined elements within the MOM module are robustly protected against modification or deletion.

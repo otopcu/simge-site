@@ -1,4 +1,4 @@
-# Object Model Diagrams
+# Diagram Editor
 
 The OME **Diagram Editor** visualizes a module's object model graphically — a complement to the [OME](OME.md) tables. Open a module, select the **Diagram Editor** tab, and pick a view from the editor's **View** dropdown. Three object-model views are available: the **Object Class**, **Interaction Class**, and **Directed Interactions** diagrams.
 

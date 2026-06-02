@@ -55,6 +55,10 @@ Located at the top of the tab:
 
 The Federation Structure Diagram (FSD) is a "living" model that provides real-time feedback.
 
+![The interactive Federation Structure Diagram with federate applications connected to the RTI](images/fame-fsd.png)
+
+*The interactive FSD (here the STMS sample's `Dardanelles` federation). The federate applications `ShipFdApp` and `StationFdApp` link to their SOM modules and to the central RTI, annotated with multiplicity (`0..*`, `2..2`); the `StmsFom` module appears top-right. Connection lines glow on hover, health badges flag modeling issues, multi-instance federates render as stacked boxes, and a legend in the bottom-left explains the symbols.*
+
 ### Visual Indicators
 -   **Stacked Boxes**: If a federate's multiplicity is greater than one, it appears as a stack of boxes to indicate a multi-instance cluster.
 -   **Interactive Pulse**: Hovering over a federate box or its "Lollipop" icon makes the connection line to the RTI glow and thicken, representing an active link.
