@@ -1,17 +1,5 @@
 # SimGe Release Notes
 
-## [0.4.8] - Unreleased
-
-### Workspace
-- **Missing Installer Sample Files**: Added the missing `ChatBasicFom` and `ChatBasicSom` XML and SFOM files to the WiX installer (`Product.wxs`) sample files directory definition so they are packaged into the MSI and correctly deployed.
-- **Interactive Missing-Module Recovery**: Opening a module whose backing files (`.sfom` metadata / `.xml` content) are missing on disk no longer just aborts with an error. SimGe now first tries to silently re-anchor the module from well-known project locations (project home, `Fom/`, the configured FOM folder); if that fails, a custom recovery dialog offers **Locate…**, **Remove Module**, or **Cancel** (plus a **Repair SimGe** hint for bundled samples). Locating prompts for the `.sfom` and verifies its persistent module `Id` against the expected module before re-linking — a mismatched file raises a confirmation so dependency wiring is never silently re-keyed. After a successful relocate the module is re-hydrated in place (new `IOmService.ReloadModuleContentAsync`) and the Project Explorer rebuilds the module's subtree, placing it under the correct FOM/SOM folder with its content nodes. The Locate browse dialog remembers the last-used folder for the session.
-- **Missing-File Indicators**: Modules with files missing on disk are now flagged with a red warning badge in both the Project Explorer tree and the Start Page dependency graph, with a tooltip explaining what is missing and that double-clicking starts recovery.
-- **Removing Broken Modules**: A module whose content failed to load (no in-memory `Content`) can now be removed from the project; the removal guard previously rejected such modules, leaving them stuck.
-- **Save As for Read-Only Samples**: Bundled sample projects load read-only, but **Save As** now stays available for them so users can snapshot a sample into a writable location; the Save As dialog defaults to the user's Documents folder for samples instead of the read-only install directory.
-
-### Maintenance
-- **Default Options Path Resolution**: Resolved a dependency on the current working directory when loading `DefaultOptions.xml` by anchoring the relative path to `AppContext.BaseDirectory`. This ensures the default options file is correctly loaded from the SimGe installation directory regardless of the current working directory from which the application is launched.
-
 ## [0.4.7] - 2026-06-01
 
 ### Object Model
