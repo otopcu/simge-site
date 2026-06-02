@@ -26,14 +26,20 @@ Control what happens when SimGe launches and how a project opens.
 |---|---|
 | **Maximum recent files** | How many recent projects SimGe remembers and lists in the Get Started dialog and menus. |
 
-See [Opening & Saving Projects](OpeningSaving.md) for how the recent list is used.
+The recent-projects (MRU) list itself is stored in the same preferences file (see below), so it is kept per-user alongside your other settings. See [Opening & Saving Projects](OpeningSaving.md) for how the recent list is used.
 
 ## How preferences are stored
 
-Preferences are saved to a per-user settings file as you change them. SimGe makes this robust:
+Preferences — including the recent-projects (MRU) list — are saved as you change them to a single per-user JSON file:
+
+```
+%AppData%\Roaming\SimGe\preferences.json
+```
+
+Keeping everything in one per-user store has two benefits: it is always writable (no machine-wide permission issues, unlike the read-only sample location under `ProgramData`), and it reuses the same robust write path:
 
 - **Atomic writes** — settings are written to a temporary file and then swapped into place, so a crash or full disk cannot leave a half-written file.
-- **Corruption recovery** — if the settings file cannot be read, SimGe backs it up as **`.corrupt-{timestamp}`**, alerts you, and starts from clean defaults. Reapply your preferences; the backup is kept beside the settings file if you want to inspect it.
+- **Corruption recovery** — if the file cannot be read, SimGe backs it up as **`.corrupt-{timestamp}`**, alerts you, and starts from clean defaults. Reapply your preferences; the backup is kept beside the file if you want to inspect it.
 
 ## Default options
 
