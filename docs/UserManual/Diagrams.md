@@ -1,45 +1,38 @@
-# Diagrams
+# Object Model Diagrams
 
-SimGe provides powerful visualization tools for analyzing your object models and federation architectures.
+The OME **Diagram Editor** visualizes a module's object model graphically — a complement to the [OME](OME.md) tables. Open a module, select the **Diagram Editor** tab, and pick a view from the editor's **View** dropdown. Three object-model views are available: the **Object Class**, **Interaction Class**, and **Directed Interactions** diagrams.
 
-## Object Class Diagram (OME Diagram Editor)
+> Federation-level diagrams — the Federation Structure Diagram and the UML Deployment Diagram — live in [FAME](FAME.md), and the cross-module [FOM Modules Dependency Graph](StartPage.md#fom-modules-dependency-graph) lives on the Start Page.
 
-The OME Diagram Editor renders a module's **object classes** as a UML-style class diagram — a visual complement to the Objects table in the [OME](OME.md). Classes appear as boxes with their attributes, connected by generalization links that show the inheritance hierarchy.
+## Object Class Diagram
+
+Renders a module's **object classes** as a UML-style class diagram. Classes appear as boxes with their attributes, connected by generalization links that show the inheritance hierarchy.
 
 ![The OME Diagram Editor showing the object class hierarchy as a UML-style class diagram](images/oc-diagram.png)
 
 *The Object Class diagram in the OME's **Diagram Editor** tab. Each box is an object class with its attributes (here `ChatGroup`, `Poll`, and `User`, all generalizing `HLAobjectRoot`), and the connectors show the inheritance hierarchy. The **Graph Tools** panel on the left toggles what is shown — inherited members, base properties, base classes, inline data types, alphabetical sorting, and layout/navigator options. Pan, zoom, selection, and mini-map navigation work as described under [Interaction, Navigation, and Toolbar Controls](#interaction-navigation-and-toolbar-controls).*
 
-The same Diagram Editor also renders the module's **interaction classes**. Switch the editor's **View** dropdown from *Object Class Diagram* to *Interaction Class Diagram* to see them.
+## Interaction Class Diagram
+
+Switch the editor's **View** dropdown to *Interaction Class Diagram* to render the module's **interaction classes**.
 
 ![The OME Diagram Editor showing the interaction class hierarchy as a UML-style class diagram](images/ic-diagram.png)
 
 *The Interaction Class diagram. Each box is an interaction class with its parameters (here `JoinGroup`, `LeaveGroup`, `ChatMessage`, `CastVote`, and `GroupManagement`), all generalizing `HLAinteractionRoot`; the connectors show the inheritance hierarchy. The same Graph Tools toggles and navigation controls apply as for the object-class view.*
 
-## Federation Structure Diagram (FSD)
-The FSD provides a high-level overview of the federation architecture, showing how different federate applications interact with the RTI.
-
-- **Interactive Navigation**: Double-click any "Note" icon to jump directly to that module's Object Model Editor (OME).
-- **Selection Sync**: Clicking a federate box in the diagram automatically selects and focuses that federate in the side properties panel.
-- **Visual Multiplicity**: Federates with multiplicity greater than one are rendered with a "stacked box" effect, providing an instant visual cue for multi-instance deployments.
-- **Dynamic Feedback**: Connection lines to the RTI "pulse" and glow when hovered, indicating an active architectural link.
-- **Rich Tooltips**: Hovering over a federate box displays a parsed, human-readable summary of its RTI connection settings (Target, Port, Protocol).
-
 ## Directed Interactions Diagram
-This diagram visualizes the flow of interactions between object and interaction classes. It helps in understanding the messaging patterns and coupling within the federation.
+
+Visualizes how interaction classes relate to object classes — the publish/subscribe relationships and coupling within the model.
 
 ![The Directed Interactions diagram showing interactions flowing between classes as directed arrows](images/directed-interaction.png)
 
-*The Directed Interactions diagram, available from the OME **Diagram Editor**'s View dropdown. A directed arrow links an interaction class to an object class and is labelled with its sharing (here `ChatMessage` «InteractionClass» → `User` «ObjectClass», `Sharing: PublishSubscribe`), making the publish/subscribe relationships and coupling visible at a glance. The same pan, zoom, selection, and mini-map controls apply.*
-
-## FOM Modules Dependency Graph
-This graph displays the relationships and dependencies between the FOM modules in your project. It lives on the Start Page — see [Start Page → FOM Modules Dependency Graph](StartPage.md#fom-modules-dependency-graph) for details.
+*The Directed Interactions diagram, available from the **View** dropdown. A directed arrow links an interaction class to an object class and is labelled with its sharing (here `ChatMessage` «InteractionClass» → `User` «ObjectClass», `Sharing: PublishSubscribe`), making the publish/subscribe relationships and coupling visible at a glance. The same pan, zoom, selection, and mini-map controls apply.*
 
 ---
 
 ## Interaction, Navigation, and Toolbar Controls
 
-This section describes the standard interaction model used in diagram editors within the Object Model Graphical Modeling Environment. The interaction design follows widely accepted graphical modeling conventions to provide an intuitive, efficient, and predictable user experience.
+This section describes the standard interaction model used in the diagram editors. The interaction design follows widely accepted graphical modeling conventions to provide an intuitive, efficient, and predictable user experience.
 
 ### Pan, Zoom, and Selection Controls
 
@@ -92,3 +85,7 @@ The diagram interaction model is based on the following principles:
 - **Precision**: Cursor-centered zoom and explicit multi-selection control.
 - **Scalability**: Mini-Map support enables efficient navigation in large diagrams.
 - **Efficiency**: Common operations are accessible via both shortcuts and toolbar buttons.
+
+---
+
+**Next:** [Importing & Exporting](ImportExport.md)

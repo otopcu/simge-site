@@ -620,3 +620,7 @@ In practice:
 - Use `Datatypes` before assigning complex properties.
 - Use `Synchronizations`, `Transportations`, and `Update Rates` for reusable infrastructure definitions.
 - Save the project after a set of structural edits so the shell state returns to `All changes saved`.
+
+---
+
+**Next:** [Object Model Diagrams](Diagrams.md)

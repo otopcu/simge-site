@@ -58,8 +58,12 @@ The Federation Structure Diagram (FSD) is a "living" model that provides real-ti
 ### Visual Indicators
 -   **Stacked Boxes**: If a federate's multiplicity is greater than one, it appears as a stack of boxes to indicate a multi-instance cluster.
 -   **Interactive Pulse**: Hovering over a federate box or its "Lollipop" icon makes the connection line to the RTI glow and thicken, representing an active link.
--   **Rich Tooltips**: Hover over any federate box to see a human-readable summary of its connection settings, multiplicity, and linked modules.
+-   **Rich Tooltips**: Hover over any federate box to see a human-readable summary of its connection settings (Target, Port, Protocol), multiplicity, and linked modules.
 -   **Legend**: A guide in the bottom-left corner explains the symbols used in the diagram (FdApp, Federate, OMT Module, Multi-instance).
+
+### Navigation
+-   **Interactive Navigation**: Double-click a module's "Note" icon to jump straight to that module's [Object Model Editor](OME.md).
+-   **Selection Sync**: Clicking a federate box selects and focuses that federate in the properties pane.
 
 ### Health Diagnostics
 Diagnostic badges appear in the top-right corner of federate boxes to catch modeling errors early:

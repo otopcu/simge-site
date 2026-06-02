@@ -47,10 +47,10 @@ nav:
           - Modular FOM Concepts: UserManual/ModularFOM.md
           - Managing Modules: UserManual/ManagingModules.md
           - OME — Object Model Editor: UserManual/OME.md
+          - Object Model Diagrams: UserManual/Diagrams.md
           - Importing & Exporting: UserManual/ImportExport.md
           - FOM Validation: UserManual/Validation.md
-      - Analysis & Visualization:
-          - Diagrams: UserManual/Diagrams.md
+      - Object Model Analysis:
           - FOM Dashboard: UserManual/Dashboard.md
           - Model Metrics & Reports: UserManual/MetricsReports.md
           - Telemetry Visualizer: UserManual/TelemetryVisualizer.md
