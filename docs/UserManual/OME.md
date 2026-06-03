@@ -226,6 +226,20 @@ Use the `Attributes` table when the task is cross-cutting:
 
 This table is a good place to compare datatype and transportation choices across `User`, `Poll`, and `ChatGroup`.
 
+### Case Study: Group Administration Ownership Transfer
+
+For a concrete scenario utilizing attribute ownership transfer, consider the **Group Administration** coordination pattern where the administration role is managed dynamically across chat participants:
+
+- **Object Model Elements**:
+  - **Object Class**: `HLAobjectRoot.ChatGroup`
+  - **Ownership Attribute**: `AdminNickName` with ownership mode set to **DivestAcquire** (Conditional)
+
+- **Ownership Transfer Workflow**:
+  1. **Initial Ownership**: The creator of a group registers the `ChatGroup` object and becomes the initial owner of the `AdminNickName` attribute, gaining administrative privileges (e.g. muting users, deleting messages).
+  2. **Negotiated Divestiture**: When the current admin decides to hand over administrative duties to another member, they initiate a divestiture request via `NegotiatedAttributeOwnershipDivestiture`.
+  3. **Acquisition Request**: The target user requests acquisition of the attribute via `AttributeOwnershipAcquisition`.
+  4. **Handover & Notification**: The RTI coordinates the handover. Once confirmed, the old admin loses ownership, and the new admin is notified via the `OwnershipAcquisitionNotification` callback. The application UI dynamically enables administrative tools only for the new owner.
+
 ---
 
 ## 6. Parameters Table
@@ -364,6 +378,14 @@ The synchronization editor is used for:
 - semantics
 - notes
 
+#### Label Naming Rules
+
+Synchronization point labels (Name property) must conform to standard HLA OMT identifier rules:
+- **Case-Sensitive Uniqueness**: Sibling labels must be unique within the module.
+- **Valid Characters**: Labels must start with a letter (`A-Z`, `a-z`) or underscore (`_`), followed by letters, digits (`0-9`), underscores, or hyphens (`-`).
+- **Reserved Prefix**: User-defined labels must not start with the reserved prefix `"HLA"` (case-insensitive).
+- **Reserved Value**: Labels must not be exactly the sentinel value `"NA"` (case-insensitive).
+
 Use this table when defining federation-level synchronization coordination data.
 
 ### Chat Sample Example
@@ -375,6 +397,22 @@ Use this table when defining federation-level synchronization coordination data.
 | `poll` | `HLAunicodeString` | `RegisterAchieve` | label format `poll-{pollId}` |
 
 Its semantics describe a poll lifecycle label format such as `poll-{pollId}`.
+
+### Case Study: Distributed Polling Coordination
+
+For a concrete scenario using synchronization points, consider the **Distributed Polling** coordination pattern where a participant initiates a poll and synchronizes votes across the federation:
+
+- **Object Model Elements**:
+  - **Object Class**: `HLAobjectRoot.Poll` (attributes: `PollId`, `Question`, `Options`, `Status`, `Results`)
+  - **Interaction Class**: `HLAinteractionRoot.CastVote` (parameters: `PollId`, `OptionIndex`, `VoterNickName`)
+  - **Synchronization Point**: A dynamic synchronization point labeled `poll-{pollId}`
+
+- **Coordination Workflow**:
+  1. **Start Poll**: The initiator registers a `Poll` object instance and updates its attributes (`Status = Open`).
+  2. **Register Sync Point**: The initiator registers a federation synchronization point with the label `poll-{pollId}` targeting the set of active users.
+  3. **Vote & Achieve**: Participants discover the `Poll` and receive the synchronization point announcement. They submit their vote via `CastVote` interactions, and immediately call `SynchronizationPointAchieved` for the label `poll-{pollId}` to signal completion.
+  4. **Federation Synchronized**: Once all members have voted/achieved, the RTI triggers the `FederationSynchronized` callback on the initiator.
+  5. **Freeze & Clean up**: The initiator closes the poll (`Status = Closed`), updates final results, and deletes the `Poll` object instance, resetting the state for subsequent polls.
 
 ---
 
@@ -460,15 +498,15 @@ The `Datatypes` table groups multiple datatype categories under one area.
 
 Covered categories:
 
-| Category | Typical copy-table columns |
-| --- | --- |
-| basic data representations | `Name`, `Size`, `Interpretation`, `Endian`, `Encoding` |
-| simple datatypes | `Name`, `Representation`, `Units`, `Resolution`, `Accuracy`, `Semantics` |
-| enumerated datatypes | `Name`, `Representation`, `Semantics` |
-| array datatypes | `Name`, `Element Type`, `Cardinality`, `Encoding`, `Semantics` |
-| fixed-record datatypes | `Name`, `Encoding`, `Semantics` |
-| variant-record datatypes | `Name`, `Discriminant`, `Discriminant Type`, `Encoding`, `Semantics` |
-| reference datatypes | model-dependent reference rows |
+| Category                   | Typical copy-table columns                                               |
+| -------------------------- | ------------------------------------------------------------------------ |
+| basic data representations | `Name`, `Size`, `Interpretation`, `Endian`, `Encoding`                   |
+| simple datatypes           | `Name`, `Representation`, `Units`, `Resolution`, `Accuracy`, `Semantics` |
+| enumerated datatypes       | `Name`, `Representation`, `Semantics`                                    |
+| array datatypes            | `Name`, `Element Type`, `Cardinality`, `Encoding`, `Semantics`           |
+| fixed-record datatypes     | `Name`, `Encoding`, `Semantics`                                          |
+| variant-record datatypes   | `Name`, `Discriminant`, `Discriminant Type`, `Encoding`, `Semantics`     |
+| reference datatypes        | model-dependent reference rows                                           |
 
 Typical use:
 

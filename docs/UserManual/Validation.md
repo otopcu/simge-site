@@ -55,6 +55,7 @@ Work through the listed items, fix them in the [OME](OME.md), and re-validate un
 | **Unresolved dependency** warnings | A referenced module is missing or its name does not match. | Add or relink the module; see [Managing Modules](ManagingModules.md) and [Modular FOM Concepts → Dependencies](ModularFOM.md#dependencies). |
 | **Schema errors** on export | A field required by the chosen standard is empty or malformed. | Complete the required fields in the relevant OME table, then re-validate. |
 | **Datatype / reference errors** | An element points at a datatype or parent that no longer exists. | Repoint it in the OME to a valid target. |
+| **FomMergeConflictException** or merge errors | Synchronization points with the same label differ in definition across modules. | Align the `DataType`, `Capability`, or `Semantics` of the same-named synchronization point across modules, or rename one. |
 
 ## When to validate
 
