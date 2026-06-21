@@ -199,6 +199,25 @@ This is the current Fora behavior.
 
 ---
 
+## Runtime Interpretation of Metric-Driven Variants
+
+Metric-driven variants are intended to affect runtime behavior, not only generated-file
+organization. Their current implementation has the following exact boundaries:
+
+| Variant | Runtime value | Current limitation |
+|---|---|---|
+| Specialized codecs | Hotspot Object Class encode/decode calls delegate to a class-specific codec with explicit per-attribute statements and exact-capacity dictionaries. | Generated only for Object Classes; Interaction Classes still use the normal generated encoder/decoder methods. |
+| Delta trackers | Periodic hotspot Object Classes receive a `GetDelta(...)` helper that compares consecutive DTO snapshots and returns a partial DTO containing changed attributes. | The default `UpdateAsync(...)` method does not automatically compute a delta. Scenario code must call `GetDelta(...)` and then pass the returned partial DTO to the update path. |
+| Dispatch tables | Metric mode can emit dictionary-backed dispatch helpers where the generator has table-based routing support. | This is not a universal replacement for every generated callback branch; some ambassador dispatchers still use explicit class-handle checks. |
+| Critical wrappers | Critical Object Class registration and update helpers call `OnCriticalFault(...)` inside generated `try/catch` wrappers and then rethrow. | The wrapper is limited to generated object registration/update helpers. |
+
+Therefore the feature is implemented, but performance claims should be read as generated runtime
+strategy potential rather than benchmark evidence. Actual speedup or bandwidth reduction depends
+on the FOM shape, update frequency, payload sizes, subscriber topology, and whether scenario code
+uses the generated delta helper for periodic hotspot objects.
+
+---
+
 ## Current Generator Behaviors
 
 ### `CEncoderGenerator_Fora`
