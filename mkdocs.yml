@@ -63,6 +63,7 @@ nav:
           - Keyboard Shortcuts & Tips: UserManual/Shortcuts.md
           - Troubleshooting: UserManual/Troubleshooting.md
       - Glossary: UserManual/Glossary.md
+  - What's New: WhatsNew.md
   - Release Notes: ReleaseNotes.md
   - Disclaimer: Disclaimer.md
 
