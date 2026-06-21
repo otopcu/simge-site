@@ -6,7 +6,7 @@ SimGe includes an integrated Object Model Development Environment (OMDE), Federa
 
 SimGe OMDE enables users to manage, create, and modify HLA Object Models in full compliance with the IEEE 1516 Object Model Template (OMT). It supports the import and export of standard HLA artifacts, including Federation Execution Data (FED) and FOM Document Data (FDD), ensuring interoperability across simulation environments.
 
-The Code Generator automatically produces platform-ready federate code targeting modern HLA infrastructures. While earlier versions relied on the RTI abstraction layer RACoN, the current architecture has transitioned to generating code fully compatible with the Fora client, aligned with the IEEE 1516-2025 HLA Federate Protocol.
+The Code Generator automatically produces platform-ready federate code targeting modern HLA infrastructures. While earlier versions relied on the RTI abstraction layer RACoN, the current architecture has transitioned to generating code fully compatible with the [Fora client](https://sites.google.com/view/okantopcu/fora), aligned with the IEEE 1516-2025 HLA Federate Protocol.
 
 This evolution establishes SimGe as a model-driven, HLA 4-native simulation development platform, combining standards compliance, automation, and modern software architecture practices.
 
