@@ -1,6 +1,6 @@
-# [SimGe](https://sites.google.com/view/okantopcu/simge){ target="_blank" rel="noopener" }
+# SimGe
 
-**Simulation Generator (SimGe)** is a full-featured [High Level Architecture (HLA)](http://en.wikipedia.org/wiki/High-level_architecture_(simulation)){ target="_blank" rel="noopener" } object model editor, simulation design and development environment, and a federation prototyping tool with code generation capability. SimGe fully supports evolving IEEE 1516 standards, including comprehensive alignment with IEEE 1516-2025 (HLA 4), while maintaining backward compatibility with earlier HLA specifications.
+**[Simulation Generator (SimGe)](https://sites.google.com/view/okantopcu/simge){ target="_blank" rel="noopener" }** is a full-featured [High Level Architecture (HLA)](http://en.wikipedia.org/wiki/High-level_architecture_(simulation)){ target="_blank" rel="noopener" } object model editor, simulation design and development environment, and a federation prototyping tool with code generation capability. SimGe fully supports evolving IEEE 1516 standards, including comprehensive alignment with IEEE 1516-2025 (HLA 4), while maintaining backward compatibility with earlier HLA specifications.
 
 SimGe includes an integrated Object Model Development Environment (OMDE), Federation Architecture Modeling Environment (FAME), report generator, code generator, and Telemetry Inspector Visualizer, providing an end-to-end toolchain for HLA-based simulation engineering from object modeling and federation architecture design through code generation to post-run telemetry analysis.
 
