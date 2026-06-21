@@ -30,7 +30,7 @@ theme:
 
 nav:
   - Home: index.md
-  - Download: index.md#download
+  - Downloads: Downloads.md
   - User Manual:
       - Overview: UserManual.md
       - Getting Started:
