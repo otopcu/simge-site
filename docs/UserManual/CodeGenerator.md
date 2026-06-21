@@ -248,6 +248,32 @@ Current critical hook:
 
 - `protected virtual void OnCriticalFault(string className, Exception ex)`
 
+#### Generated `SimulationManagerBase.simge.cs` API & Lifecycle
+
+The generated `SimulationManagerBase` defines the IEEE 1516-2025 async federation lifecycle. Its key API components include:
+
+##### 1. Configuration Properties
+- `RtiAddress`: The connection address for the RTI.
+- `FederationName`: The name of the target federation execution.
+- `FederateName` & `FederateType`: Identifiers for the federate execution.
+- `FomPath`: Path to the single FDD/FOM XML file (defaults to the project's generated FOM).
+- `FomModules`: A list of modular FOM paths (`IReadOnlyList<string>`). When populated, it triggers the multi-module federation creation.
+
+##### 2. The `RunAsync` Orchestration
+The simulation execution is started by calling the sealed `RunAsync(CancellationToken ct)`. The federation creation step is executed conditionally:
+- If `FomModules` has elements, it invokes `CreateFederationExecutionAsync(FederationName, FomModules, ct)`.
+- If `FomModules` is empty, it falls back to `CreateFederationExecutionAsync(FederationName, FomPath, ct)`.
+
+This design makes the federate multi-module aware at runtime: the scenario driver simply sets the `FomModules` list with the ordered module file paths (base-first) prior to calling `RunAsync()`. Once the federation is created with all FDD modules, the join execution works automatically without further changes.
+
+##### 3. Virtual Hook `OnPublishAndSubscribeAsync`
+The generator emits a virtual method containing all default publish and subscribe calls derived from the SOM design:
+`protected virtual async Task OnPublishAndSubscribeAsync(CancellationToken ct)`
+This method can be overridden in the user subclass `SimulationManager.cs` to customize, extend, or defer P/S logic at runtime.
+
+##### 4. Register Methods
+The base class exposes type-safe registration methods for object classes, such as `Register[Class]Async` (e.g., `RegisterHumanAsync`). These methods register object instances with the RTI and return the corresponding generated entity wrapper.
+
 ### `CFederateClassGenerator_Fora`
 
 Behavior:

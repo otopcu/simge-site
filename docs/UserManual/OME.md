@@ -226,6 +226,11 @@ Use the `Attributes` table when the task is cross-cutting:
 
 This table is a good place to compare datatype and transportation choices across `User`, `Poll`, and `ChatGroup`.
 
+For modular FOMs, the **Data Type** column also shows dependency-defined type names. For example,
+`NETN-CBRN.ProcessingTime` displays `TimeSecondInteger32` even though that datatype is declared in
+`RPR-Base`. OME keeps the active module independent and displays its preserved XML reference; the
+live datatype object is resolved when the complete module dependency closure is composed.
+
 ### Case Study: Group Administration Ownership Transfer
 
 For a concrete scenario utilizing attribute ownership transfer, consider the **Group Administration** coordination pattern where the administration role is managed dynamically across chat participants:
@@ -280,6 +285,9 @@ Use the `Parameters` table when the task spans multiple interaction classes or r
 | `GroupIndex` | `GroupManagement` | `integer32BE` |
 
 Use the flat `Parameters` table when you want to compare how `ChatMessage` and `CastVote` carry different kinds of payload.
+
+As with attributes, a parameter whose datatype is declared by another FOM module displays the
+preserved datatype name instead of `NA` or an empty value.
 
 ---
 

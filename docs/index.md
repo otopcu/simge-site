@@ -12,7 +12,7 @@
 
 - **[Download SimGe (latest installer)](https://github.com/otopcu/simge-site/releases/latest/download/SimGe.msi)**
 
-See the [Release Notes](ReleaseNotes.md) for what's new, or visit the [official site](https://sites.google.com/view/okantopcu/simge).
+Latest release: **SimGe 0.4.8** (June 22, 2026). See the [Release Notes](ReleaseNotes.md) for what's new, or visit the [official site](https://sites.google.com/view/okantopcu/simge).
 
 ---
 

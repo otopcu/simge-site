@@ -29,7 +29,7 @@ Most figures are computed separately for the **Object Class (OC)** and **Interac
 
 ## Toolbar actions
 
-The dashboard toolbar lets you **refresh** the analysis, **copy** the summary or the full textual report to the clipboard, and toggle between **Composed** and **Module Only** scope.
+The dashboard toolbar lets you **refresh** the analysis, **copy** the summary or the full textual report to the clipboard, and toggle between **Composed** and **Module Only** scope. In the **Structure** tab, select **Structural Heat Map** and use **Export PNG** to save the complete heat map, axes, scale, and model markers as a high-resolution PNG image.
 
 ## How to read it
 
