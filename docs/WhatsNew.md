@@ -1,8 +1,8 @@
 ### What's New
 
-SimGe 0.4.9 - Unreleased
+SimGe 0.4.9
 
-Staged for the next release; the public latest remains SimGe 0.4.8 until 0.4.9 is finalized.
+SimGe 0.4.9 is the current public release.
 
 - **Interactive Structural Risk calibration** - drag WHL / S_top / sigmoid sliders on the Structural Visuals dashboard for live what-if analysis; the heatmap, guides, tooltips, and verdicts update in real time, and PNG export captures the full panel.
 
