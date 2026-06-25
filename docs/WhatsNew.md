@@ -1,6 +1,6 @@
 ### What's New
 
-SimGe 0.4.9
+SimGe 0.4.9 \[2026-06-25]
 
 SimGe 0.4.9 is the current public release.
 
@@ -11,3 +11,7 @@ SimGe 0.4.9 is the current public release.
 - **Code-generation hints** - module analysis reports gain an advisory hints section (dispatch table, delta tracking, specialized codec, …) derived from the model's architecture.
 
 - **Documentation** - new Analytical Synthesis Layer architecture chapter and clarified metric-driven code-generation pages.
+
+
+---
+Updated June 25, 2026, 16:28:09

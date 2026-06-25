@@ -105,3 +105,6 @@ Definitions of the HLA, OMT, and SimGe-specific terms used throughout this manua
 ---
 
 **Back to:** [User Manual overview](../UserManual.md)
+
+---
+Updated June 25, 2026, 16:28:09

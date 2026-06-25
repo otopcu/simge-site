@@ -61,3 +61,6 @@ Diagram surfaces share a common navigation model. The full table is in [Diagrams
 ---
 
 **Back to:** [User Manual overview](../UserManual.md)
+
+---
+Updated June 25, 2026, 16:28:09

@@ -99,3 +99,7 @@ Located at the bottom of the workspace:
     *   **Slider**: Smoothly adjust diagram magnification from 20% to 250%.
     *   **+/- Buttons**: Step-wise zoom adjustment.
     *   **Fit-to-Window**: Click the square frame icon to instantly scale the entire diagram to fit the screen.
+
+
+---
+Updated June 25, 2026, 16:28:09

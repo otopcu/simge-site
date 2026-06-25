@@ -56,3 +56,6 @@ If a module's `.sfom` or `.xml` is missing on disk, the module is flagged with a
 ---
 
 **Next:** [OME — Object Model Editor](OME.md)
+
+---
+Updated June 25, 2026, 16:28:09

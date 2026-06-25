@@ -71,3 +71,6 @@ See [Opening & Saving Projects](OpeningSaving.md) for the details.
 ---
 
 **Next:** [The SimGe Workspace](Workspaces.md)
+
+---
+Updated June 25, 2026, 16:28:09

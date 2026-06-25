@@ -20,7 +20,7 @@
 
 ### Documentation
 - **Metric-Driven Code Generator Variants Clarified**: Updated the architecture and user-manual code generator pages to document the implemented runtime scope of specialized object codecs, delta trackers, dispatch-table branches, and critical class wrappers, including current Object Class-only and non-transparent delta-update boundaries.
-- **Analytical Synthesis Layer Architecture**: Added architecture chapter [10A. Analytical Synthesis Layer](Architecture/10A_Analytical_Synthesis_Layer.md) documenting the delivered design — data model, services, classification rules, renderer boundary, code-generation hints, telemetry-validation contract, consumers, data flow, and tracked deferrals.
+- **Analytical Synthesis Layer Architecture**: Added architecture chapter documenting the delivered design — data model, services, classification rules, renderer boundary, code-generation hints, telemetry-validation contract, consumers, data flow, and tracked deferrals.
 
 ## [0.4.8] - 2026-06-22
 
@@ -389,3 +389,6 @@
 ---
 ### Disclaimer
 See [Disclaimer](Disclaimer.md) for usage terms and research-only environment conditions.
+
+---
+Updated June 25, 2026, 16:28:09

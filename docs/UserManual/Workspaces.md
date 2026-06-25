@@ -120,3 +120,6 @@ The status bar along the bottom is organized into zones:
 ---
 
 **Next:** [Start Page](StartPage.md)
+
+---
+Updated June 25, 2026, 16:28:09

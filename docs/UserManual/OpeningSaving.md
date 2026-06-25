@@ -64,3 +64,6 @@ See [Project Structure & Settings](ProjectSettings.md) for what lives where, and
 ---
 
 **Next:** [Project Structure & Settings](ProjectSettings.md)
+
+---
+Updated June 25, 2026, 16:28:09

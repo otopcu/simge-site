@@ -50,3 +50,6 @@ SimGe ships with a **`DefaultOptions.xml`** in its installation directory that s
 ---
 
 **Next:** [Keyboard Shortcuts & Tips](Shortcuts.md)
+
+---
+Updated June 25, 2026, 16:28:09

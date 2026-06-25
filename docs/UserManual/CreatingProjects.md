@@ -77,3 +77,6 @@ The new project opens with the Project Explorer populated. Typical next steps:
 ---
 
 **Next:** [Opening & Saving Projects](OpeningSaving.md)
+
+---
+Updated June 25, 2026, 16:28:09

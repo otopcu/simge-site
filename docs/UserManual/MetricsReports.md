@@ -43,3 +43,6 @@ The report opens in its own **Reports** workspace, where you can review it on sc
 ---
 
 **Next:** [Telemetry Visualizer](TelemetryVisualizer.md)
+
+---
+Updated June 25, 2026, 16:28:09

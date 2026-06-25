@@ -77,3 +77,6 @@ A fuller [Glossary](Glossary.md) is provided in the appendix.
 ---
 
 **Next:** [Quick Start: Your First Project](QuickStart.md)
+
+---
+Updated June 25, 2026, 16:28:09

@@ -53,3 +53,6 @@ Use **Windows Settings → Apps → Installed apps → SimGe** (or the classic *
 ---
 
 **Next:** [Quick Start: Your First Project](QuickStart.md)
+
+---
+Updated June 25, 2026, 16:28:09

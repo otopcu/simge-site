@@ -209,3 +209,6 @@ The browse dialog remembers the folder you last used during the current session,
 ### A note on sample projects
 
 The bundled sample projects (e.g. **Chat**, **STMS**) are installed in a shared, read-only location, so **Save** is disabled for them. To keep your edits — including a repaired module path — use **Save As** to store your own copy in a writable folder such as your Documents. **Save As** is always available for samples.
+
+---
+Updated June 25, 2026, 16:28:09

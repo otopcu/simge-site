@@ -57,3 +57,6 @@ The Start Page exposes quick links to the project's key folders — **project ho
 ---
 
 **Next:** [Creating a Project](CreatingProjects.md)
+
+---
+Updated June 25, 2026, 16:28:09

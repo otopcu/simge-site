@@ -454,3 +454,6 @@ Metric-driven mode currently affects:
 - critical-class manager wrappers
 
 The most important present limitation is that specialized metric-driven file generation is currently **Object Class only**, even though the metric analysis also evaluates Interaction Classes.
+
+---
+Updated June 25, 2026, 16:28:09

@@ -670,3 +670,6 @@ In practice:
 ---
 
 **Next:** [Diagram Editor](Diagrams.md)
+
+---
+Updated June 25, 2026, 16:28:09

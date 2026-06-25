@@ -120,3 +120,6 @@ The diagram interaction model is based on the following principles:
 ---
 
 **Next:** [Importing & Exporting](ImportExport.md)
+
+---
+Updated June 25, 2026, 16:28:09

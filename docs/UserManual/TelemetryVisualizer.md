@@ -78,3 +78,6 @@ The toolbar groups these as flat **Copy / Open / Folder / Save** buttons with to
 ---
 
 **Next:** [FAME — Federation Architecture Modeling Environment](FAME.md)
+
+---
+Updated June 25, 2026, 16:28:09

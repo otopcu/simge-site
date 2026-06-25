@@ -75,3 +75,6 @@ While you edit, modules stay separate. When you **export** a FOM or **generate c
 ---
 
 **Next:** [Managing Modules](ManagingModules.md)
+
+---
+Updated June 25, 2026, 16:28:09

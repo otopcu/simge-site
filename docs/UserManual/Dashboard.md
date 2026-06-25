@@ -49,3 +49,6 @@ Read the marker header as the post-gate profile. A small hierarchy can have a ra
 ---
 
 **Next:** [Model Metrics & Reports](MetricsReports.md)
+
+---
+Updated June 25, 2026, 16:28:09
