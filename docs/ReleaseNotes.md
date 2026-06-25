@@ -2,6 +2,26 @@
 
 *Last Updated/Edited (DTG): 2026-06-25T00:00:00+03:00*
 
+## [0.4.9] - 2026-06-25
+
+### Dashboard: Structural Risk Propensity Map
+- **Calibration Toolbox for Structural Risk Heatmap**: Integrated an interactive calibration panel into the Structural Visuals dashboard under a new permanently visible gear-shaped calibration toggle button. The panel provides sliders for WHL Left/Right Anchors, $S_{\mathrm{top}}$ Anchor, and Sigmoid steepness $k$ to perform live what-if analysis.
+- **Dynamic Rendering & Guides**: Dragging the sliders dynamically recalculates and updates the 2D heatmap background gradient, vertical/horizontal dashed guides, and marker tooltips in real-time.
+- **Live Backend Re-evaluation**: Parameter updates automatically re-evaluate structural risk metrics and verdicts on the backend (`MetricAnalysisService` / `MetricAnalysisCore`) and refresh the dashboard statistics live.
+- **Responsive Header Layout**: Restructured the Structural Visuals header by placing the Radar/Heat Map selector toolbar below the header title, eliminating layout overlapping at narrower window widths.
+- **Structural Visual Export Scope**: Structural Visuals PNG export now captures the full framed visual panel and includes heatmap calibration tools when they are visible.
+
+### Analysis: Analytical Synthesis Layer
+- **Single Source of Truth for Metric Interpretation**: The analytical synthesis layer (`SimGe.Model.Analysis.Synthesis`) is now the one place that turns computed metrics into profile names, structural states, risk zones, semantic verdicts, gate notes, and engineering guidance. Dashboard, tooltips, and reports render its output instead of reclassifying the same metric state.
+- **Renderer Boundary**: Synthesis-derived prose moved out of the UI into dedicated renderers — `MetricDetailsMarkdownRenderer` (structural-risk marker popover) and `DashboardSummaryRenderer` (dashboard overview), alongside the existing module-report renderers. Dead legacy classification helpers were removed from the structural-risk heatmap control.
+- **Code-Generation Hints**: `CodegenStrategyMapper` derives advisory, typed generation-strategy candidates (dispatch table, flattened state, delta tracking, specialized codec, critical-fault wrapper) from synthesis, surfaced as a new "Code-Generation Hints" section in module analysis reports and as advisory `CG1010` diagnostics in the Fora generation run. These never change emitted code; `EnableMetricDrivenVariants` remains the sole emit gate.
+- **Telemetry Validation Interpretation**: Added the model-side contract (`TelemetryValidationMapper`) that maps design-time synthesis to runtime telemetry correlates and reports verdicts which distinguish confirmed runtime evidence from static pre-execution indicators (a design metric is never treated as a deterministic runtime prediction).
+- **Cleanup & Hardening**: Removed the dead structural-state classifier and orphaned statistics fields from `OmAnalysisService`, and broadened synthesis regression coverage (143 model tests) across structural, semantic-gate, archetype, codegen-hint, and telemetry-interpretation cases.
+
+### Documentation
+- **Metric-Driven Code Generator Variants Clarified**: Updated the architecture and user-manual code generator pages to document the implemented runtime scope of specialized object codecs, delta trackers, dispatch-table branches, and critical class wrappers, including current Object Class-only and non-transparent delta-update boundaries.
+- **Analytical Synthesis Layer Architecture**: Added architecture chapter [10A. Analytical Synthesis Layer](Architecture/10A_Analytical_Synthesis_Layer.md) documenting the delivered design — data model, services, classification rules, renderer boundary, code-generation hints, telemetry-validation contract, consumers, data flow, and tracked deferrals.
+
 ## [0.4.8] - 2026-06-22
 
 ### Object Model
