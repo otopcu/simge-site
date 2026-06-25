@@ -47,6 +47,7 @@ Located at the top of the tab:
 -   **Federate Name & Type**: HLA-specific naming for the federate execution.
 -   **Multiplicity**: Defines how many instances of this federate will exist in the federation (e.g., `0..1`, `1..*`, `5`).
 -   **Connection**: Technical RTI connection string (e.g., `localhost:6001`).
+-   **Host / Node**: The physical host or node this federate application is deployed to. Drives the [Deployment Diagram (UML)](#deployment-diagram-uml) view; when left empty it is shown as `LocalHost`.
 -   **Notes**: Personal documentation and implementation details for the federate.
 
 ---
@@ -80,6 +81,8 @@ Diagnostic badges appear in the top-right corner of federate boxes to catch mode
 ## Deployment Diagram (UML)
 
 Switch the **View** dropdown from *Diagram (FSD)* to *Deployment Diagram (UML)* to see the same federation as a UML deployment diagram — useful for documenting how the federation maps onto physical hosts and the network.
+
+Each federate application is drawn as its own host node, labeled with its **Host / Node** value from the Federate Apps tab (or `LocalHost` when that field is empty). Inside the host, the federate appears as a UML «artifact» alongside its `ForaClient` «component», and every host connects to the central `rti.server` node through the **HLA/RTI network bus**, with each link labeled by the federate's connection protocol. Set the **Host / Node** field on each federate to control how the deployment topology is laid out.
 
 ![The UML deployment diagram: device nodes for the RTI server and the host, joined by the HLA/RTI network bus, with the federate artifact and its Fora client component](images/fame-deployment.png)
 

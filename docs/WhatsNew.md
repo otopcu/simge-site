@@ -2,10 +2,12 @@
 
 SimGe 0.4.9 - Unreleased
 
-This page is staged for the next SimGe development cycle. The public latest release remains SimGe 0.4.8 until 0.4.9 is finalized and published.
+Staged for the next release; the public latest remains SimGe 0.4.8 until 0.4.9 is finalized.
 
-- 0.4.9 development branch opened
+- **Interactive Structural Risk calibration** - drag WHL / S_top / sigmoid sliders on the Structural Visuals dashboard for live what-if analysis; the heatmap, guides, tooltips, and verdicts update in real time, and PNG export captures the full panel.
 
-- Central build metadata advanced to `0.4.9`
+- **Consistent metric interpretation** - a single analytical synthesis layer now drives profile names, risk zones, and engineering guidance, so the dashboard, tooltips, and reports always agree.
 
-- Release Notes prepared with an unreleased 0.4.9 staging section
+- **Code-generation hints** - module analysis reports gain an advisory hints section (dispatch table, delta tracking, specialized codec, …) derived from the model's architecture.
+
+- **Documentation** - new Analytical Synthesis Layer architecture chapter and clarified metric-driven code-generation pages.
