@@ -231,6 +231,14 @@ For modular FOMs, the **Data Type** column also shows dependency-defined type na
 `RPR-Base`. OME keeps the active module independent and displays its preserved XML reference; the
 live datatype object is resolved when the complete module dependency closure is composed.
 
+#### Data-Type Selection Dropdown (ComboBox UX)
+
+When selecting a data type inside OME editors (such as attribute, parameter, array, fixed-record field, variant discriminant/alternative, or dimension editors), a rich and smart ComboBox is utilized:
+- **Searchable & Editable**: You can type directly in the dropdown box to search for a type. The list updates instantly using substring matching (e.g., typing "Struct" will filter and display all types containing that name). The dropdown remains open as you type for interactive selection.
+- **Categorical Grouping**: Data types are automatically grouped by their kind (e.g., Simple, Enumerated, FixedRecord, VariantRecord, Array) with clear visual headers separating each group.
+- **Visual Badges & Color Indicators**: Each type is prefixed with a colored indicator dot corresponding to its category, along with a category label badge.
+- **Module Attribution Badge**: If the data type is dependency-owned (e.g., imported from a parent module like `NETN-BASE`), a distinct module name badge is displayed next to the name to help differentiate local types from dependency types.
+
 ### Case Study: Group Administration Ownership Transfer
 
 For a concrete scenario utilizing attribute ownership transfer, consider the **Group Administration** coordination pattern where the administration role is managed dynamically across chat participants:

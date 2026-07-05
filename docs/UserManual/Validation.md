@@ -4,7 +4,7 @@ Validation checks that an object model is well-formed and standard-compliant bef
 
 ## What validation checks
 
-Validation confirms that the generated XML document conforms to the official IEEE 1516 XML schema (`.xsd`) for the chosen standard and profile.
+Validation confirms that the generated XML document conforms to the official IEEE 1516 XML schema (`.xsd`) for the chosen standard, schema profile, and module-composition scope.
 
 ## Standards and schema profiles
 
@@ -21,18 +21,26 @@ Schema validation applies to the two IEEE 1516 standards. For **each** standard 
 | **IEEE 1516-2010** | OMT, FDD, DIF (2010 `.xsd` files) |
 | **IEEE 1516-2025** | OMT, FDD, DIF (2025 `.xsd` files) |
 
-> **HLA 1.3 (FED) is not schema-validated.** The legacy `.fed` format has no XML schema, so the FED viewer offers no Validate action — only copy and export.
+> **HLA 1.3 (FED) is not schema-validated.** The legacy `.fed` format has no XML schema, so the FED viewer offers no Validate action - only copy and export.
 
 ## Running validation
 
-Validation is performed in the **FDD viewer** (the **FDD Viewer (2010)** / **FDD Viewer (2025)** tab of a module's [OME](OME.md)). Two toolbar selectors control it:
+Validation is performed in the **FDD viewer** (the **FDD Viewer (2010)** / **FDD Viewer (2025)** tab of a module's [OME](OME.md)). Three toolbar selectors control it:
 
-1. The **standard** selector — IEEE 1516-2010 or IEEE 1516-2025 (this also picks which viewer/document you see).
-2. The **schema** selector — **DIF**, **FDD**, or **OMT**.
+1. The **standard** selector - IEEE 1516-2010 or IEEE 1516-2025 (this also picks which viewer/document you see).
+2. The **schema** selector - **DIF**, **FDD**, or **OMT**.
+3. The **scope** selector - **Standalone module** or **Composed dependency closure**.
 
-Click **Validate** to check the document against the selected *standard + schema profile*. Changing either selector re-targets validation, so you can verify the same model against several schemas. Validation also runs **automatically during import**, so problems in a source file are reported as it is read (see [Importing & Exporting](ImportExport.md)).
+Click **Validate** to check the document against the selected *standard + schema profile + scope*. Changing any selector re-targets validation, so you can verify the same model against several schemas and module-composition scopes. Validation also runs **automatically during import**, so problems in a source file are reported as it is read (see [Importing & Exporting](ImportExport.md)).
 
-Because SimGe authors models as [modules](ModularFOM.md), validation runs against the **merged** result — the same composition that export and code generation use — so what you validate is what you ship.
+Because SimGe authors models as [modules](ModularFOM.md), scope matters:
+
+| Validation scope | Use when |
+|---|---|
+| **Standalone module** | You want to validate the selected module's XML by itself. XML Schema key/keyref checks are document-local, so dependency-owned data types may fail here even when the project dependency closure is complete. |
+| **Composed dependency closure** | You want to validate the merged model that export and code generation rely on. Dependency-owned data types are included before the schema check runs. |
+
+If standalone validation fails with a data-type keyref error but the type is available in a loaded dependency module, the report adds a **Dependency-Closure Advisory** section naming the modules that define the missing type.
 
 ## Reading the results
 
@@ -46,16 +54,19 @@ Validation results open in a dedicated results window:
 
 *The validation results for an FDD document. The report header records the FILE, KIND (`FDD`), the **SCHEMA** it was checked against (here `IEEE1516-FDD-2025.xsd`, set by the FDD viewer's toolbar selector), and the STATUS (`FAILED`). Findings are listed below the header, and **Copy Details** copies the full report to the clipboard.*
 
+The report footer records the validation **Scope** and the module list used for the check. For composed validation this module list is the dependency closure; for standalone validation it is the selected module.
+
 Work through the listed items, fix them in the [OME](OME.md), and re-validate until the model is clean.
 
 ## Common issues and fixes
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| **Unresolved dependency** warnings | A referenced module is missing or its name does not match. | Add or relink the module; see [Managing Modules](ManagingModules.md) and [Modular FOM Concepts → Dependencies](ModularFOM.md#dependencies). |
+| **Unresolved dependency** warnings | A referenced module is missing or its name does not match. | Add or relink the module; see [Managing Modules](ManagingModules.md) and [Modular FOM Concepts -> Dependencies](ModularFOM.md#dependencies). |
 | **Schema errors** on export | A field required by the chosen standard is empty or malformed. | Complete the required fields in the relevant OME table, then re-validate. |
-| **Datatype / reference errors** | An element points at a datatype or parent that no longer exists. | Repoint it in the OME to a valid target. |
-| **FomMergeConflictException** or merge errors | Synchronization points with the same label differ in definition across modules. | Align the `DataType`, `Capability`, or `Semantics` of the same-named synchronization point across modules, or rename one. |
+| **Datatype keyref errors in Standalone module scope** | The selected XML document references a dependency-owned data type that is not defined inside the same XML document. | Use **Composed dependency closure** validation, or export/validate a composed module. If the advisory names a loaded module, the dependency closure resolves the type. |
+| **Datatype / reference errors in Composed dependency closure scope** | An element points at a datatype or parent that no longer exists in the full dependency closure. | Add or relink the defining module, or repoint the element in the OME to a valid target. |
+| **FomMergeConflictException** or merge errors | Same-named OMT content differs in definition across modules. | Align the conflicting definitions across modules, or rename one when the standard permits distinct definitions. |
 
 ## When to validate
 
@@ -68,4 +79,4 @@ Work through the listed items, fix them in the [OME](OME.md), and re-validate un
 **Next:** [FOM Dashboard](Dashboard.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated June 30, 2026, 15:07:39

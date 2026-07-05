@@ -15,7 +15,7 @@ The dashboard is organized into four tabs:
 | **Overview** | Module identity and context — archetype, summary, and the headline counts (classes, properties, datatypes, OC/IC ratio). |
 | **Structure** | Topology and hierarchy signals — max depth and breadth, class complexity, and architectural metrics (e.g. `WHL`, `S_top`, `CV_D`) — with an Architecture Shape matrix and a Structure Heat Map. |
 | **Semantics** | Payload saturation and dispersion — the Semantic Saturation Index (`SSI_n`) and coefficient of variation (`CV_p`) for each domain — with a saturation gauge. |
-| **Quality** | Integrity and maintenance risks — diagnostic findings and warnings. |
+| **Quality** | Integrity and maintenance risks — unresolved type references, diagnostic findings, and warnings. |
 
 Most figures are computed separately for the **Object Class (OC)** and **Interaction Class (IC)** domains, and a single analysis engine is the source of truth, so the dashboard numbers stay consistent with the [reports](MetricsReports.md).
 
@@ -40,15 +40,28 @@ Read the marker header as the post-gate profile. A small hierarchy can have a ra
 ## How to read it
 
 1. Start on **Overview** to grasp the model's archetype and scale.
-2. Check **Quality** for anything flagged — resolve unresolved dependencies and structural issues first (see [Managing Modules](ManagingModules.md) and [FOM Validation](Validation.md)).
+2. Check **Quality** for anything flagged — resolve unresolved dependencies, unresolved data type references, and structural issues first (see [Managing Modules](ManagingModules.md) and [FOM Validation](Validation.md)).
 3. Use **Structure** and **Semantics** to judge whether the model's shape and payload profile match your intent.
 4. **Refresh** after edits to see the effect.
 
 > Use the **Composed** scope to analyze the merged result that will actually be exported; use **Module Only** to focus on the selected module's own content.
+
+## Integrity findings
+
+The **Quality** tab reports unresolved data type references when an attribute, parameter, or structural data type still carries a preserved XML type name that cannot be resolved to a concrete data type in the selected analysis scope.
+
+- In **Module Only** scope, these rows may indicate dependency-owned types that are intentionally supplied by another module.
+- In **Composed** scope, remaining rows indicate an incomplete dependency closure and must be resolved before reliable code generation.
+
+When no unresolved type references remain, the **Unresolved Type Refs** card states whether the clean result applies to the standalone module scope or to the composed dependency scope. This is separate from XML schema validation: standalone XML validation may still fail document-local keyref checks for dependency-owned types; use [FOM Validation](Validation.md) with **Composed dependency closure** scope to validate the merged model.
+
+The **Unresolved Type Refs** card gives the count. The **Integrity Findings** table lists the severity, scope, owner, member, reference kind, and missing type so the affected element can be located directly.
+
+Use the copy button in the table header to place the findings on the clipboard as GitHub-flavored Markdown. The copied text starts with the active module name and then includes the findings as a Markdown table, which is suitable for issue reports, review notes, and release validation records.
 
 ---
 
 **Next:** [Model Metrics & Reports](MetricsReports.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated June 30, 2026, 15:07:39
