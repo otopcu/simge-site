@@ -2,7 +2,7 @@
 
 *Last Updated/Edited (DTG): 2026-07-01T00:00:00+03:00*
 
-## [0.5.0] - 2026-06-30
+## [0.5.0] - 2026-07-05
 
 ### Object Model Editor
 - **OME Data-Type Validation & Broken Reference Resolution**: Resolved validation errors in OME editors caused by data type reference mismatches and unresolved dependency names (`BrokenDataTypeName`). Made `RecordField` inherit from `ObservableObject` to support proper property change notifications in the editor grid. Handled `BrokenDataTypeName` resolution on load for fixed record, variant record, alternative, array, attribute, parameter, tag, and time editors.
