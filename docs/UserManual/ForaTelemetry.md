@@ -1,10 +1,10 @@
 # Fora Telemetry & Validation
 
-SimGe can generate **telemetry-instrumented** federate code so a run can be measured and compared against your design-time model. This chapter explains how to turn it on, what gets emitted, and how the results flow back into SimGe. For the generator itself, see [Code Generator](CodeGenerator.md); for inspecting results, see [Telemetry Visualizer](TelemetryVisualizer.md).
+SimGe can generate **telemetry-instrumented** federate code so a run can be measured and compared against your design-time model. This chapter explains how to turn it on, what gets emitted, how to capture a run, and how to scale from a single run to a cross-model validation campaign. For the generator itself, see [Code Generator](CodeGenerator.md); for inspecting results, see [Telemetry Visualizer](TelemetryVisualizer.md).
 
 ## What it is for
 
-Design-time metrics (from the [dashboard](Dashboard.md) and [reports](MetricsReports.md)) describe how a model *should* behave. Telemetry captures how it *actually* behaves at run time — warm-up cost, latency, and where time is spent per event sub-phase. Comparing the two reveals **operational drift** between design and runtime.
+Design-time metrics (from the [dashboard](Dashboard.md) and [reports](MetricsReports.md)) describe how a model *should* behave. Telemetry captures how it *actually* behaves at run time — warm-up cost, latency, and where time is spent per event sub-phase. Comparing the two reveals **operational drift** between design and runtime, and lets you ask whether a design-time metric (breadth, semantic weight, archetype balance) actually predicts a runtime cost.
 
 ## Enabling telemetry generation
 
@@ -19,14 +19,24 @@ When disabled, the generated code carries no instrumentation overhead.
 
 ## Capturing a run
 
-1. Generate federate code with telemetry enabled.
-2. Run the federate(s) under the **SimGe validation harness**, which executes the scenario and records telemetry.
-3. The harness produces run artifacts in an output folder:
-   - a **`manifest.json`** describing the run (including the FOM checksum used), and
-   - one or more **`.fort`** log files (one per federate stream).
-   - optional generated reports (e.g. `ValidationReport.md`, `TelemetryReliabilityReport.md`).
+Runs are executed by the **SimGe validation harness**, a command-line tool (`SimGe.ValidationHarness`) that generates the code, builds the scenario, launches the Fora RTI and federates, and records telemetry. A minimal single-sample run:
 
-> Each manifest is a single replication. Pooling across multiple independent runs is the harness's responsibility — see its documentation.
+```powershell
+dotnet run --project Telemetry/SimGe.ValidationHarness/SimGe.ValidationHarness.csproj `
+    -c Telemetry -- --sample netn-mrm --repetitions 5
+```
+
+- `--sample <key>` selects a registered scenario. Run `--help` to see the current list.
+- `--repetitions N` runs the scenario `N` independent times and **pools** them into one snapshot, smoothing launch-order variance. Only runs sharing the same resolved-FOM checksum are pooled; mismatched runs are excluded.
+
+Each run produces artifacts in its output folder:
+
+- a **`manifest.json`** describing the run (resolved-FOM checksum, hardware identity, scenario seed, clock-alignment status),
+- one or more **`.fort`** log files (one per federate stream),
+- a **`ValidationReport.md`** (per-metric runtime evidence and verdicts), and
+- a **`CampaignSampleSummary.json`** — a machine-readable summary the campaign aggregator consumes.
+
+> The full harness contract, switches, and overhead-measurement mode are documented in [Architecture 16A. Telemetry Samples and Harness Usage](../Architecture/16A_Telemetry_Samples_and_Harness_Usage.md); per-scenario behaviour is in [16B. Telemetry Sample Scenarios](../Architecture/16B_Telemetry_Sample_Scenarios.md).
 
 ## Inspecting results
 
@@ -37,19 +47,50 @@ Open the [Telemetry Visualizer](TelemetryVisualizer.md) (**Tools → Experimenta
 - charts warm-up, latency, sub-phase breakdown, and the **Operational Drift** radar,
 - surfaces the accompanying Markdown reports.
 
+## Cross-model / cross-host validation campaign
+
+A single run shows how *one* model behaves on *one* machine. To ask whether a design-time metric predicts runtime cost **in general**, the harness has a corpus campaign mode that runs several models and pools the evidence into one confirmatory report.
+
+```powershell
+dotnet run --project Telemetry/SimGe.ValidationHarness/SimGe.ValidationHarness.csproj `
+    -c Telemetry -- --corpus netn-cbrn,netn-mrm,netn-entity --repetitions 5 `
+    --corpus-output "C:/path/to/Corpus"
+```
+
+This runs each model through the same pipeline into `<corpus-output>/<key>/`, then emits, at the corpus root:
+
+- **`ConfirmatoryValidationMatrix.md`** — one verdict per registered hypothesis (**Confirmed**, **Weak / Directional**, **Inconclusive**, or **Rejected**), with the pooled effect size and a Benjamini–Hochberg-corrected p-value, and
+- **`CorpusSummary.csv`** — one row per cell for import into R, Python, or a spreadsheet.
+
+Two design points worth knowing as a user:
+
+- **Hosts are never blended.** x86-64 and ARM64 runs of the same model are kept as separate cells and only compared, not merged. This is what lets you gather runs from two machines and aggregate them offline with `--corpus-aggregate <dir>`.
+- **A small corpus cannot over-claim.** With only a few models, the matrix caps agreement at *Weak / Directional*; a *Confirmed* verdict requires the full corpus. The thresholds are fixed in advance and never chosen after seeing results.
+
+The complete procedure — prerequisites, reproduction, the cross-host merge, adding a new model, and troubleshooting — is the [Architecture 16D. OM4 Corpus Campaign Runbook](../Architecture/16D_OM4_Corpus_Campaign_Runbook.md). The frozen hypotheses, thresholds, and non-claims are in [16C. OM4 Campaign Pre-Registration](../Architecture/16C_OM4_Campaign_PreRegistration.md).
+
+## Reproducibility
+
+Every admitted observation is tied to a reproducible envelope so a result can be re-derived:
+
+- the **resolved-FOM SHA-256** is stamped into the design artifacts, the generated code, and the manifest, so the design-versus-runtime join is exact;
+- the **scenario seed** (`--scenario-rng-seed <n>`, exported with `--emit-operational-load-factors`) is recorded in the manifest and verified identical across pooled replications;
+- the **hardware identity** in reports is taken from the manifest (the machine that produced the telemetry), not from the machine generating the report, so offline and cross-host report generation stay correctly attributed.
+
 ## Typical workflow
 
 1. Author and validate the FOM in SimGe ([OME](OME.md), [FOM Validation](Validation.md)).
 2. Generate federate code with **Enable Fora Telemetry** on.
-3. Run under the validation harness to capture telemetry.
+3. Run under the validation harness to capture telemetry (`--sample`, `--repetitions`).
 4. Load the run in the Telemetry Visualizer and review drift, latency, and hotspots.
-5. Adjust the model or generation settings and repeat.
+5. For a generalisation claim, run the corpus campaign (`--corpus`) and read the confirmatory matrix.
+6. Adjust the model or generation settings and repeat.
 
-> Deeper specifications of the telemetry/validation integration live in the project's Architecture documentation ("Fora Telemetry and Validation Integration").
+> Deeper specifications of the telemetry/validation integration live in the project's Architecture documentation, chapter [16. Fora Telemetry and Validation Integration](../Architecture/16_Fora_Telemetry_Validation_Integration.md) and its sub-chapters 16A–16D.
 
 ---
 
 **Next:** [Preferences & Options](Preferences.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated July 5, 2026

@@ -531,6 +531,21 @@ Typical use:
 
 This is one of the most important tables in day-to-day model authoring.
 
+### Datatype change impact (delete / rename)
+
+Because a datatype is usually referenced from many places, changing one can affect far more than the type itself. When you delete a datatype, SimGe analyzes the whole model and, if anything still references it, the delete-confirmation dialog reports:
+
+- how many references, across how many classes, will break, and
+- a sample of the affected elements (for example `Aircraft.Position (attribute)`, `TrackStruct.location (record field)`, `LocationArray.element (array element)`).
+
+Those referrers do not disappear — they fall back to an unresolved type name, which blocks code generation until you repoint them or restore the type. The warning is informational: you can still confirm the deletion, or cancel and repoint the references first. When nothing references the type, the dialog says it is safe to remove.
+
+Renaming a referenced datatype shows a similar confirmation first. In-module references follow the rename automatically, but references to the old name from *other* (dependent) modules and any already-generated code do not — so you can proceed or cancel with that in view.
+
+You can also inspect this at any time without changing anything: right-click a datatype in the [Project Explorer](ProjectExplorer.md) and choose **Show Impact / Usages** for the same report — the elements that reference it, what a removal/rename would break, and what a representation/encoding change would force to be regenerated.
+
+> The same reference graph powers the **Data-Type Impact** section of the analysis report, which ranks every datatype by how far its change would reach — see [Model Metrics & Reports](MetricsReports.md).
+
 ### Chat Sample Example
 
 `ChatSom.xml` reuse map:
@@ -680,4 +695,4 @@ In practice:
 **Next:** [Diagram Editor](Diagrams.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated July 6, 2026

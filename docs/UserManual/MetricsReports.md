@@ -34,6 +34,19 @@ The report opens in its own **Reports** workspace, where you can review it on sc
 2. Open its **Report** (Reports workspace).
 3. The report builds from the module's current content; if you edit the model, regenerate to refresh it.
 
+Report generation runs in the background, so the application stays responsive while a large model is rendered; a status-bar indicator shows progress and the report appears when it is ready.
+
+## Data-type impact analysis
+
+The analysis report includes a **Data-Type Impact** section that answers a practical question before you change a model: *if I change this datatype, what else is affected?* It works from the model's datatype reference graph and covers two kinds of change:
+
+- **Removal or rename** — every element that references the type loses its binding and blocks code generation until repaired.
+- **Wire-format shift** — changing a type's representation or encoding does not break references, but it forces every codec that embeds the type to be regenerated and re-coordinated with other federates that share the FOM.
+
+For each datatype the section reports its **blast radius** — the total number of elements (attributes, parameters, record fields, variant discriminants/alternatives, and the classes that carry them) reached transitively by such a change — and ranks the declared types by that reach. A high blast radius marks a load-bearing type to change carefully; a low one is comparatively safe to edit.
+
+The same analysis drives the interactive impact warning shown when you delete a datatype in the [Object Model Editor](OME.md).
+
 ## When to use metrics and reports
 
 - Use the **[dashboard](Dashboard.md)** for quick, interactive assessment while you work.
@@ -45,4 +58,4 @@ The report opens in its own **Reports** workspace, where you can review it on sc
 **Next:** [Telemetry Visualizer](TelemetryVisualizer.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated July 6, 2026

@@ -1,6 +1,31 @@
 # SimGe Release Notes
 
-*Last Updated/Edited (DTG): 2026-07-01T00:00:00+03:00*
+*Last Updated/Edited (DTG): 2026-07-06T13:35:00+03:00*
+
+## [0.5.1] - 2026-07-06
+
+### Fora Telemetry Validation
+- **OM4 Corpus Campaign Driver**: Added a corpus batch mode to `SimGe.ValidationHarness` (`--corpus <keys|all>`, `--corpus-output <dir>`, `--corpus-aggregate`) that runs each registered sample through the existing single-sample path and pools results under resolved-FOM-checksum, scenario-seed, and hardware-fingerprint gates, so x86-64 and ARM64 cells are kept as separate cross-host cells and mismatched resolved-model signatures are never blended. Each run now also emits a structured `CampaignSampleSummary.json` alongside the Markdown `ValidationReport.md`.
+- **Cross-Model Confirmatory Statistics**: Added the `CampaignMatrix` statistics layer — Spearman rank correlation with exact small-`n` permutation p-values, Benjamini–Hochberg FDR correction across the pooled hypothesis family, a Kruskal–Wallis omnibus over archetype profile classes, and a scalar cross-host ratio-band check. It produces a corpus-level `ConfirmatoryValidationMatrix.md` that assigns each pre-registered hypothesis a **Confirmed / Weak-Directional / Inconclusive / Rejected** verdict, distinct from the per-sample reports.
+- **NETN Interim Corpus Run**: Executed and archived the first OM4 corpus run over the three NETN tiers (`NETN-CBRN`/`MRM`/`ENTITY`) on a single x86-64 host. By design no hypothesis reaches *Confirmed* (n = 3, single host below the confirmatory power floor); the run establishes the reproducible method and directional evidence and refreshes the NETN-MRM five-replication telemetry and regenerated sample code.
+
+### Reports and Analysis
+- **Data-Type Impact Analysis**: Added `TypeImpactAnalyzer` (`SimGe.Model.Analysis.Impact`), which inverts the OMT data-type reference graph to answer "what breaks or shifts if I change this type?". It computes one transitive closure for two change kinds — **Removal/rename** (every referrer loses its binding and blocks code generation) and **wire-format shift** (a representation/encoding change forces every embedding codec to be regenerated and re-coordinated across federates) — and reports the affected attributes, parameters, record fields, variant discriminants/alternatives, classes, and (with an owner→module map) dependent modules. A new **Data-Type Impact** section in the module analysis report ranks declared types by blast radius. Covered by unit tests.
+- **Impact Report Dependent-Modules Column**: The Data-Type Impact section of composed sample metric reports (NETN / RPR / Restaurant) now attributes each affected element to its owning module, so the **Dependent Modules** column shows which modules a data-type change would reach across the composition. Attribution is built from the pre-merge module set via `TypeImpactAnalyzer.BuildOwnerModuleMap`; single-module reports omit the column.
+- **Data-Type Delete Impact Warning**: Deleting a data type now runs the impact analysis inside the delete-confirmation dialog. Instead of a generic "are you sure?" prompt, it reports how many references across how many classes will break (falling back to unresolved type names and blocking code generation) and lists a sample of the affected attributes/parameters/fields, so the deletion can be confirmed or cancelled with full knowledge. The user may still proceed.
+- **Data-Type Rename Impact Preview**: Renaming a data type that other elements reference now shows a confirmation first: in-module references follow the rename automatically, but cross-module references by the old name and generated code do not, so the user can proceed or cancel with that in view. No prompt when nothing references the type.
+- **Show Impact / Usages (Project Explorer)**: Right-clicking a data type in the Project Explorer opens an on-demand impact/usages report — which elements reference it, how a removal/rename would break them, and what a representation/encoding change would force to be regenerated and re-coordinated across federates. It uses the same analysis engine as the delete-time warning; the action is enabled only for data-type nodes.
+- **Non-Blocking Report Generation**: OMT report generation now runs off the UI thread. `CReportVM.RefreshReport()` previously started a worker thread and immediately `Join()`ed it, then rendered the RDLC on the UI thread, freezing the app for large FOMs (e.g. NETN-CBRN). The dataset is now filled with `Task.Run` while the shared busy indicator is shown, and only the WinForms `ReportViewer` render is marshaled back to the UI thread.
+
+### Code Generator
+- **Generated API Summary README**: Fora code generation now emits `README.generated.md` in each federate output root, next to `SimulationManager.cs`, `[Federate].cs`, and the `Generated/` tree. The README summarizes generation provenance, the embedded Fora API profile, optional target-project `Fora.Client` version resolution when available, generated vs scaffold ownership, metric-based variant settings and per-class strategy outcomes, analytical synthesis diagnostics, object/interaction helper APIs, DDM dimensions, datatypes, extension points, and regeneration guidance for simulation developers.
+- **Fora API Profile**: Added a committed `ForaClientApiProfile.json` profile, a developer-only `tools/Update-ForaClientApiProfile.ps1` helper, and a Visual Studio-friendly `tools/Update-ForaClientApiProfile.cmd` wrapper that refreshes the profile from a local Fora repository. SimGe reports the profile it targets without requiring `Fora.Client` to be installed as a SimGe dependency.
+- **Generated Fora Header Compatibility**: Generated Fora source-file headers now report `Fora.Client` compatibility from the embedded API profile's tested version instead of a legacy hardcoded Fora version string.
+- **Fora Contract Catalog Validation**: Added the initial code-side catalog of Fora API calls emitted by the generator and wired a DLL metadata validator into the Fora generation pipeline. Code generation now reports `CG1020`/`CG1021` Fora contract validation diagnostics in the post-generation dialog and in `README.generated.md`; missing bundled snapshots are reported as `NotRun` rather than blocking generation.
+- **Fora Call Writer Centralization**: Routed generated Fora service-call emission through `ForaClientCallWriter` for SOM handle resolution, simulation lifecycle, publish/subscribe, object/interaction helpers, advisory switches, entity deletion, callback object-class lookup, and late-join attribute update requests. The contract catalog now validates 36 service calls and 28 codec calls against the bundled `Fora.Client` API snapshot.
+
+### Documentation
+- **OM4 Campaign Pre-Registration & Runbook**: Added Architecture chapter 16C (frozen hypothesis family, decision thresholds, BH correction family, and explicit non-claims) and chapter 16D (corpus campaign runbook), archived the executed run under `Samples/Corpus Campaign/`, and trimmed the Roadmap OM4 item to a short completed-harness summary plus the remaining external phases (full NETN 14 + RPR 15 corpus authoring, ARM64 cross-host hardware, full execution).
 
 ## [0.5.0] - 2026-07-05
 
@@ -385,7 +410,7 @@
 - **Diagrams Documented**: Added User Manual sections for Directed Interactions Diagram and FOM Modules Dependency Graph.
 
 ### Code Generator
-- **Fora Compatibility**: Compatible with Fora 0.0.1. Generated federate code now targets the IEEE 1516-2025 HLA Federate Protocol via the [Fora](https://github.com/okantopcu/Fora) client library.
+- **Fora Compatibility**: Generated federate code targets the IEEE 1516-2025 HLA Federate Protocol via the [Fora](https://github.com/okantopcu/Fora) `Fora.Client` library; generated README compatibility metadata now resolves the client version from the target project when available.
 - **Async Lifecycle**: Generated `SimulationManager` provides async federation lifecycle (`connect -> create -> join -> init handles -> resign -> dispose`).
 - **UTF-8 Tags**: Tag constants are generated as `ReadOnlySpan<byte>` with C# UTF-8 string literals such as `"NA"u8`.
 - **Clean Scaffold**: Manual partial federate class is generated without legacy inheritance for a Fora-only scaffold.

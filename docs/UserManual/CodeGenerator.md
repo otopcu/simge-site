@@ -50,11 +50,12 @@ For a Fora generation run, `CCodeGeneratorManager.generateFora(...)` currently e
 9. `CEntityGenerator_Fora`
 10. `CDatatypeGenerator`
 11. `CTagsGenerator`
+12. `CGeneratedReadmeGenerator_Fora`
 
 If metric-driven variants are enabled, it also emits:
 
-12. `CSpecializedCodecGenerator_Fora`
-13. `CDeltaTrackerGenerator_Fora`
+13. `CSpecializedCodecGenerator_Fora`
+14. `CDeltaTrackerGenerator_Fora`
 
 ---
 
@@ -105,6 +106,7 @@ Entities/
 
 SimulationManager.cs
 [Federate].cs
+README.generated.md
 ```
 
 Notes:
@@ -112,6 +114,71 @@ Notes:
 - `Generated/` is machine-owned and may be overwritten on regeneration.
 - `Entities/[Class]Entity.cs` and `SimulationManager.cs` are user scaffolds.
 - `SpecializedCodecs/` and `Delta/` appear only when metric-driven variants are active and applicable.
+- `README.generated.md` is emitted at the federate output root and summarizes the generated API surface, target compatibility, metric-strategy decisions, and regeneration guidance.
+
+---
+
+## Generated API Summary README
+
+For each Fora federate output, SimGe writes:
+
+- `README.generated.md`
+
+The README is generated into the same root folder as `SimulationManager.cs`, `[Federate].cs`, and the `Generated/` tree. For example:
+
+```text
+C:\ProgramData\SimGe\Samples\Chat\SourceCode\[timestamp]\ChatFdApp\README.generated.md
+```
+
+It is intended for simulation developers who need to understand the generated integration surface without reading every generated C# file.
+
+The README includes:
+
+- generation provenance: output path, timestamp, SimGe version, target, HLA version, namespace root
+- Fora API profile: the committed `ForaClientApiProfile.json` profile ID, minimum/tested `Fora.Client` version, required package, API namespace surface, SDK assemblies that provide that surface, and .NET/C# target expectations. If generated code is placed near a target `.csproj`, the README also reports the resolved target project version as secondary validation metadata.
+- generated vs scaffold file ownership
+- metric-based generation settings and emitted variant status
+- per-object-class strategy results, including hotspot, periodic, critical, specialized-codec, delta-tracker, and critical-wrapper decisions
+- analytical synthesis diagnostics such as `CG1010`
+- object-class API summary: generated model, entity wrapper, registration helper, lifecycle events, and attributes
+- interaction-class API summary: DTO, sender helper, receive event, and parameters
+- DDM dimension handles
+- generated datatype and codec/converter summary
+- recommended extension points in `SimulationManager.cs` and `[Federate].cs`
+- regeneration notes for syncing the output into a target Fora application
+
+The README is regenerated on each run and should be treated as generated documentation, not hand-edited source.
+
+SimGe does not require `Fora.Client` as a NuGet dependency in order to generate code. The generator reports the embedded Fora API profile it was authored and tested against. End-user projects must reference a compatible `Fora.Client` package or project when compiling the generated code.
+
+---
+
+## Fora Contract Validation
+
+For Fora generation runs, SimGe validates the generator's intended `Fora.Client` usage against the bundled API contract snapshot before reporting success.
+
+The validation answers this question:
+
+```text
+Do the Fora service and codec calls emitted by this generator still exist with the expected signatures in the targeted Fora API snapshot?
+```
+
+The current validator checks:
+
+- 36 generated Fora service-call shapes, including lifecycle, handle resolution, publish/subscribe, object registration, encoded update/send helpers, advisory switches, late-join attribute-value requests, and cleanup
+- 28 generated `Fora.Encoding.HlaPrimitives` codec-call shapes
+- the configured `Fora.Client` contract snapshot recorded by `ForaClientApiProfile.json`
+
+The result is shown in the code-generation report, for example:
+
+```text
+FORA CONTRACT VALIDATION
+  INFO  [CG1020] Fora.Client API contract validation passed (36 service call(s), 28 codec call(s)).
+```
+
+If the bundled contract snapshot is missing, generation is not blocked; the validator reports `NotRun` so the missing validation is visible. If a required API member or signature does not match, SimGe reports a `CG1021` issue so generator/Fora compatibility can be fixed before relying on the generated code.
+
+Internally, generated Fora service-call emission is routed through `ForaClientCallWriter`. This keeps the generator templates from scattering raw `Fora.Client` method strings across many files. The writer is not the API source of truth; the bundled DLL metadata snapshot remains the validation source of truth.
 
 ---
 
@@ -324,6 +391,21 @@ Current scope:
 
 - Object Classes only
 
+### `CGeneratedReadmeGenerator_Fora`
+
+Behavior:
+
+- emits `README.generated.md` at the federate output root
+- summarizes the generated object classes, interaction classes, dimensions, datatypes, helper APIs, and extension points
+- records Fora target compatibility using the resolved `Fora.Client` version when available and the generated code's actual Fora namespaces
+- records metric-driven settings and per-class strategy outcomes
+- includes analytical synthesis diagnostics collected during the generation run
+
+Current scope:
+
+- Fora target only
+- generated after the source files so it can document the final strategy/diagnostic state of the run
+
 ---
 
 ## Current Scope Limits
@@ -434,6 +516,17 @@ For the current implementation, these are the most relevant files:
 - `SimGe.Application/CodeGenerator/ClassCodeGen_FdGen_Fora.cs`
 - `SimGe.Application/CodeGenerator/ClassCodeGen_SpecializedCodec_Fora.cs`
 - `SimGe.Application/CodeGenerator/ClassCodeGen_DeltaTracker_Fora.cs`
+- `SimGe.Application/CodeGenerator/ClassCodeGen_GeneratedReadme_Fora.cs`
+- `SimGe.Application/CodeGenerator/Fora/ForaClientApiProfile.json`
+- `SimGe.Application/CodeGenerator/Fora/ForaClientApiProfile.cs`
+- `SimGe.Application/CodeGenerator/Fora/Contract/ForaClientCallCatalog.cs`
+- `SimGe.Application/CodeGenerator/Fora/Contract/ForaClientApiContractValidator.cs`
+- `SimGe.Application/CodeGenerator/Fora/Writing/ForaClientCallWriter.cs`
+- `SimGe.Application/CodeGenerator/Fora/ApiContract/`
+- `tools/Update-ForaClientApiProfile.ps1`
+- `tools/Update-ForaClientApiProfile.cmd`
+- `tools/Update-ForaClientApiContractSnapshot.ps1`
+- `tools/Update-ForaClientApiContractSnapshot.cmd`
 - `SimGe.Model/Helpers/Metrics/MetricAnalysisCore.cs`
 - `SimGe.Model/Helpers/Metrics/MetricAnalysisService.cs`
 
@@ -456,4 +549,4 @@ Metric-driven mode currently affects:
 The most important present limitation is that specialized metric-driven file generation is currently **Object Class only**, even though the metric analysis also evaluates Interaction Classes.
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated July 6, 2026, 01:55:00
