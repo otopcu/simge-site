@@ -93,4 +93,4 @@ Every admitted observation is tied to a reproducible envelope so a result can be
 **Next:** [Preferences & Options](Preferences.md)
 
 ---
-Updated July 6, 2026, 01:55:00
+Updated July 20, 2026, 06:52:00
