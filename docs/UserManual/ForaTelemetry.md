@@ -36,7 +36,7 @@ Each run produces artifacts in its output folder:
 - a **`ValidationReport.md`** (per-metric runtime evidence and verdicts), and
 - a **`CampaignSampleSummary.json`** — a machine-readable summary the campaign aggregator consumes.
 
-> The full harness contract, switches, and overhead-measurement mode are documented in [Architecture 16A. Telemetry Samples and Harness Usage](../Architecture/16A_Telemetry_Samples_and_Harness_Usage.md); per-scenario behaviour is in [16B. Telemetry Sample Scenarios](../Architecture/16B_Telemetry_Sample_Scenarios.md).
+> The full harness contract, switches, overhead-measurement mode, and per-scenario behaviour are documented in the project's internal architecture documentation.
 
 ## Inspecting results
 
@@ -67,7 +67,7 @@ Two design points worth knowing as a user:
 - **Hosts are never blended.** x86-64 and ARM64 runs of the same model are kept as separate cells and only compared, not merged. This is what lets you gather runs from two machines and aggregate them offline with `--corpus-aggregate <dir>`.
 - **A small corpus cannot over-claim.** With only a few models, the matrix caps agreement at *Weak / Directional*; a *Confirmed* verdict requires the full corpus. The thresholds are fixed in advance and never chosen after seeing results.
 
-The complete procedure — prerequisites, reproduction, the cross-host merge, adding a new model, and troubleshooting — is the [Architecture 16D. OM4 Corpus Campaign Runbook](../Architecture/16D_OM4_Corpus_Campaign_Runbook.md). The frozen hypotheses, thresholds, and non-claims are in [16C. OM4 Campaign Pre-Registration](../Architecture/16C_OM4_Campaign_PreRegistration.md).
+The complete procedure — prerequisites, reproduction, the cross-host merge, adding a new model, and troubleshooting — along with the frozen hypotheses, thresholds, and non-claims, is covered in the project's internal architecture documentation.
 
 ## Reproducibility
 
@@ -86,11 +86,11 @@ Every admitted observation is tied to a reproducible envelope so a result can be
 5. For a generalisation claim, run the corpus campaign (`--corpus`) and read the confirmatory matrix.
 6. Adjust the model or generation settings and repeat.
 
-> Deeper specifications of the telemetry/validation integration live in the project's Architecture documentation, chapter [16. Fora Telemetry and Validation Integration](../Architecture/16_Fora_Telemetry_Validation_Integration.md) and its sub-chapters 16A–16D.
+> Deeper specifications of the telemetry/validation integration live in the project's internal architecture documentation.
 
 ---
 
 **Next:** [Preferences & Options](Preferences.md)
 
 ---
-Updated July 5, 2026
+Updated July 6, 2026, 01:55:00
