@@ -11,4 +11,4 @@ SimGe 0.5.1 is now available.
 - Read updated public documentation covering the release notes, the code-generator and metric-analysis architecture, and the Fora API profile/contract that generated code targets.
 
 ---
-Updated July 6, 2026, 01:55:00
+Updated July 20, 2026, 01:55:00

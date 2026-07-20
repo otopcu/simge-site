@@ -1,8 +1,8 @@
 # SimGe Release Notes
 
-*Last Updated/Edited (DTG): 2026-07-06T13:35:00+03:00*
+*Last Updated/Edited (DTG): 2026-07-20T00:00:00+03:00*
 
-## [0.5.1] - 2026-07-06
+## [0.5.1] - 2026-07-20
 
 ### Fora Telemetry Validation
 - **OM4 Corpus Campaign Driver**: Added a corpus batch mode to `SimGe.ValidationHarness` (`--corpus <keys|all>`, `--corpus-output <dir>`, `--corpus-aggregate`) that runs each registered sample through the existing single-sample path and pools results under resolved-FOM-checksum, scenario-seed, and hardware-fingerprint gates, so x86-64 and ARM64 cells are kept as separate cross-host cells and mismatched resolved-model signatures are never blended. Each run now also emits a structured `CampaignSampleSummary.json` alongside the Markdown `ValidationReport.md`.
