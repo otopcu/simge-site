@@ -30,6 +30,7 @@ theme:
 
 nav:
   - Home: index.md
+  - Features: Features.md
   - Downloads: Downloads.md
   - User Manual:
       - Overview: UserManual.md
