@@ -233,8 +233,11 @@ live datatype object is resolved when the complete module dependency closure is 
 
 #### Data-Type Selection Dropdown (ComboBox UX)
 
-When selecting a data type inside OME editors (such as attribute, parameter, array, fixed-record field, variant discriminant/alternative, or dimension editors), a rich and smart ComboBox is utilized:
-- **Searchable & Editable**: You can type directly in the dropdown box to search for a type. The list updates instantly using substring matching (e.g., typing "Struct" will filter and display all types containing that name). The dropdown remains open as you type for interactive selection.
+When selecting a data type inside OME editors (such as attribute, parameter, array, fixed-record field, variant discriminant/alternative, or dimension editors), use the searchable dropdown:
+
+- **Filter as you type**: Type part of a name to filter local and resolved dependency-owned types allowed by that editor. Matches are ranked exact name first, then prefix, then substring; matching text is highlighted.
+- **Select a result**: Pick an entry or press **Enter** to accept the top-ranked match. The search text is not automatically replaced while you type, so `LocationStruct` can be selected without being expanded to `LocationStructArray`.
+- **No results**: **No matching data type** means that no permitted type in the current catalog matches the search. Check the spelling and whether the defining dependency module is loaded.
 - **Categorical Grouping**: Data types are automatically grouped by their kind (e.g., Simple, Enumerated, FixedRecord, VariantRecord, Array) with clear visual headers separating each group.
 - **Visual Badges & Color Indicators**: Each type is prefixed with a colored indicator dot corresponding to its category, along with a category label badge.
 - **Module Attribution Badge**: If the data type is dependency-owned (e.g., imported from a parent module like `NETN-BASE`), a distinct module name badge is displayed next to the name to help differentiate local types from dependency types.
@@ -695,4 +698,4 @@ In practice:
 **Next:** [Diagram Editor](Diagrams.md)
 
 ---
-Updated July 6, 2026
+Updated September 14, 2026

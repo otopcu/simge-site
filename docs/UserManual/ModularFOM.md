@@ -70,11 +70,13 @@ Different standard FOM distributions sometimes refer to the same base module by 
 
 ## Composition and merge
 
-While you edit, modules stay separate. When you **export** a FOM or **generate code**, SimGe runs a **merge**: it composes the selected modules into a single, standard-compliant FOM suitable for the RTI, applying the normative merge rules. This is why a federation can be authored as many small modules yet delivered as one unified FOM.
+While you edit, modules stay separate. **Composition** merges the selected modules and their dependencies into a unified model using the merge rules. Use a composed model when you need the full dependency closure in one FOM; code generation also uses composition to resolve model dependencies.
+
+Individual module export remains available. In the FDD viewer, choosing **Composed dependency closure** for validation does not replace the model exported by the viewer. See [Importing & Exporting](ImportExport.md#exporting) for this distinction.
 
 ---
 
 **Next:** [Managing Modules](ManagingModules.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated September 14, 2026

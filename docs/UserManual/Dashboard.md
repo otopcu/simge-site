@@ -17,7 +17,9 @@ The dashboard is organized into four tabs:
 | **Semantics** | Payload saturation and dispersion — the Semantic Saturation Index (`SSI_n`) and coefficient of variation (`CV_p`) for each domain — with a saturation gauge. |
 | **Quality** | Integrity and maintenance risks — unresolved type references, diagnostic findings, and warnings. |
 
-Most figures are computed separately for the **Object Class (OC)** and **Interaction Class (IC)** domains, and a single analysis engine is the source of truth, so the dashboard numbers stay consistent with the [reports](MetricsReports.md).
+Most figures are computed separately for the **Object Class (OC)** and **Interaction Class (IC)** domains. The dashboard and [reports](MetricsReports.md) share an analysis engine; compare the same model, scope, and calibration settings.
+
+For structural metric definitions and the published methodology, see [Model Metrics & Reports — Metric definitions and published reference](MetricsReports.md#metric-definitions-and-published-reference). The dashboard provides interactive inspection and calibration of those indicators.
 
 ![The Structure tab with hierarchy metrics and the Architecture Profile Matrix](images/dashboard-structure.png)
 
@@ -44,6 +46,8 @@ Read the marker header as the post-gate profile. A small hierarchy can have a ra
 3. Use **Structure** and **Semantics** to judge whether the model's shape and payload profile match your intent.
 4. **Refresh** after edits to see the effect.
 
+The archetype gauge's **Domain Dominance (A)** describes distance from a balanced semantic-mass profile, not confidence in the assigned archetype. Read **R** and the archetype label for which domain dominates. A Hybrid model can therefore have low dominance without indicating an unreliable classification.
+
 > Use the **Composed** scope to analyze the merged result that will actually be exported; use **Module Only** to focus on the selected module's own content.
 
 ## Integrity findings
@@ -64,4 +68,4 @@ Use the copy button in the table header to place the findings on the clipboard a
 **Next:** [Model Metrics & Reports](MetricsReports.md)
 
 ---
-Updated June 30, 2026, 15:07:39
+Updated September 14, 2026

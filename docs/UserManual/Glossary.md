@@ -57,7 +57,7 @@ Definitions of the HLA, OMT, and SimGe-specific terms used throughout this manua
 : A link from one module to another it builds on. *Resolved* when the target is present; *unresolved / orphan* when it is missing.
 
 **Composition / Merge**
-: Combining several modules into a single, standard-compliant FOM. SimGe merges automatically on export and code generation.
+: Combining several modules into one model. Code generation resolves dependencies through composition; individual module export is also available. See [Importing & Exporting](ImportExport.md#exporting).
 
 ## File formats
 
@@ -107,4 +107,4 @@ Definitions of the HLA, OMT, and SimGe-specific terms used throughout this manua
 **Back to:** [User Manual overview](../UserManual.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated September 14, 2026

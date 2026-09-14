@@ -4,7 +4,7 @@ SimGe can generate **telemetry-instrumented** federate code so a run can be meas
 
 ## What it is for
 
-Design-time metrics (from the [dashboard](Dashboard.md) and [reports](MetricsReports.md)) describe how a model *should* behave. Telemetry captures how it *actually* behaves at run time — warm-up cost, latency, and where time is spent per event sub-phase. Comparing the two reveals **operational drift** between design and runtime, and lets you ask whether a design-time metric (breadth, semantic weight, archetype balance) actually predicts a runtime cost.
+Design-time metrics describe the model's structure and semantics. Telemetry captures runtime observations — warm-up cost, latency, and time spent per event sub-phase. Comparing them lets you investigate whether a structural or semantic indicator is associated with an observed cost under a particular workload. A design metric alone is not a runtime prediction. The structural definitions and their scope are available through the [published metric reference](MetricsReports.md#metric-definitions-and-published-reference).
 
 ## Enabling telemetry generation
 
@@ -17,7 +17,11 @@ When enabled, SimGe:
 
 When disabled, the generated code carries no instrumentation overhead.
 
+The current generator targets Fora `20260720.1.0`; check [Code Generator — Generated API Summary README](CodeGenerator.md#generated-api-summary-readme) for the compatibility profile. Scenario-step and iteration annotations belong to the optional **IForaTelemetry** capability, while clock-alignment probes belong to **IForaClockProbe**. Generated scenario-step calls are skipped when the client lacks telemetry capability; their absence does not establish that clock alignment passed.
+
 ## Capturing a run
+
+The command-line examples below require a SimGe source checkout and the corresponding research scenarios. The RPR/NETN corpora and their reports are not included in the SimGe installer.
 
 Runs are executed by the **SimGe validation harness**, a command-line tool (`SimGe.ValidationHarness`) that generates the code, builds the scenario, launches the Fora RTI and federates, and records telemetry. A minimal single-sample run:
 
@@ -69,6 +73,20 @@ Two design points worth knowing as a user:
 
 The complete procedure — prerequisites, reproduction, the cross-host merge, adding a new model, and troubleshooting — along with the frozen hypotheses, thresholds, and non-claims, is covered in the project's internal architecture documentation.
 
+## Reading mechanism-based estimates
+
+The per-sample report and the campaign's **Per-Model Consistency** section distinguish three mechanisms:
+
+| Report label | What to compare |
+|---|---|
+| **H-Sender** | Selected payload weight and send rate against sender-side work. |
+| **H-Fanout** | Selected payload weight, send rate, and delivery count against fan-out work. |
+| **H-State** | Class semantic weight and mean live-instance population against class-level **DISCOVER** work. |
+
+The retired single-product operational-load estimate is no longer a report interpretation to use. Read each mechanism's correlation, observation count, and verdict separately. H-State does not measure per-class memory allocation: the current memory observations are process/global context.
+
+`CampaignSampleSummary.json` carries all three mechanisms. `CorpusSummary.csv` includes `sender_rho`/`sender_n`, `fanout_rho`/`fanout_n`, and `state_rho`/`state_n`; the `rho` columns give rank correlation and the `n` columns give the paired observation count. Within-model consistency across cells is not the same as pooling all event evidence across the corpus; the current consistency section caps its verdict at **Weak / Directional**.
+
 ## Reproducibility
 
 Every admitted observation is tied to a reproducible envelope so a result can be re-derived:
@@ -93,4 +111,4 @@ Every admitted observation is tied to a reproducible envelope so a result can be
 **Next:** [Preferences & Options](Preferences.md)
 
 ---
-Updated July 20, 2026, 06:52:00
+Updated September 14, 2026

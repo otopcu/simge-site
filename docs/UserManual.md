@@ -2,6 +2,8 @@
 
 SimGe is an HLA object model editor, federation architecture modeling environment, and code generator. This manual covers it end to end — from installation through object modeling, federation design, and code generation.
 
+For structural metric definitions, see the [published research reference](UserManual/MetricsReports.md#metric-definitions-and-published-reference). The manual focuses on using SimGe and interpreting its outputs.
+
 ## Part I — Getting Started
 
 1. [Introduction & Concepts](UserManual/Introduction.md)

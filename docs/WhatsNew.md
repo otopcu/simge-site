@@ -1,14 +1,15 @@
 ### What's New
 
-SimGe 0.5.1 is now available.
+SimGe 0.5.2 is now available.
 
-- See the effect of a data-type change before you make it: the new **Data-Type Impact** analysis reports which attributes, parameters, record fields, classes, and dependent modules a type change would break or force to be regenerated, and ranks each type by how far its change would reach.
-- Get warned in context: deleting or renaming a referenced data type now shows the affected elements first, so you can proceed or step back with full knowledge.
-- Inspect any type on demand with the Project Explorer **Show Impact / Usages** action.
-- Generate reports for large models without the application freezing — report generation now runs off the UI thread with a progress indicator.
-- Cleaner code generation: the no-op fallback codec is emitted only when a model actually needs it, and a member with no declared data type is now reported as a diagnostic instead of being absorbed silently.
-- Research & telemetry: the OM4 cross-model / cross-host validation campaign harness adds a corpus driver, confirmatory cross-model statistics, and a validation matrix over the NETN telemetry samples.
-- Read updated public documentation covering the release notes, the code-generator and metric-analysis architecture, and the Fora API profile/contract that generated code targets.
+- Open and save `.fap` projects again after the project-settings serialization regression was corrected.
+- Preserve use limitations and other identification text when converting between the 2010 and 2025 model formats.
+- Generate against the updated **Fora 20260720.1.0** API profile, with optional telemetry capabilities and more complete experimental inactive-branch pruning.
+- Read module analysis results with the clarified **Domain Dominance** label, which describes semantic balance rather than confidence in an archetype.
+- Compare sender work, delivery fan-out, and state exposure separately in the telemetry validation reports and corpus summaries.
+- Use the updated **[User Manual](UserManual.md)** for generation, validation/export scopes, and report interpretation. Structural metric definitions are linked to the **[published paper](https://doi.org/10.1016/j.simpat.2026.103328)**.
+
+See [Release Notes](ReleaseNotes.md) for the complete changes and release verification notes.
 
 ---
-Updated July 20, 2026, 01:55:00
+Updated September 14, 2026

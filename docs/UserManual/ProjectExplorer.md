@@ -83,6 +83,7 @@ Each kind of item has its own right-click menu. Most menus also include **Expand
 | **Rename** | Renames the element. |
 | **Copy** | Copies the element. See [Copy and Paste OMT Elements](#copy-and-paste-omt-elements). |
 | **Delete** | Deletes the element. |
+| **Show Impact / Usages** | Enabled for datatype nodes. Shows referencing elements and the impact of removal/rename or a representation/encoding change. See [Data-type impact analysis](MetricsReports.md#data-type-impact-analysis). |
 | **Properties** | Shows the element's properties panel. |
 
 ### "Federate Applications" folder
@@ -211,4 +212,4 @@ The browse dialog remembers the folder you last used during the current session,
 The bundled sample projects (e.g. **Chat**, **STMS**) are installed in a shared, read-only location, so **Save** is disabled for them. To keep your edits — including a repaired module path — use **Save As** to store your own copy in a writable folder such as your Documents. **Save As** is always available for samples.
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated September 14, 2026

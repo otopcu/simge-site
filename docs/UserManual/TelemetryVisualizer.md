@@ -52,12 +52,18 @@ High-fidelity native charts are organized into analysis tabs:
 |---|---|
 | **Operational Drift** | A "WHL × PP" radar comparing design-time vs. runtime workload, with a hotspot burden / dynamic load-ranking grid. |
 | **Serialization Performance** | The JIT compiler warm-up curve and the steady-state latency distribution. |
-| **Attribute Selectivity** | An attribute/parameter selectivity grid (decoded via FNV-1a search combinations). |
+| **Attribute Selectivity** | An attribute/parameter selectivity grid resolved from the manifest's property-set map when available. |
 | **Sub-phase timing** | A stacked breakdown of where time goes across event sub-phases (encode/serialize/decode/apply). |
 
 ![The Operational Drift concentric radar chart comparing design-time and runtime workload](images/telemetry-visualizer-drift.png)
 
 *The **Operational Drift** tab. The "WHL × PP Operational Drift Profile Matrix" radar overlays the design-time workload profile against the measured runtime profile (each axis is a class, e.g. `Server`, `Cashier`, `CustomerSeated`), so divergence between design and runtime stands out. Beside it, the "Hotspot Burden & Dynamic Load Ranking" grid ranks classes by load. Save the chart as PNG and copy the grid as Markdown.*
+
+### Selectivity and older manifests
+
+Fora telemetry 2.0 manifests provide a **property-set map** (`fom.property_set_map`) that directly identifies the attributes or parameters in each recorded update/send set. The visualizer uses this map instead of reconstructing sets from hashes.
+
+For older manifests without the map, the visualizer uses a bounded reverse-hash search. Some sets may remain unresolved; this is a limitation of the available evidence, not proof that no attributes were updated. Capture a new run with a compatible current Fora version when complete selectivity information is needed.
 
 ## Exporting
 
@@ -80,4 +86,4 @@ The toolbar groups these as flat **Copy / Open / Folder / Save** buttons with to
 **Next:** [FAME — Federation Architecture Modeling Environment](FAME.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated September 14, 2026

@@ -31,6 +31,8 @@ Validation is performed in the **FDD viewer** (the **FDD Viewer (2010)** / **FDD
 2. The **schema** selector - **DIF**, **FDD**, or **OMT**.
 3. The **scope** selector - **Standalone module** or **Composed dependency closure**.
 
+The default schema profile is **DIF** and the default scope is **Standalone module**. The scope selector changes the validation input; it does not switch the viewer's export to a composed document. See [Importing & Exporting](ImportExport.md#exporting).
+
 Click **Validate** to check the document against the selected *standard + schema profile + scope*. Changing any selector re-targets validation, so you can verify the same model against several schemas and module-composition scopes. Validation also runs **automatically during import**, so problems in a source file are reported as it is read (see [Importing & Exporting](ImportExport.md)).
 
 Because SimGe authors models as [modules](ModularFOM.md), scope matters:
@@ -44,10 +46,13 @@ If standalone validation fails with a data-type keyref error but the type is ava
 
 ## Reading the results
 
+The viewer's status bar keeps a **Validation Status** of **not run**, **running**, **valid**, **failed**, or **needs dependencies**. For **needs dependencies**, inspect the dependency-closure advisory and retry with composed validation after checking the named modules. Always read the selected scope together with the status.
+
 Validation results open in a dedicated results window:
 
 - A clean run reports success.
 - Problems are listed with enough detail to locate them (the offending element and the rule or schema constraint involved).
+- Common errors include a **What to do:** hint suggesting the next edit or dependency check.
 - The window is color-coded by outcome so you can tell success from warnings and errors at a glance.
 
 ![The FDD validation results window listing schema findings for the validated document](images/validation-results.png)
@@ -79,4 +84,4 @@ Work through the listed items, fix them in the [OME](OME.md), and re-validate un
 **Next:** [FOM Dashboard](Dashboard.md)
 
 ---
-Updated June 30, 2026, 15:07:39
+Updated September 14, 2026

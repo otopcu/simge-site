@@ -10,6 +10,8 @@ It explains:
 
 This document does **not** cover legacy RACoN / HLA 1.3 / HLA 1516e generators.
 
+For definitions of the structural metrics behind analysis guidance, see the [published metric reference](MetricsReports.md#metric-definitions-and-published-reference). This page describes generation controls and output behavior.
+
 ![The generated-code viewer showing a federate's generated C# source, with one tab per generated file](images/code-generator.png)
 
 *The generated **code viewer** for a federate (here `ChatFdApp`). After a generation run, SimGe opens the produced C# files for read-only review — each generated file is a tab along the bottom — and you can copy (Ctrl+C) or export (Ctrl+E) the source. Generation is configured in the project's **Code Generator settings** (see [Project Structure & Settings](ProjectSettings.md)) and summarized in a per-federate report afterwards.*
@@ -151,6 +153,10 @@ The README is regenerated on each run and should be treated as generated documen
 
 SimGe does not require `Fora.Client` as a NuGet dependency in order to generate code. The generator reports the embedded Fora API profile it was authored and tested against. End-user projects must reference a compatible `Fora.Client` package or project when compiling the generated code.
 
+For SimGe **0.5.2**, the embedded profile is **HLA2025-ForaClient-20260720**, with minimum and tested `Fora.Client` version **20260720.1.0**, targeting **.NET 10 / C# 14**. Use the profile recorded in a fresh `README.generated.md` when checking an existing application's package references. A newer package version still requires compatibility verification.
+
+The standard client interface is `IForaClient`. Scenario annotations use the optional `IForaTelemetry` capability; generated `SetScenarioStep` calls do nothing when the client does not provide that capability. Clock-alignment probes belong to `IForaClockProbe`. When adapting hand-written scenario code, use the appropriate optional capability rather than calling these extensions through `IForaClient`. See [Fora Telemetry & Validation](ForaTelemetry.md).
+
 ---
 
 ## Fora Contract Validation
@@ -207,6 +213,20 @@ Important behavior:
 
 - if `EnableMetricDrivenVariants = false`, SimGe stays on the legacy Fora generation path
 - dispatch-table output is now also gated by `EnableMetricDrivenVariants`
+
+### Fora Telemetry Settings
+
+**Enable Fora Telemetry** (`EnableForaTelemetry`, default `false`) enables instrumentation in the generated code. See [Fora Telemetry & Validation](ForaTelemetry.md) for capture and inspection steps. Scenario annotations additionally require a client that supports `IForaTelemetry`.
+
+### Inactive-branch pruning (experimental / programmatic)
+
+`EnableInactiveBranchPruning` defaults to `false`. It is used by the experimental generation/campaign path and is not currently exposed as a checkbox in the Code Generator settings UI. It is separate from the metric-driven variant switch.
+
+Pruning requires both the switch and a per-run set of eligible class names. The caller supplies workload reachability, external-reference, and modular-dependency information to the eligibility evaluator. A branch qualifies only when it has no exchange-participating class, contributes no inherited members to an active class, is not referenced by another generated artifact, is unreachable under the supplied workload, and is not needed for modular resolution. A class's Publish/Subscribe value alone is insufficient.
+
+For eligible branches, generation suppresses the affected class artifacts. In 0.5.2 this also covers SOM object-class, interaction-class, attribute, and parameter handle declarations and their `InitHandlesAsync` RTI lookups. Base MIM handles (`HLAobjectRoot`, `HLAinteractionRoot`, and `HLAprivilegeToDeleteObject`) remain, as do the `FomMetricsMetadata.simge.cs` design-time snapshots when emitted. Pruning changes generated output; it does not delete classes from the source model.
+
+Re-evaluate eligibility whenever the workload or model dependencies change. The class-name set and emission counters are computed for each run and are not stored as project state. The behavior descriptions below refer to retained classes when this experimental option is active.
 
 ---
 
@@ -291,8 +311,8 @@ uses the generated delta helper for periodic hotspot objects.
 
 Behavior:
 
-- always emits interaction encoders
-- always emits object encoders
+- emits interaction encoders for retained classes
+- emits object encoders for retained classes
 - if strategy says `EmitSpecializedCodec`, object encode methods delegate to `[Class]Codec.Encode(...)`
 
 Current scope:
@@ -304,8 +324,8 @@ Current scope:
 
 Behavior:
 
-- always emits interaction decoders
-- always emits object-family dispatch methods
+- emits interaction decoders for retained classes
+- emits object-family dispatch methods, excluding pruned classes from routing
 - if strategy says `EmitSpecializedCodec`, object decode methods delegate to `[Class]Codec.Decode(...)`
 - if metric mode is enabled and `EmitDispatchTable = true`, object-family dispatch methods use generated dispatch dictionaries
 
@@ -313,8 +333,8 @@ Behavior:
 
 Behavior:
 
-- always emits generated entity proxy partials
-- always emits user scaffold entity files
+- emits generated entity proxy partials for retained object classes
+- emits user scaffold entity files for retained object classes
 - if strategy says `EmitDeltaTracker`, entity proxy includes a delta-tracking hook
 
 Important fix:
@@ -397,7 +417,7 @@ Behavior:
 
 - emits `README.generated.md` at the federate output root
 - summarizes the generated object classes, interaction classes, dimensions, datatypes, helper APIs, and extension points
-- records Fora target compatibility using the resolved `Fora.Client` version when available and the generated code's actual Fora namespaces
+- records the embedded Fora API profile as the target compatibility baseline, with a resolved target-project `Fora.Client` version as additional metadata when available
 - records metric-driven settings and per-class strategy outcomes
 - includes analytical synthesis diagnostics collected during the generation run
 
@@ -549,4 +569,4 @@ Metric-driven mode currently affects:
 The most important present limitation is that specialized metric-driven file generation is currently **Object Class only**, even though the metric analysis also evaluates Interaction Classes.
 
 ---
-Updated July 6, 2026, 01:55:00
+Updated September 14, 2026
