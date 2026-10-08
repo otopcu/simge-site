@@ -113,12 +113,6 @@
 - **Features Page**: Added a product-capability overview covering OMDE, FAME, code generation, reports, Project Explorer, and telemetry inspection, with links to the user manual. The site navigation and publishing pipeline now include `Web/Features.md` as the public `Features` page.
 - **Public Site Sources and Home**: Refreshed Home with a concise workflow overview and getting-started links. Home, Downloads, and Disclaimer now join Features and What's New under `docs/SimGeWiki/Web/`; publication preserves existing URLs and adjusts source-relative links. Downloads clarifies runtime requirements and bundled samples. User Manual and Release Notes retain their existing source locations.
 
-### Release Verification
-- **Automated Tests**: Release configuration of the development solution completed with **2,042 passed, 1 failed, 0 skipped** out of 2,043 tests (UI tests 390 of 390; model tests 1,652 of 1,653). The one failure is `Fom1cSemanticTraceIdentityTests.ObjectDispatchSelectsExpectedHandler`, a FOM1c research test that is not part of the shipped product; it fails the same way with this release's Fora generation change reverted.
-- **Documentation**: The public-site MkDocs strict build passed (33 pages). A local check of 373 links, images, and anchors across the user manual, public Web pages, and Release Notes found no broken targets other than the site-generated manual cover. The build also led to two fixes: the Editing Rules chapter no longer links to Architecture chapters that the site does not publish, and the Object Instance Registry chapter was added to the site navigation.
-- **Bundled Samples**: The Chat and STMS projects were refreshed from the working copies in ProgramData. Generated code is not bundled: the project and federation files point at the sample's own `SourceCode` folder and no longer report a generated FDD file. The packaged copies match the refreshed files.
-- **Installer**: Release MSI built with 0 errors and 459 warnings (22.7 MB). MSI ProductVersion and the packaged application version are `0.5.3.0`; the extracted payload (87 files) targets .NET 10, contains the current Fora.Client 20260720.1.0 contract snapshot and the bundled samples, and ships no `.pdb` or `.exe.config` files.
-
 ## [0.5.2] - 2026-09-14
 
 ### Fora Telemetry Validation
@@ -146,11 +140,6 @@ The RPR/NETN corpus and sample-report changes below concern repository research 
 ### Documentation
 - **User Manual Updated**: Aligned the manual with the current Fora compatibility profile, experimental pruning boundaries, telemetry selectivity and mechanism-based reports, datatype impact workflows, and validation/export scopes. Structural metric definitions are referenced through the [published paper](https://doi.org/10.1016/j.simpat.2026.103328), with concise guidance for interpreting Domain Dominance and other application outputs.
 - **AI Assistance Disclosure**: The Disclaimer now states that the user manual was prepared and updated with the assistance of an AI agent.
-
-### Release Verification
-- **Automated Tests**: Release configuration completed with **1,301 passed, 1 failed, 0 skipped** out of 1,302 tests. The known exception is `SecondaryTopologyGeneratorTests.NetnCorpusReferenceMatchesFrozenArtifactSet`: the live NETN metrics report has been refreshed, while the historical FOM1c A3 contract still expects its frozen report hash. The 42-file NETN corpus identity check passes; the report-file hash check fails. The frozen research contract was not changed to make this release test pass. Reproducing that historical analysis requires its matching frozen report, not the current report.
-- **Documentation**: The public-site MkDocs strict build passed; 26 rendered user-manual pages passed 2,073 local-reference checks, including 23 image references.
-- **Installer**: Release MSI built with 0 errors and 127 warnings. MSI ProductVersion and the packaged application version are `0.5.2.0`; the extracted payload targets .NET 10, contains the current Fora API snapshot and no PDB files, and has an empty application configuration. The extracted application passed a startup smoke check, and the packaged Chat/STMS projects passed XML open/save round trips. The MSI does not include the sample `SourceCode` directories, so those unshipped generator snapshots were not regenerated for this package.
 
 ## [0.5.1] - 2026-07-20
 
