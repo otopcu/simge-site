@@ -1,15 +1,16 @@
 ### What's New
 
-SimGe 0.5.2 is now available.
+SimGe 0.5.3 is now available.
 
-- Open and save `.fap` projects again after the project-settings serialization regression was corrected.
-- Preserve use limitations and other identification text when converting between the 2010 and 2025 model formats.
-- Generate against the updated **Fora 20260720.1.0** API profile, with optional telemetry capabilities and more complete experimental inactive-branch pruning.
-- Read module analysis results with the clarified **Domain Dominance** label, which describes semantic balance rather than confidence in an archetype.
-- Compare sender work, delivery fan-out, and state exposure separately in the telemetry validation reports and corpus summaries.
-- Use the updated **[User Manual](UserManual.md)** for generation, validation/export scopes, and report interpretation. Structural metric definitions are linked to the **[published paper](https://doi.org/10.1016/j.simpat.2026.103328)**.
+- Start from a **Start Page** that shows the project's modules, dependencies, analysis, and generated-code status, suggests the next step, and switches between recent projects and the bundled samples.
+- Declare the object instances a federate registers in an **Object Instance Registry** on each SOM, with initial attribute values and DDM region scopes. Generated Fora federates reserve the names and register the instances for you.
+- Generate Fora federates for the **IEEE 1516.1-2025** callback set, including save and restore, ownership, and time callbacks, and create the federation from several FOM modules in load order.
+- Read module analysis against the updated **Fom2 reference** (upper anchor 256) in a Semantics tab with joint saturation and dispersion diagnosis, payload drill-down, and robustness under 22 calibration profiles.
+- Compare every FOM module of a project in one **Object Model Analysis** workspace, with input hashes and Markdown, CSV, and LaTeX export.
+- Edit with validation in every Object Model Editor dialog, find any command with **Ctrl+K**, and be asked about unsaved changes before closing a project.
+- Switch MOM integration on and off without errors, and see clear messages when a save, import, export, or generation command fails.
 
 See [Release Notes](ReleaseNotes.md) for the complete changes and release verification notes.
 
 ---
-Updated September 14, 2026
+Updated October 8, 2026

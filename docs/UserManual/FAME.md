@@ -4,16 +4,42 @@ The Federation Architecture Modeling Environment (FAME) is the central workspace
 
 ![The FAME workspace: the Federation Structure Diagram in the center with the properties pane for the federation and federate applications](images/fame.png)
 
-*The FAME workspace showing the Chat federation in the **Federation Structure Diagram (FSD)** view (chosen from the **View** dropdown). The federate application `ChatFdApp` (containing the `ChatFd` federate) links to its `ChatFom` / `ChatSom` modules with `1..*` multiplicity and connects to the central **RTI**. The properties pane on the left configures the federation and the selected federate; double-clicking a federate's note icon jumps to its Object Model Editor.*
+*The FAME workspace showing the Chat federation in the **Federation Structure Diagram (FSD)** view (chosen with the **Structure (FSD)** / **Deployment (UML)** selector). The federate application `ChatFdApp` (containing the `ChatFd` federate) links to its `ChatFom` / `ChatSom` modules with `1..*` multiplicity and connects to the central **RTI**. The properties pane on the left configures the federation and the selected federate; double-clicking a federate's note icon jumps to its Object Model Editor.*
 
 ---
 
 ## Workspace Layout
 
 The FAME interface is divided into three main areas:
-1.  **Main Toolbar**: Common operations like toggling the property pane and exporting the diagram.
-2.  **FSD Diagram (Center)**: A visual representation of the architecture.
-3.  **Properties Pane (Left)**: Configuration tabs for the Federation and individual Federate Applications.
+1.  **Toolbar**: Show or hide the properties pane, switch between **Structure (FSD)** and **Deployment (UML)**, show or hide the **Legend**, **Export image**, and, on the right, the **readiness badge**.
+2.  **Diagram (Center)**: A visual representation of the architecture. Right-click it for **New federate application**, **Rename** or **Remove** the selected application, **Legend**, **Zoom to fit**, and **Export image**; right-clicking an application selects it first.
+3.  **Properties Pane (Left)**: Tabs for the Federation and individual Federate Applications.
+
+---
+
+## Readiness
+
+![FAME for a new federation: the readiness badge shows one step left, and the diagram invites the first federate application](images/fame-empty.png)
+
+*A new federation with its FOM selected and no federate application yet.*
+
+The badge at the right of the toolbar summarizes what code generation still needs: **2 steps left**, **1 step left**, **Ready · 1 warning** (code is generated, but an application without a SOM is skipped), or **Ready to generate** in green. Click it for the checklist:
+
+![The readiness checklist opened from the badge](images/fame-readiness.png)
+
+| Item | Met when |
+|---|---|
+| **FOM modules** | The federation has at least one FOM module, every module they depend on is in the project, and the modules combine without conflict. Otherwise the item names the problem: **Select FOM modules**, **FOM module not available**, **N missing dependencies**, **Circular module dependency**, or **FOM modules conflict**. |
+| **Federate applications** | At least one application exists. |
+| **SOM for every application** | Each application has a SOM module. Code generation skips applications without one. |
+
+When the FOM modules and at least one application with a SOM are in place, the checklist reads **Ready to generate code** and its **Generate code** button generates code for every application. Hover an item for details.
+
+![FAME with the readiness card complete and the new application selected](images/fame-ready.png)
+
+*The same federation with one application and its SOM. Clicking an application on the diagram opens it on the Federate Apps tab.*
+
+While the federation has no application, the diagram shows **No federate applications yet** with a **New federate application** button.
 
 ---
 
@@ -22,10 +48,16 @@ The FAME interface is divided into three main areas:
 This tab contains global settings for the entire federation execution.
 
 -   **Federation Name**: The identifier for the federation execution.
--   **Fom Module**: Select the root FOM module for the federation. 
-    *   Click the **Folder (Open)** icon next to the dropdown to immediately jump to that module's Object Model Editor (OME).
--   **FOM GUID**: Displays the unique identifier of the selected FOM module.
--   **FDD File**: Shows the path where the Federation Design Document (FDD) is generated. Clicking the link opens the folder in Windows Explorer.
+-   **FOM Modules**: The modules the federation is created with. IEEE 1516.1-2025 §4.5 creates a federation from a set of FOM modules, and the RTI combines them.
+    *   Choose a module in the dropdown and click **+**. Select only the modules you need; SimGe adds every module they depend on.
+    *   The list shows every module in load order, dependencies before the modules that use them. Selected modules are bold, and each required module says which module needs it. Double-click a module to open it in the Object Model Editor. **×** removes a selected module.
+    *   A dependency that is not in the project is listed in amber with an **Import** button, as on the dashboard. A selected module that was removed from the project is listed too; import it or remove it.
+    *   Below the list, SimGe composes the modules with the IEEE 1516.2 merging rules the RTI applies. If two modules define the same element differently, the RTI would reject Create Federation Execution, so the conflict is reported here first.
+-   **MIM**: The Management Object Model the RTI loads before the FOM modules. Keep **HLAstandardMIM (RTI default)**, or choose an imported OMT of type MIM to use a user-extended MIM.
+-   **Logical Time**: The time implementation named at creation: **HLAfloat64Time** (default) or **HLAinteger64Time**. Fora RTI supports only HLAfloat64Time and rejects any other; the tab warns when you choose another.
+-   **FDD File**: Shows the composed FDD that code generation writes. Clicking the link opens the folder in Windows Explorer.
+
+Projects saved with a single FOM module open with that module selected.
 
 ---
 
@@ -48,6 +80,7 @@ Located at the top of the tab:
 -   **Multiplicity**: Defines how many instances of this federate will exist in the federation (e.g., `0..1`, `1..*`, `5`).
 -   **Connection**: Technical RTI connection string (e.g., `localhost:6001`).
 -   **Host / Node**: The physical host or node this federate application is deployed to. Drives the [Deployment Diagram (UML)](#deployment-diagram-uml) view; when left empty it is shown as `LocalHost`.
+-   **Join Modules**: Additional FOM modules this application supplies when it joins (IEEE 1516.1-2025 §4.11), for extensions only it uses. Modules already in the federation's FOM are not offered, and their dependencies are added automatically. The composition check on the Federation tab also checks each application's join modules against the federation's FOM.
 -   **Notes**: Personal documentation and implementation details for the federate.
 
 ---
@@ -64,7 +97,7 @@ The Federation Structure Diagram (FSD) is a "living" model that provides real-ti
 -   **Stacked Boxes**: If a federate's multiplicity is greater than one, it appears as a stack of boxes to indicate a multi-instance cluster.
 -   **Interactive Pulse**: Hovering over a federate box or its "Lollipop" icon makes the connection line to the RTI glow and thicken, representing an active link.
 -   **Rich Tooltips**: Hover over any federate box to see a human-readable summary of its connection settings (Target, Port, Protocol), multiplicity, and linked modules.
--   **Legend**: A guide in the bottom-left corner explains the symbols used in the diagram (FdApp, Federate, OMT Module, Multi-instance).
+-   **Legend**: A guide in the bottom-left corner explains the symbols used in the diagram (FdApp, Federate, OMT Module, Multi-instance). Hide it with **Legend** in the toolbar or the diagram's context menu; the choice holds for the session.
 
 ### Navigation
 -   **Interactive Navigation**: Double-click a module's "Note" icon to jump straight to that module's [Object Model Editor](OME.md).
@@ -80,7 +113,7 @@ Diagnostic badges appear in the top-right corner of federate boxes to catch mode
 
 ## Deployment Diagram (UML)
 
-Switch the **View** dropdown from *Diagram (FSD)* to *Deployment Diagram (UML)* to see the same federation as a UML deployment diagram — useful for documenting how the federation maps onto physical hosts and the network.
+Select **Deployment (UML)** in the toolbar to see the same federation as a UML deployment diagram — useful for documenting how the federation maps onto physical hosts and the network.
 
 Each federate application is drawn as its own host node, labeled with its **Host / Node** value from the Federate Apps tab (or `LocalHost` when that field is empty). Inside the host, the federate appears as a UML «artifact» alongside its `ForaClient` «component», and every host connects to the central `rti.server` node through the **HLA/RTI network bus**, with each link labeled by the federate's connection protocol. Set the **Host / Node** field on each federate to control how the deployment topology is laid out.
 
@@ -95,6 +128,7 @@ Each federate application is drawn as its own host node, labeled with its **Host
 Located at the bottom of the workspace:
 -   **Status Message**: Shows current system activity or "Ready" state.
 -   **Selection Info**: Displays the name of the currently selected federate application.
+-   **Hint**: How to work with the diagram: click an application to edit it, double-click a FOM or SOM to open it, right-click for actions.
 -   **Zoom Controls**: 
     *   **Slider**: Smoothly adjust diagram magnification from 20% to 250%.
     *   **+/- Buttons**: Step-wise zoom adjustment.

@@ -6,7 +6,7 @@ Download the latest SimGe installer:
 
 - **[SimGe.msi](https://github.com/otopcu/simge-site/releases/latest/download/SimGe.msi){ target="_blank" rel="noopener" }**
 
-Current release: **SimGe 0.5.2** (September 14, 2026).
+Current release: **SimGe 0.5.3** (October 8, 2026).
 
 ## Requirements and samples
 

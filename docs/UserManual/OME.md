@@ -2,9 +2,13 @@
 
 The Object Model Editor (OME) is the main workspace for editing a FOM or SOM module in tabular form. It combines hierarchy-oriented table views, flat property tables, and item editors for detailed OMT work.
 
+For accepted names, duplicate-name scopes, parent and inheritance rules, required fields, and disabled confirmation messages, see [Editing Rules and FOM Validation](Validation.md#names-while-editing).
+
+Every OME editor dialog shares an orange Error/Warning status bar with message navigation and a Copy button. See [Editor validation status bar](Validation.md#editor-validation-status-bar) for colors, Save behavior, and copying all messages.
+
 ![The OME table editor showing an OMT table with its rows and the editing toolbar](images/table-editor.png)
 
-*The OME table editor, here showing a module's **Attribute** table as editable rows (name, object class, data type, update type/condition, P/S, transportation, order, …). The toolbar's Add/edit controls adapt to what the active table supports, and double-clicking a row opens its dedicated item editor. The module workspace also carries tabs along the bottom — **Dashboard**, **Table Editor**, **FED Viewer**, **FDD Viewer (2010)**, **FDD Viewer (2025)**, and **Diagram Editor** — covered in their own chapters.*
+*The OME table editor, here showing a module's **Attribute** table as editable rows (name, object class, data type, update type/condition, P/S, transportation, order, …). The toolbar's Add/edit controls adapt to what the active table supports, and double-clicking a row opens its dedicated item editor. The module workspace also carries tabs along the bottom — **Dashboard**, **Table Editor**, **FED Viewer**, **FDD Viewer (2010)**, **FDD Viewer (2025)**, and **Diagram Editor** — covered in their own chapters. A SOM module adds a last tab, the [Object Instance Registry](ObjectInstanceRegistry.md).*
 
 ---
 
@@ -29,9 +33,60 @@ OME is module-scoped. Each open OME tab works on one active module and can expos
 - notes
 - services
 
+### MOM integration
+
+The MOM checkbox in the identification area adds the standard Management Object Model to the open module so you can see and reference its classes. What you switch on is a **view over your module, not part of it**: the module file is always written without MOM, and the setting is remembered in the module metadata, so reopening the project restores it. Switching it off removes every MOM element again, leaving your own content untouched. Standard modules (MIM/MOM) cannot be integrated into themselves.
+
 Changes made in OME mark the active module as modified and set the project save state to `Unsaved changes` until the next successful save.
 
 Sample references in this document use the installed Chat sample under `C:\ProgramData\SimGe\Samples\Chat\Fom`, primarily `ChatSom.xml`.
+
+---
+
+## Dashboard: semantic diagnosis
+
+For the complete dashboard guide, including calibration controls and analysis scope, see [FOM Dashboard](Dashboard.md#semantic-diagnosis).
+
+The **Semantics** tab shows a diagnosis for each Object and Interaction domain in the selected **Composed** or **Module Only** scope. The existing **SSI_n** card also displays the propensity score **Ψ**, its colored region badge, the driving component, and the concrete class population **P_c**. Use its information button to expand the explanation or copy it.
+
+| Region | Propensity |
+| --- | --- |
+| Balanced | Ψ < 0.30 |
+| Transitional | 0.30 ≤ Ψ < 0.60 |
+| High | 0.60 ≤ Ψ < 0.95 |
+| Critical | Ψ ≥ 0.95 |
+
+For objects, the larger of the **anemia** and **saturation** components determines Ψ. Interactions use saturation only; lightweight interactions do not receive an anemia penalty. Region assignment uses the unrounded score; hover over the score or badge for details.
+
+**P_c** counts concrete classes with active sharing semantics. Below 10, the card shows **Gated** and suppresses the diagnosis; the raw SSI_n remains informational. An empty population or undefined SSI_n shows **Unavailable**. Neither state means Balanced.
+
+![Dashboard cards showing High anemia, Balanced saturation-only, Gated, Unavailable, High concentration, and a neutral descriptive card](images/semantic-diagnosis-cards.png)
+
+*The shared dashboard card template with representative inputs, including the Restaurant object-domain example: SSI_n ≈ 2.83, Ψ = 0.813, High anemia, P_c = 39.*
+
+Raw **SSI_n** remains at the top of the same card; the companion **CV_p** card shows the dispersion band, the largest class weight, and P_c. The two are assessed independently. The dashboard guide explains the card colors, the joint saturation × dispersion view, calibration sensitivity, payload drill-down, and the structure × payload lens: see [FOM Dashboard](Dashboard.md#semantic-diagnosis).
+
+### Propensity curves
+
+The previous color band is replaced by two curves: **Anemia (OC only)** and **Saturation (OC / IC)**. The blue circle marks the OC score on its larger component; the orange triangle marks the IC saturation score. A low-SSI interaction therefore remains in the Balanced region, even when anemia is high for objects at the same SSI.
+
+The vertical axis is Ψ, with the four region bands. The horizontal axis uses a log₂ scale so small and large SSI values remain readable; zero has a separate lane. Reference anchors 4 and 256 correspond to Ψ = 0.5; critical points 2 and 512 correspond to Ψ = 0.95 on the respective curves. The axis expands to include values above 512. Hollow markers indicate gated populations: their positions are informational, not assigned diagnoses. Undefined indices have no marker.
+
+### Payload concentration
+
+Each domain shows the five classes with the largest W_i, followed by **Others** when more classes exist. Bars show individual shares of the domain's total semantic weight; the connecting line and **Σ** labels show cumulative shares. The summary identifies the largest contributor and the combined top-five share. Hover over a row for its full name and values.
+
+The denominator includes the entire concrete class population, not just the visible five. Inherited attributes/parameters and the reference update-volatility weights are included consistently with CV_p. These are **design-time semantic-weight shares**, not observed runtime traffic or workload. Empty or zero-total populations have no percentage chart.
+
+![Reference propensity curves and an illustrative payload Pareto chart](images/semantic-curves-pareto.png)
+
+*Actual WPF rendering. Curve inputs illustrate OC SSI_n ≈ 2.83 and IC SSI_n = 0.18. Pareto weights are illustrative test inputs, not measured Restaurant results.*
+
+### Resolution health
+
+The module card shows one green badge when the composed analysis resolves cleanly, or one badge per issue: lenient composition, unresolved datatype references, missing dependencies, or dependencies outside the scope. **Dependencies and composition** lists the modules in composition order, direct and transitive, with missing ones marked. See [Resolution health and analysis scope](Dashboard.md#resolution-health-and-analysis-scope).
+
+**Lenient fallback does not establish strict composition conformance.** Missing dependencies and unresolved types can affect semantic weights; a zero unresolved-reference count alone does not prove a complete dependency closure. The check covers declared dependencies only. In Module Only scope, the strip states that dependency closure was not applied and lists available dependencies outside the selected scope.
 
 ---
 
@@ -97,7 +152,7 @@ Typical copy-table shape:
 
 Opening an object class from the `Objects` table shows the `Object Class` editor.
 
-The editor covers parent, sharing, declared dimensions, directed interactions, semantics, notes, and the embedded `Attributes` list for attributes declared on that class.
+The editor covers parent, sharing, declared dimensions, directed interactions, semantics, notes, and the embedded `Attributes` list for attributes declared on that class. In a SOM it also has an `Instances` tab that declares the object instances the federate registers for the class; see [Object Instance Registry](ObjectInstanceRegistry.md).
 
 ### Recommended Use
 
@@ -399,7 +454,7 @@ The synchronization editor is used for:
 
 #### Label Naming Rules
 
-Synchronization point labels (Name property) must conform to standard HLA OMT identifier rules:
+Synchronization point labels use SimGe's common element-name checks (see [Naming Rules](Validation.md#names-while-editing)):
 - **Case-Sensitive Uniqueness**: Sibling labels must be unique within the module.
 - **Valid Characters**: Labels must start with a letter (`A-Z`, `a-z`) or underscore (`_`), followed by letters, digits (`0-9`), underscores, or hyphens (`-`).
 - **Reserved Prefix**: User-defined labels must not start with the reserved prefix `"HLA"` (case-insensitive).
@@ -533,6 +588,80 @@ Typical use:
 - inspect cross-category datatype dependencies
 
 This is one of the most important tables in day-to-day model authoring.
+
+### Editing enumerators and record fields
+
+Open an Enumerated or Fixed Record datatype, then use **Add** or **Edit** in its member list. Double-click and **F2** also open the selected member; **Remove**, **Up**, and **Down** manage membership and order. Enumerators have Name, Value(s), and note selections; record fields have Name, Data Type, Semantics, and notes. Invalid member names, duplicate names, and values shared by different enumerators are reported before confirmation. Array cardinality is also checked for its count/list/range/Dynamic form.
+
+Confirm the item, then confirm the enclosing datatype to apply the changes. Cancelling the enclosing editor discards its staged member and note changes. See [Datatype editing rules](Validation.md#datatypes-and-record-contents) for examples and the scope of these checks.
+
+### Variant records: discriminants and alternatives
+
+A **variant record** represents a value whose payload has different possible forms. It is a discriminated (tagged) union: a selector value identifies which alternative applies. Unlike a fixed record, it does not carry every declared alternative together. The same datatype can be used in attributes, parameters, array elements, or fields of other records.
+
+![[Pasted image 20260924140033.png]]
+
+| Editor term                | Meaning                                                     | Restaurant FOM example |
+| -------------------------- | ----------------------------------------------------------- | ---------------------- |
+| **Name**                   | Name of the reusable variant datatype                       | `ServerValue`          |
+| **Discriminant**           | Name of the selector inside each record value               | `Experience`           |
+| **Discriminant Type**      | Enumerated datatype defining the selector's possible values | `ExperienceLevel`      |
+| Alternative **Enumerator** | Discriminant value or values selecting this alternative     | `Trainee`              |
+| Alternative **Name**       | Name of the payload member selected by that value           | `CoursePassed`         |
+| Alternative **Data Type**  | Datatype of that payload member                             | `HLAboolean`           |
+| **Encoding**               | Rule for representing the record in exchanged bytes         | `HLAvariantRecord`     |
+
+The discriminant's **name**, **type**, and **value** are different things: `Experience` is the name, `ExperienceLevel` is its type, and `Temporary` is one possible value. The alternative name is separate again: `Temporary` selects the member named `TempAgency`.
+
+#### Restaurant example: ServerValue
+
+The IEEE Restaurant example declares `ExperienceLevel` as an enumerated datatype represented by `HLAinteger32BE`:
+![[Pasted image 20260924140132.png]]
+
+| Enumerator | Numeric value | Selected alternative | Alternative datatype |
+| --- | ---: | --- | --- |
+| `Trainee` | 0 | `CoursePassed` | `HLAboolean` |
+| `Apprentice` | 1 | `Rating` | `RateScale` |
+| `Journeyman` | 2 | `Rating` | `RateScale` |
+| `Senior` | 3 | `Rating` | `RateScale` |
+| `Temporary` | 4 | `TempAgency` | `HLAunicodeString` |
+| `Master` | 5 | `Rating` | `RateScale` |
+
+The variant itself needs only three alternative rows:
+
+| Enumerator | Name | Data Type |
+| --- | --- | --- |
+| `Trainee` | `CoursePassed` | `HLAboolean` |
+| `Temporary` | `TempAgency` | `HLAunicodeString` |
+| `HLAother` | `Rating` | `RateScale` |
+
+`HLAother` covers the discriminant enumerators not explicitly assigned to the other alternatives. It is a special mapping entry, not an additional numeric value in `ExperienceLevel`. In this example it covers `Apprentice`, `Journeyman`, `Senior`, and `Master`. It is allowed at most once with `HLAvariantRecord`; it is not allowed with `HLAextendableVariantRecord`.
+
+`RateScale` is a simple datatype represented by `HLAinteger32BE`. An alternative may also use a composite datatype, such as a fixed record: selecting that alternative then selects the whole nested record, not just one of its fields.
+
+These are illustrative values, not additional datatype declarations:
+
+```text
+Experience = Trainee    -> CoursePassed = true
+Experience = Temporary  -> TempAgency = "Example Agency"
+Experience = Senior     -> Rating = 2
+```
+
+In the second value, the discriminant selects `TempAgency`; `CoursePassed` and `Rating` are not part of that value's encoded payload. `HLAvariantRecord` encodes the discriminant and its selected alternative, with alignment padding where required. This is an interchange encoding, not the in-memory layout of a C `union`.
+
+#### Inspecting the example in OME
+
+1. Open the Restaurant FOM module and select **Datatypes**.
+2. Open `ExperienceLevel` to inspect its enumerators and numeric values.
+3. Open `ServerValue` in the variant-record category. Its **Discriminant** is `Experience`, **Discriminant Type** is `ExperienceLevel`, and **Encoding** is `HLAvariantRecord`.
+4. Inspect the three **Alternatives** rows above. Use **Add** or **Edit** to define the enumerator-to-alternative mapping; these rows describe permitted values, not the current state of a running simulation.
+5. Confirm the alternative editor, then the enclosing datatype editor with **OK** to apply changes.
+
+In the Restaurant example, the `Server` class uses `ServerValue` for both `Efficiency` and `Cheerfulness`. Each value contains its own discriminant. Both attributes declare **Update Type = Conditional** and **Update Condition = Performance review**. Those settings describe when the attribute is updated; they do not select a variant alternative. The application supplies the discriminant and matching payload. The FOM defines the mapping but does not prescribe how frequently each alternative is used.
+
+Source: IEEE Std 1516.2-2025, Sections 4.5.2, 4.14.8 (Tables 39–40), and 4.14.10.2; `RestaurantFOMmodule-2025.xml` supplied with the standard.
+
+For the corresponding Fora C# types, application updates, and encoder behavior, see [Restaurant FOM: ServerValue variant record](CodeGenerator.md#restaurant-fom-servervalue-variant-record).
 
 ### Datatype change impact (delete / rename)
 
@@ -684,6 +813,12 @@ In practice:
 
 ---
 
+## Object Instance Registry
+
+In a SOM module, the last tab of the workspace — after **Diagram Editor** — is the **Object Instance Registry**. It declares which object instances the federate registers, how their names are obtained, and when they are registered, and the code generator turns the declarations into reservation and registration code. FOM modules have no registry. See [Object Instance Registry](ObjectInstanceRegistry.md).
+
+---
+
 ## Practical Guidance
 
 - Use `Identification` for module documentation.
@@ -698,4 +833,4 @@ In practice:
 **Next:** [Diagram Editor](Diagrams.md)
 
 ---
-Updated September 14, 2026
+Updated October 2, 2026

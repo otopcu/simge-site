@@ -13,11 +13,18 @@ Work across **OMT 1.3**, **IEEE 1516-2010 (HLA Evolved)**, and **IEEE 1516-2025 
 Understand your model at a glance and focus your next editing step. The Dashboard brings architectural complexity, model health, and analysis results together in a visual overview.
 
 - **See the big picture:** Explore model size, class hierarchies, architectural complexity metrics, and semantic indicators through the Overview, Structure, Semantics, and Quality views.
+- **Read every card the same way:** A colored strip shows the assessment (Balanced, Transitional, High, Critical, or withheld), a category icon shows what the card measures, and each card explains itself on demand.
+- **Read saturation and dispersion together:** A joint grid places the object and interaction domains by semantic saturation (Ψ) and payload dispersion (CV_p), with suggested responses, so a domain that is balanced on average but concentrated in a few classes stands out.
+- **Find where the payload comes from:** Split payload Pareto charts by source module, update type, or dynamic-array dependence, and open any class to see the attributes or parameters behind its weight.
+- **Check how robust a result is:** A Robustness view shows how far each domain moves under 22 calibration profiles and under the variant choice (heaviest versus lightest alternatives), and cards state whether their zone holds.
+- **See structure and payload side by side:** Compare inheritance depth with class weight, and hierarchy profile with payload diagnosis, per domain.
+- **Know what was analyzed:** The module card shows one green badge when everything resolves, or one badge per issue: lenient composition, unresolved references, missing dependencies. The Semantics view warns when payload may be understated.
+- **Follow the composition:** Dependencies and composition lists every module of the analysis in merge order, marks direct and transitive dependencies, flags missing ones with an Import option, and opens any module's editor with a double-click.
+- **Trace results to their files:** Details shows the content file's SHA-256 (the same value Object Model Analysis records), the module ID, MOM integration, and the security classification, application domain, and copyright, with one-click copy for the hash and ID.
 - **Spot maintenance issues early:** Identify unused data types, unresolved type references, and empty leaf classes that may need review.
 - **Move from insight to action:** Navigate from linked analysis cards directly to the related OMT tables.
 - **Choose your analysis scope:** Focus on the selected module with **Module Only**, or examine it together with its dependencies using **Composed**.
-- **Share your findings:** Copy summaries and diagnostic findings, export structural visualizations, and refresh the analysis as your model evolves.
-- **Explore design choices:** Use interactive structural and semantic views, with calibration controls for a closer look at model profiles.
+- **Share your findings:** Copy summaries and diagnostic findings, export structural and propensity charts as high-resolution PNG, and refresh the analysis as your model evolves.
 
 See [FOM Dashboard](UserManual/Dashboard.md) for a guided tour. Structural metric definitions are available through the [published research reference](UserManual/MetricsReports.md#metric-definitions-and-published-reference).
 
@@ -31,6 +38,7 @@ Build and maintain Object Models with structured tables and dedicated editing di
 - **Find the right data type quickly:** Search local and dependency-provided types with highlighted matches, category indicators, and source-module labels.
 - **Review changes with context:** Inspect datatype usages and preview the impact of renaming or deleting a type before applying the change.
 - **Work consistently across tables:** Use context-aware editing controls and dedicated dialogs to review related properties and maintain standards-aligned model data.
+- **Declare the instances a federate registers:** Give a SOM an Object Instance Registry of named object instances, each with a class, a naming strategy, initial attribute values checked against their data types, and DDM region ranges. The registry is saved with the module. See [Object Instance Registry](UserManual/ObjectInstanceRegistry.md).
 
 See [Object Model Editor](UserManual/OME.md).
 
@@ -77,6 +85,7 @@ Design your federation before you deploy it. FAME brings the definition and mana
 Keep the information that defines your federation together and move easily between architecture design and object modeling.
 
 - **Centralized configuration:** Manage federation execution names, federate names and types, RTI connection settings, and modular FOM/SOM associations within the model.
+- **Federations from several FOM modules:** Select the FOM modules a federation is created with; their dependencies are added in load order, and SimGe checks that the modules and each application's join modules combine without conflict, as the RTI would. Choose the MIM and logical time on the same tab.
 - **Jump to OMT:** Open the associated Object Model Editor directly from FOM/SOM selectors or module icons in the diagram.
 - **MOM Explorer:** Inspect the IEEE 1516-2025 Management Object Model through the read-only system library in Project Explorer, with access to its standard objects, interactions, and data types.
 
@@ -87,7 +96,7 @@ Build up your federation one application at a time, with immediate visual feedba
 - **Add and manage applications:** Create or remove federate applications and configure their model associations, host assignments, connection settings, and notes.
 - **Make multiplicity visible:** Define the expected number of federate instances and recognize multi-instance applications through stacked boxes and multiplicity labels.
 - **Catch configuration issues early:** Architectural health badges highlight invalid application names, missing SOM associations, and empty RTI connection settings directly on the diagram.
-- **Move toward a prototype:** Launch code generation for the selected federate application from the same workspace.
+- **Move toward a prototype:** Launch code generation for the selected federate application from the same workspace. The generated code creates the federation from its FOM modules, and the module files, the composed FDD and the HLA 1.3 FED are written with it.
 
 ### Federation Structure Diagram (FSD)
 
@@ -132,6 +141,7 @@ Turn your federation design into modern **C# / .NET federate code** for [**Fora.
 - **Model-driven options:** Generate specialized object codecs, delta-tracker helpers, and supported dispatch strategies where the model and selected settings make them applicable.
 - **Accompanying model documents:** Export FED and FDD files alongside the generated source from the federation's FOM.
 - **Generated API guide:** Read **README.generated.md** for the targeted Fora version, generated components, strategy decisions, and recommended extension points.
+- **Registered instances and the 2025 callback set:** Generated federates reserve and register the declared instances, answer requests for attribute values, and implement the IEEE 1516.1-2025 callbacks, including save and restore, ownership, and time.
 
 ### Fora Telemetry Instrumentation
 
@@ -152,6 +162,17 @@ See [Fora Telemetry & Validation](UserManual/ForaTelemetry.md) for capture requi
 Files under **Generated/** are managed by SimGe and overwritten during regeneration. They carry an **auto-generated** marker recognized by development tools. The federate class, Simulation Manager, and entity scaffolds remain hand-editable and analyzable, providing clear places for your application logic.
 
 See [Code Generator](UserManual/CodeGenerator.md) for compatible Fora dependencies, regeneration guidance, and the scope of optional generation strategies.
+
+## Object Model Analysis
+
+Compare every module of a project in one place. **Object Model Analysis** analyzes each FOM module exactly as its dashboard does, with its dependency closure composed, and gathers the results into a single table. Open it with **Analyze object models** on the Start Page or from **View → Project Workspace**.
+
+- **One table for the whole project:** Concrete population, semantic saturation (SSI_n and Ψ), payload dispersion (CV_p), and a short diagnosis for the object and interaction domains of every module, with composition policy and unresolved references.
+- **Know what produced the numbers:** A provenance line records SHA-256 hashes of the input files, the calibration, the composition policy, and the SimGe version; each row carries the hash of its own dependency closure.
+- **Calibration sensitivity per module:** Select a module to see its dynamic-cardinality sweep, the normalized local sensitivities, and all 22 calibration profiles in readable groups.
+- **Ready for reports and papers:** Copy tables as Markdown, full-precision CSV, or LaTeX, and copy figure data for pgfplots. For the bundled research samples, the results reproduce the published case-study tables.
+
+See [Object Model Analysis](UserManual/MetricsReports.md#object-model-analysis).
 
 ## Report Generator (RG)
 
@@ -212,4 +233,4 @@ See [Telemetry Visualizer](UserManual/TelemetryVisualizer.md). Producing runs wi
 Read [Installation & Updates](UserManual/Installation.md) for current requirements and [Quick Start](UserManual/QuickStart.md) for the first-project workflow. SimGe's research and educational usage terms are stated in the [Disclaimer](Disclaimer.md).
 
 ---
-Updated September 14, 2026
+Updated October 8, 2026

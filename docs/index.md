@@ -4,14 +4,14 @@
 
 **[Download SimGe](Downloads.md)** · **[Explore Features](Features.md)** · **[Get Started](UserManual/QuickStart.md)**
 
-Latest release: **SimGe 0.5.2** (September 14, 2026). Read [What's New](WhatsNew.md) for release highlights or [Release Notes](ReleaseNotes.md) for the complete history.
+Latest release: **SimGe 0.5.3** (October 8, 2026). Read [What's New](WhatsNew.md) for release highlights or [Release Notes](ReleaseNotes.md) for the complete history.
 
 ## From models to federates
 
 - **Object modeling (OMDE):** Create and edit modular FOMs and SOMs using OMT tables, document viewers, diagrams, and a model-analysis dashboard. Import and export HLA 1.3 FED and IEEE 1516-2010/2025 FDD files.
 - **Federation architecture (FAME):** Define federate applications and their model associations, inspect federation structure, and describe deployment infrastructure.
 - **Code generation:** Generate C# / .NET integration code for Fora, with federate lifecycle scaffolding, object and interaction models, datatypes, and codecs.
-- **Reports and telemetry:** Review model reports and inspect captured runs with the experimental Telemetry Inspector Visualizer.
+- **Analysis, reports, and telemetry:** Compare saturation, payload dispersion, and calibration sensitivity across every module with Object Model Analysis, review model reports, and inspect captured runs with the experimental Telemetry Inspector Visualizer.
 
 See [Features](Features.md) for capabilities and links to detailed guidance, including validation scopes, generation options, and experimental functionality.
 
@@ -25,7 +25,7 @@ RPR/NETN research corpora and their reports are not included in the installer.
 
 ## Documentation
 
-- **[Features](Features.md)** — Overview of object modeling, federation architecture, code generation, reports, and telemetry inspection.
+- **[Features](Features.md)** — Overview of object modeling, federation architecture, code generation, model analysis, reports, and telemetry inspection.
 - **[User Manual](UserManual.md)** — Guidance for installation, modeling, generation, and analysis.
 - **[What's New](WhatsNew.md)** — Highlights of the latest release.
 - **[Release Notes](ReleaseNotes.md)** — Version history and release verification notes.

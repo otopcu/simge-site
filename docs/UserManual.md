@@ -26,7 +26,7 @@ For structural metric definitions, see the [published research reference](UserMa
 12. [OME — Object Model Editor](UserManual/OME.md)
 13. [Diagram Editor](UserManual/Diagrams.md)
 14. [Importing & Exporting](UserManual/ImportExport.md)
-15. [FOM Validation](UserManual/Validation.md)
+15. [Editing Rules & FOM Validation](UserManual/Validation.md)
 
 ## Part IV — Object Model Analysis
 

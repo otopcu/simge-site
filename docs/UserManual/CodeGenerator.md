@@ -106,8 +106,13 @@ Generated/
 Entities/
   [Class]Entity.cs
 
+Fom/
+  [Module].xml
+
 SimulationManager.cs
 [Federate].cs
+[Fom].xml
+[Fom].fed
 README.generated.md
 ```
 
@@ -117,6 +122,30 @@ Notes:
 - `Entities/[Class]Entity.cs` and `SimulationManager.cs` are user scaffolds.
 - `SpecializedCodecs/` and `Delta/` appear only when metric-driven variants are active and applicable.
 - `README.generated.md` is emitted at the federate output root and summarizes the generated API surface, target compatibility, metric-strategy decisions, and regeneration guidance.
+- `Fom/`, `[Fom].xml` and `[Fom].fed` are the FOM files described below.
+
+---
+
+## FOM Files
+
+Code generation writes the FOM the generated code supplies to the RTI, based on the federation's FOM modules on the FAME [Federation tab](FAME.md#the-federation-tab):
+
+- `Fom/` holds every module of the federation's FOM, its dependencies included, plus the application's join modules and a user-extended MIM. A module is copied from the XML file the project imported it from, so the RTI reads the same content; a module without that file is exported as IEEE 1516-2025 XML. Each file is named by its designator, the module's file name.
+- `[Fom].xml` is the composed FOM as a single FDD (IEEE 1516-2025 for Fora, IEEE 1516-2010 for the other RTI targets), and `[Fom].fed` the same FOM as an HLA 1.3 FED, for RTIs that take one file. Both are named after the federation's first FOM module and written at the output root.
+
+The generated `SimulationManagerBase` lists the modules in load order:
+
+```csharp
+public IReadOnlyList<string> FomModules { get; set; } = [@"RPR-Base_v3.0.xml", @"RPR-Physical_v3.0.xml"];
+public IReadOnlyList<string> JoinFomModules { get; set; } = [];
+public string? MimModule { get; set; } = null;
+public string? LogicalTimeImplementationName { get; set; } = null;
+public string FomModuleFolder { get; set; } = @"Fom";
+```
+
+`RunAsync` creates the federation with these modules (IEEE 1516.1-2025 §4.5), reading each file with `FomModuleSource.FromFile` and sending its content, so the RTI host needs no copy of the files. A relative designator is looked up in `FomModuleFolder` under the working directory, then under the application directory; copy `Fom/` next to the executable, or set the properties before calling `RunAsync`. The application then joins with `JoinFomModules` when it has any (§4.11). Only `HlaFederationExecutionAlreadyExists` is ignored at creation, so a federate that finds the federation already created carries on; any other rejection, such as conflicting modules, reaches the caller. When `FomModules` is empty, the federation is created from the single `FomPath`.
+
+Missing dependencies, conflicting modules and files that could not be written are reported as `CG1030` warnings in the code generation diagnostics.
 
 ---
 
@@ -153,7 +182,11 @@ The README is regenerated on each run and should be treated as generated documen
 
 SimGe does not require `Fora.Client` as a NuGet dependency in order to generate code. The generator reports the embedded Fora API profile it was authored and tested against. End-user projects must reference a compatible `Fora.Client` package or project when compiling the generated code.
 
-For SimGe **0.5.2**, the embedded profile is **HLA2025-ForaClient-20260720**, with minimum and tested `Fora.Client` version **20260720.1.0**, targeting **.NET 10 / C# 14**. Use the profile recorded in a fresh `README.generated.md` when checking an existing application's package references. A newer package version still requires compatibility verification.
+For SimGe **0.5.3**, the embedded profile is **HLA2025-ForaClient-20260720**, with minimum and tested `Fora.Client` version **20260720.1.0**, targeting **.NET 10 / C# 14**. Use the profile recorded in a fresh `README.generated.md` when checking an existing application's package references. A newer package version still requires compatibility verification.
+
+Generated `IFederateAmbassador` object and interaction callbacks require Fora commit **`660ee9b`** or a later compatible build of `20260720.1.0`. The version prefix alone cannot distinguish older builds with incompatible signatures. The generator follows IEEE 1516.1-2025 §6.9, §6.11, §6.13, §6.15 and §6.17: receive-order callbacks use `OrderType.Receive`, timestamped callbacks retain their sent order and logical time, and `MessageMetadata.Transport` is a `TransportationTypeHandle`. The callback signatures accept producing federate, optional sent regions and optional retraction handles; the current dispatch hooks do not expose those additional values.
+
+The generated manager selects `CallbackModel.Evoked` at `ConnectAsync` and calls `EvokeMultipleCallbacksAsync` in its heartbeat loop. It does not call `EnableAsynchronousDeliveryAsync` before joining the federation. This matches Fora's §4.1/§4.2 callback model behavior and the §10.57/§10.58 Evoke services.
 
 The standard client interface is `IForaClient`. Scenario annotations use the optional `IForaTelemetry` capability; generated `SetScenarioStep` calls do nothing when the client does not provide that capability. Clock-alignment probes belong to `IForaClockProbe`. When adapting hand-written scenario code, use the appropriate optional capability rather than calling these extensions through `IForaClient`. See [Fora Telemetry & Validation](ForaTelemetry.md).
 
@@ -171,7 +204,7 @@ Do the Fora service and codec calls emitted by this generator still exist with t
 
 The current validator checks:
 
-- 36 generated Fora service-call shapes, including lifecycle, handle resolution, publish/subscribe, object registration, encoded update/send helpers, advisory switches, late-join attribute-value requests, and cleanup
+- 37 generated Fora service-call shapes, including lifecycle (creation and join with FOM module sources), handle resolution, publish/subscribe, object registration, encoded update/send helpers, advisory switches, late-join attribute-value requests, and cleanup
 - 28 generated `Fora.Encoding.HlaPrimitives` codec-call shapes
 - the configured `Fora.Client` contract snapshot recorded by `ForaClientApiProfile.json`
 
@@ -179,7 +212,7 @@ The result is shown in the code-generation report, for example:
 
 ```text
 FORA CONTRACT VALIDATION
-  INFO  [CG1020] Fora.Client API contract validation passed (36 service call(s), 28 codec call(s)).
+  INFO  [CG1020] Fora.Client API contract validation passed (37 service call(s), 28 codec call(s)).
 ```
 
 If the bundled contract snapshot is missing, generation is not blocked; the validator reports `NotRun` so the missing validation is visible. If a required API member or signature does not match, SimGe reports a `CG1021` issue so generator/Fora compatibility can be fixed before relying on the generated code.
@@ -380,6 +413,9 @@ This method can be overridden in the user subclass `SimulationManager.cs` to cus
 ##### 4. Register Methods
 The base class exposes type-safe registration methods for object classes, such as `Register[Class]Async` (e.g., `RegisterHumanAsync`). These methods register object instances with the RTI and return the corresponding generated entity wrapper.
 
+##### 5. Declared Object Instances
+When the SOM's [Object Instance Registry](ObjectInstanceRegistry.md) declares instances, the base class also reserves the declared names while the federate starts, registers each instance with its name only after the RTI confirmed the reservation (IEEE 1516.1-2025 §6.2 – §6.8), and exposes `DeclaredInstances` and `Register[Class]InstancesAsync` for on-demand declarations. A refused reservation fails the run with `InstanceNameReservationException`. Initial attribute values of a declaration are passed to the register method, which sends them with the first update right after the registration. Declarations with errors stop generation (`CG5001`–`CG5009`); declarations of an unpublished class are skipped with a warning.
+
 ### `CFederateClassGenerator_Fora`
 
 Behavior:
@@ -466,6 +502,109 @@ It requires:
 ---
 
 ## Practical Examples
+
+### Restaurant FOM: ServerValue variant record
+
+This example follows `RestaurantFOMmodule-2025.xml`, supplied with IEEE Std 1516.2-2025. For the datatype definition and OME editing steps, see [Variant records: discriminants and alternatives](OME.md#variant-records-discriminants-and-alternatives).
+
+The separate IEEE Restaurant SOM example defines a different `ServerValue`: its discriminant is `ValIndex`, and it has no `TempAgency` payload alternative. The FOM uses `Experience` and the three alternatives below. These examples should therefore not be mixed when inspecting generated code.
+
+SimGe generates federate code from its SOM. To obtain the structure illustrated here, the generation input must preserve these FOM datatype definitions and include the `Server` attributes. The following excerpts illustrate the current Fora generator's mapping; namespaces, documentation comments, and unrelated members are omitted. They are not a fresh generation run or a complete standalone program.
+
+#### Datatype and Server model
+
+The generator represents the variant record as a C# `struct` with an explicit discriminant and nullable alternative fields:
+
+```csharp
+#region Restaurant FOM datatype mapping
+public enum ExperienceLevel
+{
+    Trainee = 0,
+    Apprentice = 1,
+    Journeyman = 2,
+    Senior = 3,
+    Temporary = 4,
+    Master = 5
+}
+
+public struct ServerValue
+{
+    public ExperienceLevel Experience;
+    public bool? CoursePassed;
+    public string? TempAgency;
+    public int? Rating;
+}
+#endregion
+```
+
+`HLAboolean` maps to C# `bool`, `HLAunicodeString` to `string`, and `RateScale` (represented by `HLAinteger32BE`) to `int`. These are application types; their C# memory layout does not define the HLA encoding. In particular, `HLAboolean` is encoded using its 32-bit HLA representation.
+
+The `Server` DTO exposes both attributes using this datatype:
+
+```csharp
+#region Server DTO excerpt
+public class Server : Employee
+{
+    public ServerValue? Cheerfulness { get; init; }
+    public ServerValue? Efficiency { get; init; }
+    // Other generated members are omitted.
+}
+#endregion
+```
+
+Each attribute value has its own `Experience` discriminant. A null DTO attribute means that the attribute is omitted from that update. Inside a non-null `ServerValue`, null alternative fields indicate inactive alternatives.
+
+#### Selecting an alternative in application code
+
+The application sets the discriminant and supplies only the corresponding payload. These are three independent example values:
+
+```csharp
+#region Constructing Restaurant FOM variant values
+var traineeValue = new ServerValue
+{
+    Experience = ExperienceLevel.Trainee,
+    CoursePassed = true
+};
+
+var temporaryValue = new ServerValue
+{
+    Experience = ExperienceLevel.Temporary,
+    TempAgency = "Example Agency"
+};
+
+var seniorValue = new ServerValue
+{
+    Experience = ExperienceLevel.Senior,
+    Rating = 2
+};
+#endregion
+```
+
+The other alternative fields remain null. `CoursePassed = false` is also a valid payload: false is distinct from an absent (`null`) alternative. `HLAother` is a fallback mapping in the FOM, not an additional `ExperienceLevel` enum member.
+
+For an existing, locally owned `ServerEntity`, application code can update only `Efficiency` through the generated helper. The call belongs in an asynchronous application method and assumes the generated types are in scope:
+
+```csharp
+#region Updating one Server attribute
+await serverEntity.UpdateEfficiencyAsync(temporaryValue);
+#endregion
+```
+
+The helper constructs a `Server` DTO with `Efficiency` populated and delegates to `UpdateAsync`. `Cheerfulness` is omitted from this update. The application decides when to call the helper; the FOM's `Conditional` / `Performance review` declaration does not automatically schedule a performance review or choose an alternative.
+
+#### What the generated encoder does
+
+The encoder writes the discriminant, selects the matching alternative, applies the required alignment, and encodes only that alternative's payload:
+
+| `Experience` value | Required payload field | Fields that must remain null |
+|---|---|---|
+| `Trainee` | `CoursePassed` | `TempAgency`, `Rating` |
+| `Temporary` | `TempAgency` | `CoursePassed`, `Rating` |
+| Other values, through `HLAother` (including `Apprentice`, `Journeyman`, `Senior`, and `Master`) | `Rating` | `CoursePassed`, `TempAgency` |
+
+For this FOM definition, the generated encoder throws `InvalidOperationException` if the selected payload is null or another alternative is also populated. For example, `Experience = Senior` with only `CoursePassed` set is invalid. Changing the discriminant does not automatically clear or convert existing fields; construct a new value or explicitly reset inactive fields.
+
+The decoder reads the discriminant and reconstructs the selected payload, leaving the other alternatives null. The generated C# struct can hold several fields in memory, but a valid encoded value contains only the selected alternative.
 
 ### Standard Fora Generation
 
@@ -569,4 +708,4 @@ Metric-driven mode currently affects:
 The most important present limitation is that specialized metric-driven file generation is currently **Object Class only**, even though the metric analysis also evaluates Interaction Classes.
 
 ---
-Updated September 14, 2026
+Updated September 24, 2026

@@ -1,6 +1,16 @@
 # Keyboard Shortcuts & Tips
 
-A reference for the keyboard shortcuts available in SimGe, plus a few workflow tips. Most top-level actions (New, Open, Save, Import, Export) are run from the menus and toolbars; the shortcuts below cover the surfaces where keys speed things up.
+A reference for the keyboard shortcuts available in SimGe, plus a few workflow tips. Most top-level actions (New, Open, Save, Import, Export) are run from the menus and the command bar; the shortcuts below cover the surfaces where keys speed things up.
+
+## Projects
+
+| Shortcut | Action |
+|---|---|
+| **Ctrl + K** | Search commands (see [Command search](Workspaces.md#command-search)) |
+| **Ctrl + N** | New project |
+| **Ctrl + O** | Open a project |
+| **Ctrl + S** | Save the project |
+| **Ctrl + Shift + S** | Save the project as |
 
 ## Text editing
 

@@ -7,7 +7,7 @@ A SimGe project (a **`.fap`** file plus its folders) holds your object models, f
 Open the wizard from any of:
 
 - The **SimGe — Get Started** dialog → **Create New Project**.
-- The application menu / toolbar **New Project** command.
+- **File → New Project**, **New project** in the command bar's project menu, or **Ctrl+N**.
 
 The wizard has four steps. Use **Next** / **Back** to move between them; the final step creates the project on disk.
 

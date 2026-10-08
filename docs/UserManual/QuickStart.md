@@ -16,7 +16,7 @@ When SimGe starts, the **SimGe — Get Started** dialog appears with these choic
 
 For this walkthrough, click **Open Samples → Chat**.
 
-> You can reopen this dialog's choices at any time from the **Start Page** workspace.
+> The same choices are available later from the **File** menu: **Load…**, recent projects, and **Samples**.
 
 ## 2. Get your bearings
 
@@ -26,7 +26,7 @@ Once the Chat sample loads, the main window shows three things:
 - **Workspaces** (center) — tabbed editing areas. The **Start Page** opens here first.
 - **Status bar** (bottom) — save state, busy activity, and contextual hints.
 
-On the **Start Page**, find the **FOM Modules Dependency Graph**: it shows the sample's modules and how they depend on one another. Hover a node for a summary. (More in [Start Page](StartPage.md).)
+On the **Start Page**, the status tiles summarize the sample and the **Next step** card suggests what to do first. Further down, the **FOM Modules Dependency Graph** shows the sample's modules and how they depend on one another; hover a node for a summary. (More in [Start Page](StartPage.md).)
 
 ## 3. Open a module in the editor
 
@@ -73,4 +73,4 @@ See [Opening & Saving Projects](OpeningSaving.md) for the details.
 **Next:** [The SimGe Workspace](Workspaces.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated October 8, 2026

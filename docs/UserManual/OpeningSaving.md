@@ -8,7 +8,7 @@ A SimGe project is a **`.fap`** file (Federation Architecture Project). You can 
 
 - **SimGe — Get Started** dialog → **Open a Project**, then browse to the `.fap`.
 - The application **Open Project** command.
-- **Recent Projects** — pick a recently used project from the Get Started dialog or the menu.
+- **Recent Projects** — pick a recently used project from the Get Started dialog, the menu, or the [Start Page](StartPage.md#recent-projects-and-samples) of the open project.
 - **Double-click a `.fap` file** in Windows Explorer (the installer registers this association).
 
 When a project opens, its models hydrate, the Project Explorer fills in, and the Start Page shows the dependency graph.
@@ -17,7 +17,7 @@ When a project opens, its models hydrate, the Project Explorer fills in, and the
 
 ## Recently used projects (MRU)
 
-SimGe remembers the projects you open most recently and lists them in the **Get Started** dialog and the menu, with a relative "last opened" time. Selecting an entry reopens that project. Entries that no longer exist on disk are shown as *file not found*.
+SimGe remembers the projects you open most recently and lists them in the **Get Started** dialog, the menu, and the Start Page, with a relative "last opened" time. Selecting an entry reopens that project; from the Start Page it first asks whether to save unsaved changes, then closes the open project. Entries that no longer exist on disk are shown as *file not found*.
 
 ## Saving
 
@@ -66,4 +66,4 @@ See [Project Structure & Settings](ProjectSettings.md) for what lives where, and
 **Next:** [Project Structure & Settings](ProjectSettings.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated October 8, 2026

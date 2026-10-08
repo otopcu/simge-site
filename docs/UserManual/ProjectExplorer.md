@@ -38,28 +38,68 @@ Each kind of item has its own right-click menu. Most menus also include **Expand
 |---|---|
 | **Rename Project…** | Renames the project and its folder. See [Opening & Saving](OpeningSaving.md). |
 
-### "Object Models" folder
+### Module folder menus
+
+The three module folders share one command order — **New → Import → Manage → Remove → View** — and destructive commands (red icon) always sit at the bottom, just above **Expand / Collapse**.
+
+#### "Object Models" folder
+
+```
+Object Models
+├─ New ▸ FOM Module…
+│        SOM Module…
+├─ Import Module(s)…          (*.xml, *.fed, *.fom — one dialog, multi-select)
+├─ ─────
+├─ Remove All Modules…        (FOM + SOM, shows the count)
+├─ ─────
+└─ Expand / Collapse
+```
 
 | Command | What it does |
 |---|---|
-| **Load SimGe OM…** | Loads an existing object-model index into the project. |
-| **Create New OM…** | Creates a new (FOM) object model. |
-| **Clear All OM** | Removes all object models from the project. |
+| **New ▸ FOM Module… / SOM Module…** | Creates a new, empty module of that type. See [Managing Modules → Adding modules](ManagingModules.md#adding-modules). |
+| **Import Module(s)…** | Opens one multi-select dialog for HLA module files (`*.xml` FDD, `*.fed`) and SimGe object models (`*.fom`). HLA files are validated and imported with an import report; a `.fom` file appends all of its modules. Each module lands in **FOM Modules** or **SOM Modules** according to its own content, so there is no separate FOM/SOM import. |
+| **Remove All Modules…** | Removes every FOM and SOM module after a confirmation that shows how many of each will go. Files on disk are kept. See [Managing Modules → Removing](ManagingModules.md#removing). |
 
-### "FOM Modules" folder
+After an import, the status bar names what was added (for example *Imported 2 modules (1 FOM, 1 SOM): RPR-Base (FOM), RestaurantSOM (SOM).*) and the last added module is selected and scrolled into view.
+
+#### "FOM Modules" folder
+
+```
+FOM Modules
+├─ New FOM Module…
+├─ ─────
+├─ Module Dependencies…
+├─ ─────
+├─ Remove All FOM Modules…
+├─ ─────
+└─ Expand / Collapse
+```
+
+#### "SOM Modules" folder
+
+```
+SOM Modules
+├─ New SOM Module…
+├─ ─────
+├─ Module Dependencies…
+├─ ─────
+├─ Remove All SOM Modules…
+├─ ─────
+└─ Expand / Collapse
+```
 
 | Command | What it does |
 |---|---|
-| **Add New FOM Module…** | Creates a new, empty module. See [Managing Modules → Adding modules](ManagingModules.md#adding-modules). |
-| **Add Existing FOM Module(s)…** | Brings existing module file(s) into the project. See [Managing Modules → Adding modules](ManagingModules.md#adding-modules). |
-| **Module Dependencies…** | Opens the [Module Dependencies tool](ManagingModules.md#editing-dependencies). |
-| **Remove All Modules** | Clears every module in one batch. See [Managing Modules → Removing](ManagingModules.md#removing). |
+| **New FOM Module… / New SOM Module…** | Creates a new, empty module of the folder's type. |
+| **Module Dependencies…** | Opens the [Module Dependencies tool](ManagingModules.md#editing-dependencies). From **SOM Modules** it starts on the first SOM. |
+| **Remove All FOM Modules… / Remove All SOM Modules…** | Removes every module **of that type**, after a confirmation showing the count. The type is taken from the module's content, not from where it sits in the tree — a SOM that depends on a FOM is shown under its FOM parent but is still removed by **Remove All SOM Modules…**. Remaining modules that depended on a removed one keep that link as an orphan dependency. |
 
-### "SOM Modules" folder
+An empty **FOM Modules** or **SOM Modules** folder shows the hint *Right-click or drop files to add modules*.
 
-| Command | What it does |
-|---|---|
-| **Create New SOM…** | Creates a new SOM module. |
+### Dropping module files
+
+You can drag module files from Windows Explorer onto the **Object Models**, **FOM Modules** or **SOM Modules** folder. The drop uses the same path as **Import Module(s)…**: `*.xml` and `*.fed` files are imported as HLA modules, `*.fom` files are loaded as SimGe object models, and other files are ignored. Where a module lands depends on its content, not on the folder you dropped it on.
 
 ### A module (FOM / SOM)
 
@@ -212,4 +252,4 @@ The browse dialog remembers the folder you last used during the current session,
 The bundled sample projects (e.g. **Chat**, **STMS**) are installed in a shared, read-only location, so **Save** is disabled for them. To keep your edits — including a repaired module path — use **Save As** to store your own copy in a writable folder such as your Documents. **Save As** is always available for samples.
 
 ---
-Updated September 14, 2026
+Updated September 22, 2026

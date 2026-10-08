@@ -1,15 +1,20 @@
 # Managing Modules
 
-This chapter covers the everyday operations on FOM/SOM modules. For the underlying ideas (roles, dependencies, composition), see [Modular FOM Concepts](ModularFOM.md). Module commands live in the [Project Explorer](ProjectExplorer.md) — right-click the **FOM Modules** folder or an individual module.
+This chapter covers the everyday operations on FOM/SOM modules. For the underlying ideas (roles, dependencies, composition), see [Modular FOM Concepts](ModularFOM.md). Module commands live in the [Project Explorer](ProjectExplorer.md) — right-click the **Object Models**, **FOM Modules** or **SOM Modules** folder, or an individual module.
 
 ## Adding modules
 
-| Command | What it does |
-|---|---|
-| **Add New FOM Module…** | Creates a fresh, empty module in the project, ready to edit in the [OME](OME.md). |
-| **Add Existing FOM Module(s)…** | Brings one or more existing module files into the project. |
+| Command | Where | What it does |
+|---|---|---|
+| **New ▸ FOM Module… / SOM Module…** | **Object Models** | Creates a fresh, empty module, ready to edit in the [OME](OME.md). |
+| **New FOM Module… / New SOM Module…** | **FOM Modules** / **SOM Modules** | The same, for the folder's type. |
+| **Import Module(s)…** | **Object Models** | One multi-select dialog for HLA files (`*.xml` FDD, `*.fed`) and SimGe object models (`*.fom`). |
 
-> To bring in a standard HLA file (FED / FDD) rather than an existing SimGe module, use [Importing & Exporting](ImportExport.md) instead.
+**Import Module(s)…** chooses the loader by file extension: HLA files are validated and imported with an import report (a batch report when several are selected), while a `.fom` file appends all of its modules. FOM or SOM placement follows each module's content. You can also **drop files** from Windows Explorer onto any of the three module folders — the drop uses the same import.
+
+When the import finishes, the status bar names the added modules with their type — for example *Imported module: RPR-Base (FOM).* — and the last one is selected in the tree. For a long list, the first five names are shown followed by *+N more*.
+
+> For HLA file formats and export, see [Importing & Exporting](ImportExport.md).
 
 ## Opening a module
 
@@ -31,9 +36,12 @@ This chapter covers the everyday operations on FOM/SOM modules. For the underlyi
 | Command | What it does |
 |---|---|
 | **Remove Module** | Removes a single module from the project after confirmation. |
-| **Remove All Modules** | Clears every module in one batch operation, with progress shown on the shell. |
+| **Remove All FOM Modules…** / **Remove All SOM Modules…** | On the **FOM Modules** / **SOM Modules** folder: removes every module of that type. The type comes from the module's content, not its position in the tree. |
+| **Remove All Modules…** | On the **Object Models** folder: clears every FOM and SOM module in one batch operation, with progress shown on the shell. |
 
-When you remove a module that **others depend on**, SimGe does not silently break those links: each dependent module's link to the removed module is converted into an **unresolved (orphan) dependency** that keeps the missing module's name. The dependents then show a warning until you add the module back or relink them. (See [Modular FOM Concepts → Dependencies](ModularFOM.md#dependencies).)
+Each bulk command first asks for confirmation and shows how many modules will be removed. Module files on disk are never deleted — you can import them again later.
+
+When you remove a module (or a type-scoped set) that **others depend on**, SimGe does not silently break those links: each dependent module's link to the removed module is converted into an **unresolved (orphan) dependency** that keeps the missing module's name. The dependents then show a warning until you add the module back or relink them. (See [Modular FOM Concepts → Dependencies](ModularFOM.md#dependencies).)
 
 > A module whose content file failed to load can still be removed — use **Remove Module** on it.
 
@@ -58,4 +66,4 @@ If a module's `.sfom` or `.xml` is missing on disk, the module is flagged with a
 **Next:** [OME — Object Model Editor](OME.md)
 
 ---
-Updated June 25, 2026, 16:28:09
+Updated September 22, 2026
