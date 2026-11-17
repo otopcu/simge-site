@@ -84,7 +84,7 @@ For every region something uses, the simulation manager gets:
 | Cleanup | Before the federate resigns, the subscriptions are removed and the regions deleted. |
 
 ```csharp
-// The design: NorthSector = Group [0, 64); ChatMessage subscribes and sends with it.
+// The design: NorthSector = Group 0, 64); ChatMessage subscribes and sends with it.
 await SendChatMessageToNorthSectorAsync(new ChatMessage { Content = "hello" });
 RegionHandle north = await GetNorthSectorRegionAsync();     // for your own RTI calls
 
@@ -94,7 +94,7 @@ ChatMessageReceivedInNorthSectorRegion += (message, qos) => Show(message);
 
 The event is raised on the thread of the manager's `EventContext`, like the other events of the manager. The match reads the ranges of the regions the message was sent to while it is being received (IEEE 1516.1-2025 §9.1.7) and applies the overlap rule of §9.1.4: every dimension the two regions have in common overlaps, and they have one in common. A federate that has no handler does no matching. Object classes have no such event: an object is discovered, and its updates are reflected, through the subscription regions.
 
-The helpers for the interaction classes of the model (`GroupRegions.OpenRegionAsync(...)`) stay available for regions you open yourself at run time. The generator reports what it cannot generate: a region that cannot be created, a class that lacks a dimension of its region, a use of a class the federate does not subscribe or publish, and a class that left the SOM (`CG5013` – `CG5019`, see [Code Generator](../Architecture/11_Code_Generator.md)).
+The helpers for the interaction classes of the model (`GroupRegions.OpenRegionAsync(...)`) stay available for regions you open yourself at run time. The generator reports what it cannot generate: a region that cannot be created, a class that lacks a dimension of its region, a use of a class the federate does not subscribe or publish, and a class that left the SOM (`CG5013` – `CG5019`, see [Code Generator).
 
 ---
 

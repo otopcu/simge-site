@@ -259,7 +259,7 @@ Important behavior:
 
 For Fora SOM generation, the SOM declares the capabilities this federate supports. Inactive leaf classes and `Neither` attributes have no generated payload, codec, entity member or handle lookup. Required ancestors, inherited active members and datatype/directed-interaction dependencies remain. P/PS attribute sets are published; S/PS sets are subscribed, and an empty set emits no attribute P/S call. Entity state exposes the union; encoders and update helpers use publishable attributes, decoders and discovery requests use subscribable attributes.
 
-To support a previously `Neither` member, change the SOM and regenerate. Complete FOM schema emission remains complete; the XML sent to the RTI is not reduced by this selection. If an older user-owned entity scaffold refers to a removed capability, adapt or remove that scaffold yourself. This production rule is separate from experimental workload pruning and from runtime advisory switches. See [SOM Capability Selection](../Architecture/11_Code_Generator.md#som-capability-selection-2026-10-12).
+To support a previously `Neither` member, change the SOM and regenerate. Complete FOM schema emission remains complete; the XML sent to the RTI is not reduced by this selection. If an older user-owned entity scaffold refers to a removed capability, adapt or remove that scaffold yourself. This production rule is separate from experimental workload pruning and from runtime advisory switches. See SOM Capability Selection.
 
 ### Inactive-branch pruning (experimental / programmatic)
 
@@ -468,7 +468,7 @@ await GroupRegions.OpenAllRegionsAsync([Federate.Som.ChatMessageHandle]);
 
 **The DDM design.** The regions you design in the [DDM tab](DdmDesign.md) need no helper call. For every region a class or a declaration refers to, the manager has `Get<Region>RegionAsync()`; the classes that subscribe with a region are subscribed with it when the federation is ready, and not the usual way (interaction classes, and the attributes of object classes); an interaction class that sends with a region gets `Send<Class>To<Region>Async(dto)`, and one that subscribes with it gets the event `<Class>ReceivedIn<Region>Region`, raised for what was sent to a region overlapping that region; the subscriptions are removed and the regions deleted before the federate resigns. A declaration of the Object Instance Registry that names a region registers its instances with it, and shares the region with the classes that use it. Problems are reported as `CG5013` – `CG5019`.
 
-Subscribing a class with a region replaces its usual subscription: the usual one covers every range and, with it in place, the region would filter nothing. The helper drops it for you the first time you subscribe the class with a region. An interaction sent without a region (`SendXAsync(dto)`) still reaches every region subscriber. Only classes that have dimensions and that the SOM subscribes to can be subscribed with a region. `MatchAsync(metadata)` is available when you handle the interaction yourself (see [Code Generator](../Architecture/11_Code_Generator.md), chapter 11 §6.6).
+Subscribing a class with a region replaces its usual subscription: the usual one covers every range and, with it in place, the region would filter nothing. The helper drops it for you the first time you subscribe the class with a region. An interaction sent without a region (`SendXAsync(dto)`) still reaches every region subscriber. Only classes that have dimensions and that the SOM subscribes to can be subscribed with a region. `MatchAsync(metadata)` is available when you handle the interaction yourself (see Code Generator, chapter 11 §6.6).
 
 ##### 8. Common Advisory Observations
 
@@ -514,7 +514,7 @@ Raw `Federate.Rti` switch calls bypass this bookkeeping. Model switch defaults i
 
 **Step-1 history.** Observation-only behavior was the first implementation. The current managed send/update policy is described in section 9 below; a registration callback still does not create an object without a modeled declaration or explicit application request.
 
-See [the architecture contract and review](../Architecture/11_Code_Generator.md#64a-common-advisory-observations-2026-10-12-step-1). The step-1 checks passed 109 tests, including 14 new compiled advisory cases; live EnviFd/MekoFd/Chat-Fora validation awaits fresh developer-generated exports.
+See the architecture contract and review. The step-1 checks passed 109 tests, including 14 new compiled advisory cases; live EnviFd/MekoFd/Chat-Fora validation awaits fresh developer-generated exports.
 
 ##### 9. Advisory-aware sends and updates
 
@@ -549,7 +549,7 @@ The generated Provide Attribute Value Update response runs through Defer, answer
 
 **Registration:** for automatic Start Registration handling, configure one or more `AdvisoryDriven` instances in the Federate Behavior Editor. The heartbeat registers them once; initial values then follow the same update policy. Disabling the registration switch releases that wait. Stop Registration leaves existing objects alive. Direct `Register<Class>Async`, StartupImmediate and on-demand declarations remain explicit choices. Business decisions such as which objects exist, what their values are and when an interaction represents an event still belong to the application.
 
-Regenerate Generated/ and preserve user-owned scaffolds. Remove duplicated manual gates when importing the new code; raw RTI update/send calls bypass this behavior. Fields set on an entity alone are not submitted until UpdateAsync is called (explicit value requests still read current entity state). Null means an omitted value. See [architecture §6.4b](../Architecture/11_Code_Generator.md#64b-managed-publication-policy-2026-10-12-step-2) for behavior and measurement boundaries. Step-2 application interoperability is verified after fresh exports; earlier application tests cover step 1 only.
+Regenerate Generated/ and preserve user-owned scaffolds. Remove duplicated manual gates when importing the new code; raw RTI update/send calls bypass this behavior. Fields set on an entity alone are not submitted until UpdateAsync is called (explicit value requests still read current entity state). Null means an omitted value. See architecture §6.4b for behavior and measurement boundaries. Step-2 application interoperability is verified after fresh exports; earlier application tests cover step 1 only.
 
 ##### 9.1. Overriding publication policies in manual SimulationManager
 
@@ -592,10 +592,10 @@ For finer selection, compare `context.InteractionClass` with `Federate.Som.<Clas
 
 Returning false from the buffer hook applies when a **new ordinary value** is submitted. It also removes that attribute's old retained snapshot; a blocked or failed replacement cannot replay the older value. Merely changing the setting does not immediately clear existing buffers. Explicit value-request responses are transient and use the attribute send hook, independent of ordinary retention. Session cleanup, ownership-loss discard and stale-proxy checks remain active even with custom policies.
 
-Hooks are synchronous decisions and can be invoked more than once. Keep them short, without RTI calls or calls back into publication helpers. They run on the caller/deferred thread; protect settings shared with a UI thread. See [architecture §6.4c](../Architecture/11_Code_Generator.md#64c-manual-publication-policy-overrides-2026-10-12) for the exact contract.
+Hooks are synchronous decisions and can be invoked more than once. Keep them short, without RTI calls or calls back into publication helpers. They run on the caller/deferred thread; protect settings shared with a UI thread. See architecture §6.4c for the exact contract.
 
 
-Fresh export integration is verified with EnviFd/MekoFd (`20261012155146`) and Chat-Fora (`20261012155209`): 17 default/override cases per actual manager pass against real Fora. Keep UI/domain code in the manual scaffolds; remove old gates that would suppress calls before the generated helpers. Envi still captures unsubmitted UI edits on its presentation thread and registers on StartRegistration; Meko retains ship delta selection; Chat retains User/room behavior. These are application choices. No production custom override is enabled by this migration. See [application integration evidence](../Architecture/11_Code_Generator.md#64d-fresh-application-export-integration-2026-10-12).
+Fresh export integration is verified with EnviFd/MekoFd (`20261012155146`) and Chat-Fora (`20261012155209`): 17 default/override cases per actual manager pass against real Fora. Keep UI/domain code in the manual scaffolds; remove old gates that would suppress calls before the generated helpers. Envi still captures unsubmitted UI edits on its presentation thread and registers on StartRegistration; Meko retains ship delta selection; Chat retains User/room behavior. These are application choices. No production custom override is enabled by this migration. See application integration evidence.
 
 ### `CFederateClassGenerator_Fora`
 
@@ -1074,4 +1074,4 @@ Override manager `ScheduleDiscoveryAttributeRequest(request, send)` only for alt
 
 Envi keeps first-Scenario selection, WPF presentation queues/snapshots and weather behavior. Meko keeps track/domain callbacks, bounded diagnostics and its worker facade. Chat keeps users, rooms, polls and UI status. Generated infrastructure removes their repeatable request, ready and client-diagnostic mechanics rather than inventing application state.
 
-This step reduces eight affected manual source files from 3199 to 3168 raw lines: EnviFd −6, MekoFd −24, Chat −1. Counts include comments/blanks and exclude generated files/tests/documentation and prior lifecycle savings. Chat's manager/federate remain unchanged; its UI replaces repeated catch/dispatch logic with typed manager error presentation, so its net line reduction is small. See the measured [architecture record](../Architecture/11_Code_Generator.md#64h-shared-runtime-infrastructure-defaults-2026-10-12).
+This step reduces eight affected manual source files from 3199 to 3168 raw lines: EnviFd −6, MekoFd −24, Chat −1. Counts include comments/blanks and exclude generated files/tests/documentation and prior lifecycle savings. Chat's manager/federate remain unchanged; its UI replaces repeated catch/dispatch logic with typed manager error presentation, so its net line reduction is small. See the measured architecture record.

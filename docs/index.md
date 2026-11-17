@@ -133,7 +133,7 @@ A Windows desktop environment for **High Level Architecture (HLA)** object model
 
     Create and modify modular FOMs and SOMs. Features OMT tabular editors, FED and IEEE 1516-2010/2025 FDD import/export, class diagrams, and automated validation against HLA rules.
 
-    [:octicons-arrow-right-24: Explore Features](Features.md#object-modeling-omde)
+    [:octicons-arrow-right-24: Explore Features](Features.md#object-model-development-environment-omde)
 
 -   :material-sitemap-outline:{ .lg .middle } **Federation Architecture Modeling (FAME)**
 
@@ -141,7 +141,7 @@ A Windows desktop environment for **High Level Architecture (HLA)** object model
 
     Define federate applications, their publication and subscription responsibilities, and module mappings. Generates federation execution descriptions and behavior models.
 
-    [:octicons-arrow-right-24: Explore Features](Features.md#federation-architecture-fame)
+    [:octicons-arrow-right-24: Explore Features](Features.md#federation-architecture-modeling-environment-fame)
 
 </div>
 
@@ -155,7 +155,7 @@ A Windows desktop environment for **High Level Architecture (HLA)** object model
 
     Produce platform-ready, layered C# / .NET 10 code targeting the [Fora client](https://sites.google.com/view/okantopcu/fora){ target="_blank" rel="noopener" }. Generates federate lifecycle management, object/interaction models, and codecs.
 
-    [:octicons-arrow-right-24: Explore Features](Features.md#code-generation)
+    [:octicons-arrow-right-24: Explore Features](Features.md#code-generator-cg)
 
 -   :material-chart-box-outline:{ .lg .middle } **Analysis, Reports & Telemetry**
 
@@ -163,7 +163,7 @@ A Windows desktop environment for **High Level Architecture (HLA)** object model
 
     Compute structural metrics based on [published scientific research](https://doi.org/10.1016/j.simpat.2026.103328){ target="_blank" rel="noopener" }, export HTML/PDF reports, and visualize post-run telemetry datasets.
 
-    [:octicons-arrow-right-24: Explore Features](Features.md#model-analysis-reports-and-telemetry)
+    [:octicons-arrow-right-24: Explore Features](Features.md#object-model-analysis)
 
 </div>
 

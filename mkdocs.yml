@@ -57,7 +57,10 @@ nav:
           - FOM Dashboard: UserManual/Dashboard.md
           - Model Metrics & Reports: UserManual/MetricsReports.md
           - Telemetry Visualizer: UserManual/TelemetryVisualizer.md
-      - Federation Architecture (FAME): UserManual/FAME.md
+      - Federation Architecture (FAME):
+          - FAME Overview: UserManual/FAME.md
+          - FBE — Federate Behavior Editor: UserManual/FederateBehaviorEditor.md
+          - DDM Design: UserManual/DdmDesign.md
       - Code Generation:
           - Code Generator: UserManual/CodeGenerator.md
           - Fora Telemetry & Validation: UserManual/ForaTelemetry.md
