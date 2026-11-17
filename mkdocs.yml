@@ -17,13 +17,13 @@ theme:
   palette:
     - scheme: default
       primary: indigo
-      accent: indigo
+      accent: orange
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate
       primary: indigo
-      accent: indigo
+      accent: orange
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
