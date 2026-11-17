@@ -3,7 +3,7 @@
 SimGe 0.5.3 is now available.
 
 - Start from a **Start Page** that shows the project's modules, dependencies, analysis, and generated-code status, suggests the next step, and switches between recent projects and the bundled samples.
-- Declare the object instances a federate registers in an **Object Instance Registry** on each SOM, with initial attribute values and DDM region scopes. Generated Fora federates reserve the names and register the instances for you.
+- Model the behavior of each federate application in the new **Federate Behavior Editor**, with a **DDM tab** where you design the regions it works in on tracks and a plane: declare the object instances it registers in an **Object Instance Registry**, with initial attribute values and DDM region scopes, saved per application in `Behavior\‹application›.sfbm`. Generated Fora federates reserve the names and register the instances for you.
 - Generate Fora federates for the **IEEE 1516.1-2025** callback set, including save and restore, ownership, and time callbacks, and create the federation from several FOM modules in load order.
 - Read module analysis in a Semantics tab with joint saturation and dispersion diagnosis, payload drill-down, and robustness under 22 calibration profiles. The upper anchor of the saturation score has been updated.
 - Compare every FOM module of a project in one **Object Model Analysis** workspace, with input hashes and Markdown, CSV, and LaTeX export.

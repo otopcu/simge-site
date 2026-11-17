@@ -139,7 +139,14 @@ You can drag module files from Windows Explorer onto the **Object Models**, **FO
 | **Generate Code** | Generates code for this federate. See [Code Generator](CodeGenerator.md). |
 | **Open Latest Generated Code Folder** | Opens the most recent output folder in Windows Explorer. |
 | **Rename** | Renames the federate application. See [FAME](FAME.md). |
+| **Federate Behavior…** | Opens the [Federate Behavior Editor](FederateBehaviorEditor.md) of this federate. |
 | **Delete** | Removes the federate application. |
+
+### Behavior (under a federate application)
+
+The **Behavior** node stands for the behavior model of the application, saved as `Behavior\‹application›.sfbm`. Double-click it, or choose **Open in Editor**, to open the [Federate Behavior Editor](FederateBehaviorEditor.md) on the tab it was left on.
+
+Expand the node and its two children, **Object Instance Registry** and **DDM**, are the tabs of the editor: double-click one (or choose **Open in Editor**) to open the editor straight on that tab. The names carry what the tab holds, *Object Instance Registry (2)* for two declarations and *DDM (3 regions)* for three regions, and follow the changes you make. When the DDM design has a problem, a warning mark appears beside **DDM**; hover it for how many, and open the tab to see them.
 
 ### Generated code (run folder / file)
 

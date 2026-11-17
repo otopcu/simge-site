@@ -21,7 +21,7 @@ The **Project Explorer** and **Properties** panels can be shown or hidden from t
 |---|---|
 | **File** | New Project, Load…, Close…, Save, Save As, **Sample Projects** (Chat / STMS), Exit. See [Opening & Saving](OpeningSaving.md). |
 | **Edit** | Cut, Copy, Paste. |
-| **View** | **Project Workspace ▸** (Start Page, Federation Architecture, OMDE ▸ one entry per module, Code Generator, Report Generator, **Object Model Analysis**, Project Settings, Preferences — see [Workspaces](#workspaces)), **Project Explorer**, **Properties Window**. |
+| **View** | **Project Workspace ▸** (Start Page, Federation Architecture, OMDE ▸ one entry per module, **Federate Behavior ▸ one entry per federate application**, Code Generator, Report Generator, **Object Model Analysis**, Project Settings, Preferences — see [Workspaces](#workspaces)), **Project Explorer**, **Properties Window**. |
 | **Object Model** | Load Object Model, Remove All Object Models, Create New FOM/SOM, **Import ▸** Any FDD (1.3 / 2010 / 2025), **Export ▸** FED / FDD. See [Importing & Exporting](ImportExport.md). |
 | **Federation Architecture** | Create New Federation Architecture. See [FAME](FAME.md). |
 | **Code Generator** | Generate Code. See [Code Generator](CodeGenerator.md). |
@@ -84,9 +84,10 @@ The central area holds **workspace tabs**. Open a workspace from **View → Proj
 
 | Workspace | What it is | Chapter |
 |---|---|---|
-| **Start Page** | Landing page: project status tiles, a next-step suggestion, the workflow (including **Analyze object models**), recent projects and samples, folder links, and the dependency graph. | [Start Page](StartPage.md) |
+| **Start Page** | Landing page: project status tiles, a next-step suggestion, the simulation development lifecycle (including **Object model analysis**), recent projects and samples, folder links, and the dependency graph. | [Start Page](StartPage.md) |
 | **Object Model Editor (OME)** | Edits one FOM/SOM module — its tables, diagram editor, viewers, and dashboard. | [OME](OME.md), [Diagram Editor](Diagrams.md), [FOM Dashboard](Dashboard.md) |
 | **FAME** | Designs the federation architecture and federate applications. | [FAME](FAME.md) |
+| **Federate Behavior Editor (FBE)** | Edits the behavior of one federate application: the object instances it registers (Object Instance Registry tab) and the DDM regions it works in (DDM tab). One tab per application. | [FBE](FederateBehaviorEditor.md), [Object Instance Registry](ObjectInstanceRegistry.md) |
 | **Code Generator** | Generates federate code. | [Code Generator](CodeGenerator.md) |
 | **Report Generator** | Renders a printable model report. | [Model Metrics & Reports](MetricsReports.md) |
 | **Object Model Analysis** | Analyzes every FOM module of the project as its dashboard does: saturation, dispersion, and calibration sensitivity in one table, with input provenance and Markdown/CSV/LaTeX export. Opens from the Start Page or **View → Project Workspace**. | [Object Model Analysis](MetricsReports.md#object-model-analysis) |

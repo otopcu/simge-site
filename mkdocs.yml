@@ -75,12 +75,20 @@ markdown_extensions:
   - tables
   - attr_list
   - md_in_html
+  - fenced_code
   - toc:
       permalink: true
+  - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences
   - pymdownx.inlinehilite
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - assets/stylesheets/home.css
 
 plugins:
   - search

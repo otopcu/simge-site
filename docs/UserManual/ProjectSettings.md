@@ -18,6 +18,7 @@ When you create a project, SimGe builds a folder structure under the project hom
 │   ├─ ‹Module›.sfom          ← module metadata (one pair per module)
 │   └─ ‹Module›.xml           ← module content
 ├─ Fam\                       ← federation architecture (.fam)
+├─ Behavior\                  ← behavior of each federate application (.sfbm)
 └─ Source\                    ← generated source code
 ```
 
@@ -25,6 +26,7 @@ When you create a project, SimGe builds a folder structure under the project hom
 |---|---|
 | **Fom** | The object-model index (`.fom`) and every module's metadata/content (`.sfom` + `.xml`). |
 | **Fam** | The Federation Architecture Module describing federate applications and the RTI execution. |
+| **Behavior** | One `.sfbm` file per federate application: the object instances it registers (see [FBE](FederateBehaviorEditor.md)). Created when the project is first saved. |
 | **Source** | Code produced by the [Code Generator](CodeGenerator.md). |
 
 SimGe also uses helper subfolders (such as a temporary work area) inside the project home; you do not normally edit these by hand.

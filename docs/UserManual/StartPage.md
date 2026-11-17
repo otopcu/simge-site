@@ -1,10 +1,10 @@
 # Start Page
 
-The Start Page is the landing workspace of an open project. It opens automatically when a project loads and stays available as a workspace tab. It answers three questions at a glance: *what is in this project*, *is anything wrong*, and *what should I do next*.
+The Start Page is the landing workspace of an open project. It opens automatically when a project loads and stays available as a workspace tab. It answers three questions at a glance: *what is in this project*, *is anything wrong*, and *what should I do next*, and it lays the project out along the simulation development lifecycle.
 
-![The SimGe Start Page: project status tiles, the next-step card, the workflow, and the FOM Modules Dependency Graph](images/start-page.png)
+![The SimGe Start Page: project status tiles, the next-step card, the simulation development lifecycle, and the FOM Modules Dependency Graph](images/start-page.png)
 
-*The Start Page for the NETN project (30 modules, two federates). From top to bottom: the project header with its folder chips, four status tiles, the next-step card, the workflow with recent projects and learning links beside it, and the **FOM Modules Dependency Graph**. Here every dependency resolves, the analysis has run (eight modules carry caveats), and no code has been generated yet, so the next step is **Generate code**.*
+*The Start Page for the NETN project (30 modules, two federates). From top to bottom: the project header with its folder chips, four status tiles, the next-step card, the **simulation development lifecycle** with recent projects and learning links below it, and the **FOM Modules Dependency Graph**. Here every dependency resolves, the analysis has run (eight modules carry caveats), the federates have a SOM and a host, and no code has been generated yet, so the next step is **Generate code**.*
 
 ## Project header
 
@@ -38,17 +38,23 @@ The blue card suggests one concrete action for the project's current state, with
 7. **Generate** or **Regenerate federate code**.
 8. **Analyze your object models**: opens Object Model Analysis once everything above is in order.
 
-## Workflow
+## Simulation development lifecycle
 
-The **Workflow** panel lists the stages of a SimGe project in the order they are usually done. Each row shows its current status, and selecting the row opens it:
+The **Simulation development lifecycle** card lays a SimGe project out as the seven stages a simulation usually goes through. Each stage is a tile with its number, the workspace that does the work, a status, and a line of detail; a green check, an amber warning or an empty circle shows how it stands. Selecting a tile opens its workspace.
 
-| Row | Opens | Status shows |
-|---|---|---|
-| **Modules** | The first module (a FOM when there is one) in the [Object Model Editor](OME.md); open others from the Project Explorer | Module count |
-| **Analyze object models** | [Object Model Analysis](MetricsReports.md#object-model-analysis) | **Not run yet** or the analyzed module count |
-| **Design the federation** | [FAME](FAME.md) | Federates defined |
-| **Generate federate code** | The code generator | The generated-code state from the tiles |
-| **Inspect a captured run** | The [Telemetry Visualizer](TelemetryVisualizer.md) | **Optional** |
+![The lifecycle card of the Start Page: seven stages from object modeling to run and inspect, each with its status](images/start-page-lifecycle.png)
+
+| # | Stage | Opens | Status shows |
+|---|---|---|---|
+| 1 | **Object modeling** | The first module (a FOM when there is one) in the [Object Model Editor](OME.md); open others from the Project Explorer | Module count; amber when a module has unresolved dependencies |
+| 2 | **Object model analysis** | [Object Model Analysis](MetricsReports.md#object-model-analysis) | **Not run yet**, or the analyzed module count and how many carry caveats |
+| 3 | **Federation modeling** (FAME · structure) | [FAME](FAME.md) on the federation structure diagram | Federates defined; amber when a federate has no SOM |
+| 4 | **Federate behavior** (FBE) | The [Federate Behavior Editor](FederateBehaviorEditor.md) of the first federate whose behavior says something, on the tab that has it (the Object Instance Registry when it declares instances, the DDM tab when only regions are in use); with nothing declared anywhere, the first federate's registry. Open the others from the Project Explorer | The object instance declarations and the DDM regions in use (a class or a declaration refers to them) over all federates, and in how many federates |
+| 5 | **Deployment** (FAME · deployment) | [FAME](FAME.md) on the UML deployment diagram | How many hosts the federates run on and their names; amber when a federate has no host or no RTI address, naming it |
+| 6 | **Code generation** | The code generator | The generated-code state from the tiles |
+| 7 | **Run and inspect** | The [Telemetry Visualizer](TelemetryVisualizer.md) | **Optional** |
+
+Federate behavior and deployment report their state but never hold the next step back: a federate that declares no instances, or that has not been placed on a host, still generates code. A new federate starts on **Localhost** with the RTI address `rti://127.0.0.1`, so a deployment reads as incomplete only after one of the two has been cleared.
 
 ## Recent projects and samples
 
@@ -60,7 +66,7 @@ The **Learn** card links to the Quick Start, the user manual, Troubleshooting, a
 
 ## Object Model Analysis
 
-The **Analyze object models** workflow row opens the [Object Model Analysis](MetricsReports.md#object-model-analysis) workspace and analyzes every FOM module in the project. Each module is analyzed with its dependency closure, exactly as its dashboard does, and the results appear in one table: semantic saturation (SSI_n and Ψ), payload dispersion (CV_p), and, for the selected module, calibration sensitivity across 22 profiles. A provenance line records the input-file hashes, calibration, and version, and every table can be copied as Markdown, CSV, or LaTeX.
+The **Object model analysis** lifecycle stage opens the [Object Model Analysis](MetricsReports.md#object-model-analysis) workspace and analyzes every FOM module in the project. Each module is analyzed with its dependency closure, exactly as its dashboard does, and the results appear in one table: semantic saturation (SSI_n and Ψ), payload dispersion (CV_p), and, for the selected module, calibration sensitivity across 22 profiles. A provenance line records the input-file hashes, calibration, and version, and every table can be copied as Markdown, CSV, or LaTeX.
 
 The same workspace is available from **View → Project Workspace → Object Model Analysis**. The analysis runs when the tab opens; select **Analyze** in the tab to run it again after edits.
 
@@ -95,4 +101,4 @@ The Start Page hosts a dependency graph that displays the relationships between 
 **Next:** [Creating a Project](CreatingProjects.md)
 
 ---
-Updated October 8, 2026
+Updated October 9, 2026

@@ -1,0 +1,197 @@
+/* Home page: hero area and card polish. Scoped to .simge-* and .fora-* classes so manuals are unaffected. */
+
+.simge-hero,
+.fora-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 0 2.5rem;
+  padding: 2rem 2.2rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(135deg, #16305e 0%, #1f5f9e 55%, #2b78c5 100%);
+  color: #ffffff;
+}
+
+.simge-hero__text,
+.fora-hero__text {
+  flex: 1 1 60%;
+}
+
+.md-typeset .simge-hero h1,
+.md-typeset .fora-hero h1 {
+  margin: 0 0 0.3rem;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 2.6rem;
+  letter-spacing: 0.02em;
+}
+
+.simge-hero__tagline,
+.fora-hero__tagline {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.md-typeset .simge-hero p,
+.md-typeset .fora-hero p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.md-typeset .simge-hero .md-button,
+.md-typeset .fora-hero .md-button {
+  margin: 0.4rem 0.4rem 0 0;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.md-typeset .simge-hero .md-button--primary,
+.md-typeset .fora-hero .md-button--primary {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #16305e;
+}
+
+.md-typeset .simge-hero .md-button:hover,
+.md-typeset .fora-hero .md-button:hover {
+  background-color: #2b78c5;
+  border-color: #2b78c5;
+  color: #ffffff;
+}
+
+.simge-hero__logo,
+.fora-hero__logo {
+  flex: 0 0 auto;
+  width: 11rem;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.25);
+}
+
+.simge-hero__logo img,
+.fora-hero__logo img {
+  display: block;
+  width: 100%;
+}
+
+.simge-badges,
+.fora-badges {
+  margin-top: 0.8rem;
+}
+
+.simge-badges span,
+.fora-badges span {
+  display: inline-block;
+  margin: 0 0.35rem 0.35rem 0;
+  padding: 0.1rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* Feedback badge: bottom-right corner of the hero. */
+.simge-hero__feedback-row,
+.fora-hero__feedback-row {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.md-typeset .simge-hero__feedback,
+.md-typeset .fora-hero__feedback {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.md-typeset .simge-hero__feedback svg,
+.md-typeset .fora-hero__feedback svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+.md-typeset .simge-hero__feedback:hover,
+.md-typeset .simge-hero__feedback:focus,
+.md-typeset .fora-hero__feedback:hover,
+.md-typeset .fora-hero__feedback:focus {
+  background: #2b78c5;
+  border-color: #2b78c5;
+  color: #ffffff;
+}
+
+/* GitHub Sponsors badge: a pink heart, turning fully pink on hover. */
+.simge-hero__sponsor svg,
+.fora-hero__sponsor svg {
+  fill: #ff8fc8;
+}
+.md-typeset .simge-hero__sponsor:hover,
+.md-typeset .simge-hero__sponsor:focus,
+.md-typeset .fora-hero__sponsor:hover,
+.md-typeset .fora-hero__sponsor:focus {
+  background: #bf3989;
+  border-color: #bf3989;
+}
+.md-typeset .simge-hero__sponsor:hover svg,
+.md-typeset .simge-hero__sponsor:focus svg,
+.md-typeset .fora-hero__sponsor:hover svg,
+.md-typeset .fora-hero__sponsor:focus svg {
+  fill: #ffffff;
+}
+
+/* The heart on the Sponsor button. */
+.md-typeset .simge-heart,
+.md-typeset .fora-heart {
+  color: #ff8fc8;
+}
+
+/* Card image previews */
+.md-typeset .simge-card-shot,
+.md-typeset .fora-card-shot {
+  float: right;
+  width: 6.5rem;
+  margin: 0.15rem 0 0.4rem 0.8rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.3rem;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.md-typeset a:hover > .simge-card-shot,
+.md-typeset a:hover > .fora-card-shot {
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.22);
+  transform: translateY(-1px);
+}
+
+@media screen and (max-width: 44.9375em) {
+  .simge-hero,
+  .fora-hero {
+    flex-direction: column-reverse;
+    padding: 1.5rem;
+  }
+  .simge-hero__logo,
+  .fora-hero__logo {
+    width: 8rem;
+  }
+  .simge-hero__feedback-row,
+  .fora-hero__feedback-row {
+    position: static;
+    order: -1;
+    align-self: flex-end;
+  }
+}

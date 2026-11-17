@@ -76,6 +76,9 @@ Definitions of the HLA, OMT, and SimGe-specific terms used throughout this manua
 **`.fom`**
 : SimGe's object-model index file that lists a project's modules.
 
+**`.sfbm`**
+: A federate application's behavior model, saved in the project's `Behavior` folder and linked from the `.sfam` by a `BehaviorId`.
+
 **`.sfom` / `.xml`**
 : A module's metadata file and its content file, respectively.
 
@@ -86,6 +89,12 @@ Definitions of the HLA, OMT, and SimGe-specific terms used throughout this manua
 
 **FAME (Federation Architecture Modeling Environment)**
 : The workspace where you design the federation — its federate applications and RTI connections.
+
+**Region (DDM)**
+: A named set of ranges, one for each dimension it covers, that a federate works in (IEEE 1516.1-2025 clause 9). Designed in the DDM tab of the Federate Behavior Editor; a class subscribes with a region or sends with it. See [DDM Design](DdmDesign.md).
+
+**FBE (Federate Behavior Editor)**
+: The workspace where you edit the behavior of one federate application — the object instances it registers and, later, its DDM regions. The behavior is saved in `Behavior\‹application›.sfbm`.
 
 **FAM (Federation Architecture Module)**
 : The artifact describing the federation's federate applications and execution (`.fam`).

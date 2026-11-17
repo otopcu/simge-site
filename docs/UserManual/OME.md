@@ -152,7 +152,7 @@ Typical copy-table shape:
 
 Opening an object class from the `Objects` table shows the `Object Class` editor.
 
-The editor covers parent, sharing, declared dimensions, directed interactions, semantics, notes, and the embedded `Attributes` list for attributes declared on that class. In a SOM it also has an `Instances` tab that declares the object instances the federate registers for the class; see [Object Instance Registry](ObjectInstanceRegistry.md).
+The editor covers parent, sharing, declared dimensions, directed interactions, semantics, notes, and the embedded `Attributes` list for attributes declared on that class. The object instances a federate registers for the class are not declared here: they belong to the behavior of the federate application; see [FBE — Federate Behavior Editor](FederateBehaviorEditor.md).
 
 ### Recommended Use
 
@@ -813,9 +813,9 @@ In practice:
 
 ---
 
-## Object Instance Registry
+## Federate behavior
 
-In a SOM module, the last tab of the workspace — after **Diagram Editor** — is the **Object Instance Registry**. It declares which object instances the federate registers, how their names are obtained, and when they are registered, and the code generator turns the declarations into reservation and registration code. FOM modules have no registry. See [Object Instance Registry](ObjectInstanceRegistry.md).
+The object instances a federate registers when it runs, and later its regions, are not part of the module: they are the **behavior** of a federate application, which has its own editor. See [FBE — Federate Behavior Editor](FederateBehaviorEditor.md) and [Object Instance Registry](ObjectInstanceRegistry.md).
 
 ---
 

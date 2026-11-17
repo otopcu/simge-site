@@ -1,6 +1,6 @@
 # SimGe Release Notes
 
-*Last Updated/Edited (DTG): 2026-10-08*
+*Last Updated/Edited (DTG): 2026-10-12*
 
 ## [0.5.3] - 2026-10-08
 

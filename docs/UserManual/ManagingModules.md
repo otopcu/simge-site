@@ -25,7 +25,7 @@ When the import finishes, the status bar names the added modules with their type
 
 ## Renaming
 
-**Rename Module…** changes the module's name and renames its files on disk (`.sfom` and `.xml`) to match, keeping the project consistent. Dependent modules continue to resolve because dependencies are tracked by the module's identity, not its file name.
+**Rename Module…** changes the module's name and renames its files on disk (`.sfom` and `.xml`) to match, keeping the project consistent. Changing only the case of the name (`restaurantFom` → `RestaurantFOM`) is a rename too. Dependent modules continue to resolve because dependencies are tracked by the module's identity, not its file name.
 
 ## Duplicating
 

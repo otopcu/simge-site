@@ -38,7 +38,6 @@ Build and maintain Object Models with structured tables and dedicated editing di
 - **Find the right data type quickly:** Search local and dependency-provided types with highlighted matches, category indicators, and source-module labels.
 - **Review changes with context:** Inspect datatype usages and preview the impact of renaming or deleting a type before applying the change.
 - **Work consistently across tables:** Use context-aware editing controls and dedicated dialogs to review related properties and maintain standards-aligned model data.
-- **Declare the instances a federate registers:** Give a SOM an Object Instance Registry of named object instances, each with a class, a naming strategy, initial attribute values checked against their data types, and DDM region ranges. The registry is saved with the module. See [Object Instance Registry](UserManual/ObjectInstanceRegistry.md).
 
 See [Object Model Editor](UserManual/OME.md).
 
@@ -95,6 +94,8 @@ Build up your federation one application at a time, with immediate visual feedba
 
 - **Add and manage applications:** Create or remove federate applications and configure their model associations, host assignments, connection settings, and notes.
 - **Make multiplicity visible:** Define the expected number of federate instances and recognize multi-instance applications through stacked boxes and multiplicity labels.
+- **Model what each federate does at run time:** Every federate application has a behavior model, edited in the Federate Behavior Editor and saved per application. Its Object Instance Registry declares the object instances the federate registers, each with a class, a naming strategy, initial attribute values checked against their data types, and DDM region ranges. Applications that share a SOM keep their own declarations. See [Federate Behavior Editor](UserManual/FederateBehaviorEditor.md).
+- **Design the regions a federate works in:** The DDM tab of the Federate Behavior Editor defines named regions as ranges of the model's dimensions, with a draggable track for each dimension, a plane that shows where regions overlap, and a matrix of which classes subscribe or send with them. The generated federate creates the regions, subscribes the classes and sends with them. See [DDM Design](UserManual/DdmDesign.md).
 - **Catch configuration issues early:** Architectural health badges highlight invalid application names, missing SOM associations, and empty RTI connection settings directly on the diagram.
 - **Move toward a prototype:** Launch code generation for the selected federate application from the same workspace. The generated code creates the federation from its FOM modules, and the module files, the composed FDD and the HLA 1.3 FED are written with it.
 

@@ -71,9 +71,9 @@ Composed analysis reports include a **Dependent Modules** column when ownership 
 
 **Object Model Analysis** analyzes every FOM module of the open project in one workspace, so modules can be compared side by side, their inputs identified, and their results exported as tables. It is the project-level counterpart of the per-module [dashboard](Dashboard.md#semantic-diagnosis).
 
-![The Start Page workflow, with the Analyze object models row and its status](images/start-page-analysis.png)
+![The Start Page lifecycle, with the Object model analysis stage and its status](images/start-page-lifecycle.png)
 
-**Opening it.** Select the **Analyze object models** row in the [Start Page workflow](StartPage.md#workflow), or **View → Project Workspace → Object Model Analysis**. The workspace opens as a tab and starts analyzing immediately; progress appears under the title. Select **Analyze** to run it again after editing or saving modules, and **Cancel** to stop a run.
+**Opening it.** Select the **Object model analysis** stage in the [Start Page lifecycle](StartPage.md#simulation-development-lifecycle), or **View → Project Workspace → Object Model Analysis**. The workspace opens as a tab and starts analyzing immediately; progress appears under the title. Select **Analyze** to run it again after editing or saving modules, and **Cancel** to stop a run.
 
 ![Object Model Analysis for the NETN project, with NETN-CBRN selected](images/object-model-analysis.png)
 

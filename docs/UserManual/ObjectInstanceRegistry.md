@@ -1,21 +1,22 @@
 # Object Instance Registry
 
-The **Object Instance Registry** lists the object instances a federate registers when it runs, and tells the code generator how and when to register them. It belongs to a **SOM** module: instances are declared by the federate that registers them, so a FOM module has no registry.
+The **Object Instance Registry** lists the object instances a federate registers when it runs, and tells the code generator how and when to register them. It is the first tab of the [Federate Behavior Editor](FederateBehaviorEditor.md) of a **federate application**: instances are declared by the federate that registers them, so the declarations belong to the application's behavior and are bound to the classes of its SOM. A FOM module has no registry.
 
-For the rest of the editor see [OME — Object Model Editor](OME.md). For what the generator makes of the declarations, see [Code Generator](CodeGenerator.md).
+For the rest of the behavior editor see [FBE — Federate Behavior Editor](FederateBehaviorEditor.md). For the object model see [OME — Object Model Editor](OME.md). For what the generator makes of the declarations, see [Code Generator](CodeGenerator.md).
 
-![The Object Instance Registry tab: the detail of the selected declaration on the left, the list of declarations on the right](images/object-instance-registry.png)
+![The Object Instance Registry tab of the Federate Behavior Editor: the detail of the selected declaration on the left, the list of declarations on the right](images/fbe-instance-registry.png)
 
-*The registry tab. The selected declaration is edited on the left; the list of all declarations is on the right.*
+*The registry tab of the Federate Behavior Editor. The selected declaration is edited on the left; the list of all declarations is on the right.*
 
 ---
 
 ## Where to find it
 
-- **OME tab** — the last tab of a SOM module's workspace, after **Diagram Editor**. It lists every declaration of the module. In a FOM module the tab is not shown.
-- **Object Class editor** — the **Instances (n)** tab, next to **Attributes**. It shows only the declarations of the class you are editing, with the class already chosen. The tab is disabled in a FOM, and until the class itself has been created.
+Open the **Federate Behavior Editor** of the application (see [Opening the editor](FederateBehaviorEditor.md#opening-the-editor)); the registry is its **Object Instance Registry** tab. It lists every declaration of the application. A change marks the project as modified.
 
-Both views show the same declarations. A change made in one appears in the other, and it marks the module as modified.
+Two applications that use the same SOM each have their own registry: editing one does not change the other. An application without a SOM shows a message in place of the registry until a SOM is assigned to it in [FAME](FAME.md).
+
+> The registry used to be a tab of the OME and of the Object Class editor. Those tabs are gone; declarations of an older project are moved to the applications that use the SOM when the project is opened (see [Saving](#saving)).
 
 ---
 
@@ -26,9 +27,9 @@ Like the other split views, the **detail** (properties) is on the left and the *
 | Toolbar | Where | What it does |
 |---|---|---|
 | **Detail toolbar** | above the detail | **Add**, **Duplicate** and **Delete** change the declarations. |
-| **Master toolbar** | above the list | One row: **Copy** copies the listed declarations to the clipboard as a Markdown table (Instance Name, Class, Count, Strategy, Trigger, Release Name On Delete, Issue), the **grouping** box groups the list, and — in the module-wide view — the filters narrow it by object class, naming strategy and trigger, and a text search on name or class. The copied table contains only the rows the list shows. |
+| **Master toolbar** | above the list | One row: **Copy** copies the listed declarations to the clipboard as a Markdown table (Instance Name, Class, Count, Strategy, Trigger, Release Name On Delete, Issue), the **grouping** box groups the list, and the filters narrow it by object class, naming strategy and trigger, and a text search on name or class. The copied table contains only the rows the list shows. |
 
-Under the detail toolbar, the OME tab shows **New declarations**: the naming strategy a newly added declaration starts with, and the **HLA prefix guard** (see [Validation](#validation)). Inside the Object Class editor the filters and these defaults are hidden, because the list is already limited to one class; **Copy Table** stays.
+Under the detail toolbar, **New declarations** shows the naming strategy a newly added declaration starts with, and the **HLA prefix guard** (see [Validation](#validation)).
 
 **Grouping** offers *No grouping*, *Group by class*, *Group by strategy* and *Group by trigger*. Each group has a round chevron header, like the sections of the Dashboard, that shows its name and how many declarations it holds, and can be collapsed; a row moves to its new group when you edit the field it is grouped by. Filters and grouping combine.
 
@@ -71,9 +72,9 @@ Names are reserved while the federate starts, whatever the trigger, so the insta
 
 ### Initial Attribute Values
 
-The grid lists every attribute of the target class, the ones it inherits included, with its data type and an **Initial Value** you can type. Every instance of the declaration gets the same values. An empty value (or **(none)**) gives none.
+The grid lists every attribute of the target class, the ones it inherits included, with its data type and an **Initial Value** you can type. Every instance of the declaration gets the same values. An empty value (or **(none)**) gives none from the registry: that attribute is left to the application (see [Values only the application knows](#values-only-the-application-knows)).
 
-**Sending** decides when the values go out. *Send at registration* (the default) sends them in one update, grouped, right after each instance is registered. *Send only when requested* only sets the state of the instance; the values are sent when another federate asks for them. Either way the instance keeps the values as its state and the generated federate answers a request for them from that state, so a federate that joins later receives them too, with whatever the application has updated since.
+**Sending** decides when the values go out. *Send at registration* (the default) submits them to the generated update policy after registration. With Attribute Relevance enabled, Off/Unknown values wait until On; available relevant values are sent, grouped by tag/hint. *Send only when requested* only sets the state of the instance; the values are sent when another federate asks for them. Either way the instance keeps the values as its state and the generated federate answers a request for them from that state, so a federate that joins later receives them too, with whatever the application has updated since.
 
 What you type is checked against the attribute's data type as you type; a wrong value gets a red icon with the reason, and blocks code generation:
 
@@ -91,11 +92,13 @@ Records, variant records, references and arrays of other element types cannot be
 
 ### Region / DDM Scope
 
-When the object class has dimensions (its own and the ones it inherits), the **Region / DDM Scope** section lists them, each with the **Upper Bound** the module gives the dimension. Give a dimension a **Lower (incl.)** and an **Upper (excl.)** bound and the generated federate registers every instance of the declaration with a region that covers `[lower, upper)` of it (IEEE 1516.1-2025 §9, Register Object Instance With Regions): the region is created and committed once, every attribute the instances publish is associated with it, and it is deleted again before the federate resigns. A federate that subscribes with regions receives the instances only where its regions overlap theirs.
+When the object class has dimensions (its own and the ones it inherits), the **Region / DDM Scope** section has a **Region** box. It offers *none (default region)* and the regions of the [DDM design](DdmDesign.md) the class can use, that is, the regions made of dimensions the class has. Choose one and the generated federate registers every instance of the declaration with that region (IEEE 1516.1-2025 §9, Register Object Instance With Regions): the region is created and committed once, every attribute the instances publish is associated with it, and it is deleted again before the federate resigns. The ranges of the region are listed under the box; edit them in the DDM tab. A federate that subscribes with regions receives the instances only where its regions overlap theirs.
 
-Give both bounds of a dimension or none; a dimension left empty is not part of the region. The bounds are whole numbers, the lower one below the upper one, and the upper one at most the dimension's upper bound. A wrong range gets a red icon with the reason and blocks code generation.
+Declarations that name the same region share it, and so do the classes that subscribe with it: the generated code creates one region for all of them.
 
-With no range at all, or for a class that has no dimensions, the instances are registered in the default region (§9.1.3.2): every subscriber, with or without regions, can receive them. The generator reports this for a class that has dimensions (`CG5012`, information only). Choosing another class starts without ranges, and a dimension that leaves the class disappears from the section together with its range.
+With no region, or for a class that has no dimensions, the instances are registered in the default region (§9.1.3.2): every subscriber, with or without regions, can receive them. The generator reports this for a class that has dimensions (`CG5012`, information only). Choosing another class keeps the region when the new class can use it and drops it otherwise. If the region is deleted from the design, the declaration keeps its name and shows an error until you choose another region or none.
+
+> Projects saved before the DDM design gave each declaration its own ranges. When one is opened, the ranges become a named region (`VesselRegion`, named after the class) that the declaration refers to, and the project asks to be saved.
 
 ---
 
@@ -111,7 +114,8 @@ Every row shows a status icon: a green check, an amber warning, or a red error w
 | A name begins with **"HLA"** — IEEE 1516.1-2025 §6.2.3 (d) and §6.5.3 (d) do not allow reserving such a name. The check is case-sensitive, so `hlaLead` is accepted. | Error |
 | Another Guaranteed declaration reserves the same name | Error |
 | An initial value does not fit its attribute's data type | Error |
-| A region range is not a valid range of its dimension (one bound only, not whole numbers, lower not below upper, upper above the dimension's upper bound) | Error |
+| The region of the declaration no longer exists in the DDM design, or covers a dimension the class does not have | Error |
+| A range of the region is not a valid range of its dimension (one bound only, not whole numbers, lower not below upper, upper above the dimension's upper bound) | Error |
 | The class is not published by the federate, so the RTI would refuse the registration | Warning |
 
 The **HLA prefix guard** can be switched off; the generator then only warns. Turn it off only when you know the RTI you use accepts such names.
@@ -122,21 +126,32 @@ If you delete a class that has declarations, the declarations are kept and shown
 
 ## Saving
 
-Declarations are saved with the module, in its `.sfom` metadata file. They are not written to the module's `.xml` content file, which stays a standard IEEE 1516.2 object model, and they do not appear in exported FDD or FED files. A module that declares nothing writes nothing.
+Declarations are saved with the behavior of the application, in `Behavior\‹application›.sfbm` (see [FBE — Saving](FederateBehaviorEditor.md#saving)). They are not written to the SOM module's files, whose `.xml` content stays a standard IEEE 1516.2 object model, and they do not appear in exported FDD or FED files. An application that declares nothing writes no instance data.
 
-In the Object Class editor the changes apply at once, but **Cancel** puts the declarations back as they were when the editor opened, and **Save** keeps them.
+A project saved before behavior models kept the declarations in the `.sfom` metadata of the SOM module. Opening it moves them to the behavior of every application that uses the module, and the project asks to be saved.
 
 ---
 
+### Values only the application knows
+
+Some values exist only at run time, such as the nickname of the user who started the program. Leave such an attribute empty. For every declaration with at least one empty attribute the generated manager has a hook, `protected virtual <Declaration>InitialValues()`, which returns a data object of the class. The manager calls it when it registers each instance and sends what it returns, together with the declared values, in the same first update:
+
+```csharp
+protected override ClientSession ClientSessionInitialValues()
+  => new() { NickName = NickName, StartedAt = DateTime.Now.ToOADate() };
+```
+
+A value the registry declares is sent as declared; a value the hook sets for such an attribute is ignored. The generated manager also gives the registered instances as entities: `<Declaration>Instances` (an `IReadOnlyList` of the class's entity).
+
 ## Code generation
 
-For a SOM with declarations the generated Fora federate:
+For an application with declarations the generated Fora federate:
 
 1. checks the declarations before writing any file; an error stops generation (codes `CG5001`–`CG5009`, see [Code Generator](CodeGenerator.md));
 2. reserves the declared names while the federate starts and waits for the RTI's answer (IEEE 1516.1-2025 §6.2 – §6.8);
 3. registers each instance with its name only after the reservation succeeded; if the RTI refuses a name, the run fails with `InstanceNameReservationException` and nothing is registered under that name;
 4. registers startup declarations when the federation is ready, advisory-driven ones after the Start Registration advisory, and on-demand ones when `Register<Class>InstancesAsync()` is called;
-5. sends the declaration's initial attribute values in one update right after each instance is registered (or keeps them as state, if the declaration sends them only on request), and answers a later request for them from the instance's state;
+5. submits the declaration's initial attribute values to the managed publication policy, with the values the application's `<Declaration>InitialValues()` hook returns for the attributes left empty, after registration; relevance and ownership determine the actual updates (or keeps the declared ones as state, if the declaration sends them only on request), and answers a later request for them from the instance's state;
 6. releases a name when its instance is deleted, if the declaration asks for it.
 
 `SimulationManagerBase.DeclaredInstances` reports, for every declaration, whether its names are reserved, whether it is registered, and the instances registered so far. The generated `README.generated.md` lists the declarations.
@@ -147,15 +162,26 @@ Declarations of a class the federate does not publish are skipped with a warning
 
 ## Tips
 
-- Give an instance its starting state in **Initial Attribute Values** instead of updating it by hand after registering.
+- Give an instance its starting state in **Initial Attribute Values** instead of updating it by hand after registering, and override `<Declaration>InitialValues()` for the values only the program knows.
 - Use Autonomous for populations whose members need no name; use Pattern-Based for a numbered fleet.
 - Prefer **Advisory-Driven** for instances nobody needs until a federate subscribes; enable the **Object Class Relevance Advisory** switch in the module's [Switches table](OME.md#13-switches-table) first.
+- Two applications can share one SOM and declare different instances; the generator reads the declarations of the application it generates for.
 - Two federates cannot reserve the same name in one federation execution. Give each federate's declarations distinct names, or use Autonomous.
 
 ---
 
-**Previous:** [OME — Object Model Editor](OME.md) · **Next:** [Diagram Editor](Diagrams.md)
+**Previous:** [FBE — Federate Behavior Editor](FederateBehaviorEditor.md) · **Next:** [DDM Design](DdmDesign.md)
 
 ---
-Updated October 2, 2026
+Updated October 9, 2026
 
+
+Runtime switch note: disabling Object Class Relevance releases the registration wait of an AdvisoryDriven declaration on the heartbeat. It registers only once; Stop Registration never deletes an existing instance. See [Advisory-aware sends and updates](CodeGenerator.md#9-advisory-aware-sends-and-updates) for initial-value buffering, explicit requests and failure behavior.
+
+### Publication policy customization
+
+Declared initial values use the same generated defaults as later updates. Override `ShouldSendAttribute`, `ShouldBufferAttribute` and `ShouldAutomaticallyFlush` in manual SimulationManager to change publication behavior; these hooks do not change declaration activation or create additional instances. Non-buffered initial values blocked by advice are discarded, so supply fresh values when the application wants to send. See [manual publication examples](CodeGenerator.md#91-overriding-publication-policies-in-manual-simulationmanager).
+
+## Manual lifecycle policy overrides
+
+Model triggers are defaults. Generated managers with declarations expose `ShouldRegisterDeclaredInstance`, `ShouldDeleteDeclaredInstances`, typed `<Key>Instances`, runtime `<Key>InitialValues`, registration/removal hooks and explicit register/delete commands. Default Stop Registration retains existing objects; automatic deletion is an application opt-in. Slot bookkeeping, released-name reservation and cleanup are generated. Partial retries fill only missing slots. See [lifecycle examples and threading rules](CodeGenerator.md#10-customizing-declared-object-lifecycle).

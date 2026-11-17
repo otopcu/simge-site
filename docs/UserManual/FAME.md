@@ -76,6 +76,7 @@ Located at the top of the tab:
 -   **Som Module**: Select the SOM module associated with this federate.
     *   Click the **Folder (Open)** icon to jump to its OMT editor.
 -   **SOM GUID**: Displays the unique identifier of the linked SOM module.
+-   **Behavior**: Each application has a behavior model — the object instances it registers and, later, its DDM regions. It is edited in the [Federate Behavior Editor](FederateBehaviorEditor.md): double-click the **Behavior** node under the application in the Project Explorer, or use **View ▸ Project Workspace ▸ Federate Behavior**.
 -   **Federate Name & Type**: HLA-specific naming for the federate execution.
 -   **Multiplicity**: Defines how many instances of this federate will exist in the federation (e.g., `0..1`, `1..*`, `5`).
 -   **Connection**: Technical RTI connection string (e.g., `localhost:6001`).
