@@ -185,32 +185,40 @@
   color: #ffffff;
 }
 
-/* GitHub Sponsors badge: heart icon with navy border, turning vibrant pink on hover. */
+/* GitHub Sponsors badge: bg navy, yazı orange, kalp pembe */
+.md-typeset .simge-hero__sponsor,
+.md-typeset .fora-hero__sponsor {
+  background: #0b1a30 !important;
+  border-color: #0b1a30 !important;
+  color: #f7941d !important;
+}
+
 .simge-hero__sponsor svg,
 .fora-hero__sponsor svg {
-  fill: #be185d;
+  fill: #ff69b4 !important;
 }
 
 .md-typeset .simge-hero__sponsor:hover,
 .md-typeset .simge-hero__sponsor:focus,
 .md-typeset .fora-hero__sponsor:hover,
 .md-typeset .fora-hero__sponsor:focus {
-  background: #be185d;
-  border-color: #be185d;
-  color: #ffffff;
+  background: #162a4d !important;
+  border-color: #162a4d !important;
+  color: #ffaa44 !important;
+  box-shadow: 0 0.25rem 0.7rem rgba(11, 26, 48, 0.35);
 }
 
 .md-typeset .simge-hero__sponsor:hover svg,
 .md-typeset .simge-hero__sponsor:focus svg,
 .md-typeset .fora-hero__sponsor:hover svg,
 .md-typeset .fora-hero__sponsor:focus svg {
-  fill: #ffffff;
+  fill: #ff85c0 !important;
 }
 
 /* The heart on the Sponsor button. */
 .md-typeset .simge-heart,
 .md-typeset .fora-heart {
-  color: #be185d;
+  color: #ff69b4;
 }
 
 /* Card image previews */
