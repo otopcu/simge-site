@@ -7,10 +7,11 @@
   align-items: center;
   gap: 2rem;
   margin: 0 0 2.5rem;
-  padding: 2rem 2.2rem;
-  border-radius: 0.6rem;
-  background: linear-gradient(135deg, #16305e 0%, #1f5f9e 55%, #2b78c5 100%);
+  padding: 2.2rem 2.4rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #b84300 0%, #df6100 50%, #f38a18 100%);
   color: #ffffff;
+  box-shadow: 0 0.5rem 1.8rem rgba(216, 90, 0, 0.25);
 }
 
 .simge-hero__text,
@@ -22,75 +23,99 @@
 .md-typeset .fora-hero h1 {
   margin: 0 0 0.3rem;
   color: #ffffff;
-  font-weight: 700;
-  font-size: 2.6rem;
+  font-weight: 800;
+  font-size: 2.7rem;
   letter-spacing: 0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .simge-hero__tagline,
 .fora-hero__tagline {
   margin: 0 0 1rem;
-  font-size: 1.05rem;
-  font-weight: 500;
-  opacity: 0.9;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff4ea;
+  letter-spacing: 0.01em;
 }
 
 .md-typeset .simge-hero p,
 .md-typeset .fora-hero p {
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .md-typeset .simge-hero .md-button,
 .md-typeset .fora-hero .md-button {
   margin: 0.4rem 0.4rem 0 0;
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.md-typeset .simge-hero .md-button:hover,
+.md-typeset .fora-hero .md-button:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #b84300;
+  box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.15);
 }
 
 .md-typeset .simge-hero .md-button--primary,
 .md-typeset .fora-hero .md-button--primary {
   background-color: #ffffff;
   border-color: #ffffff;
-  color: #16305e;
+  color: #b84300;
+  font-weight: 700;
+  box-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.15);
 }
 
-.md-typeset .simge-hero .md-button:hover,
-.md-typeset .fora-hero .md-button:hover {
-  background-color: #2b78c5;
-  border-color: #2b78c5;
+.md-typeset .simge-hero .md-button--primary:hover,
+.md-typeset .fora-hero .md-button--primary:hover {
+  background-color: #1e293b;
+  border-color: #1e293b;
   color: #ffffff;
 }
 
 .simge-hero__logo,
 .fora-hero__logo {
   flex: 0 0 auto;
-  width: 11rem;
-  padding: 0.8rem;
-  border-radius: 0.6rem;
+  width: 11.5rem;
+  padding: 0.9rem;
+  border-radius: 0.75rem;
   background: #ffffff;
-  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .simge-hero__logo img,
 .fora-hero__logo img {
   display: block;
   width: 100%;
+  height: auto;
 }
 
 .simge-badges,
 .fora-badges {
-  margin-top: 0.8rem;
+  margin-top: 1rem;
 }
 
 .simge-badges span,
 .fora-badges span {
   display: inline-block;
   margin: 0 0.35rem 0.35rem 0;
-  padding: 0.1rem 0.6rem;
+  padding: 0.15rem 0.65rem;
+  background: rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 1rem;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.02em;
 }
 
 /* Feedback badge: bottom-right corner of the hero. */
@@ -109,20 +134,20 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.25rem 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.15);
   color: #ffffff;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .md-typeset .simge-hero__feedback svg,
 .md-typeset .fora-hero__feedback svg {
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 0.95rem;
+  height: 0.95rem;
   fill: currentColor;
 }
 
@@ -130,23 +155,26 @@
 .md-typeset .simge-hero__feedback:focus,
 .md-typeset .fora-hero__feedback:hover,
 .md-typeset .fora-hero__feedback:focus {
-  background: #2b78c5;
-  border-color: #2b78c5;
-  color: #ffffff;
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #b84300;
 }
 
-/* GitHub Sponsors badge: a pink heart, turning fully pink on hover. */
+/* GitHub Sponsors badge: a light pink heart on orange, turning vibrant pink on hover. */
 .simge-hero__sponsor svg,
 .fora-hero__sponsor svg {
-  fill: #ff8fc8;
+  fill: #ffccd5;
 }
+
 .md-typeset .simge-hero__sponsor:hover,
 .md-typeset .simge-hero__sponsor:focus,
 .md-typeset .fora-hero__sponsor:hover,
 .md-typeset .fora-hero__sponsor:focus {
-  background: #bf3989;
-  border-color: #bf3989;
+  background: #be185d;
+  border-color: #be185d;
+  color: #ffffff;
 }
+
 .md-typeset .simge-hero__sponsor:hover svg,
 .md-typeset .simge-hero__sponsor:focus svg,
 .md-typeset .fora-hero__sponsor:hover svg,
@@ -157,7 +185,7 @@
 /* The heart on the Sponsor button. */
 .md-typeset .simge-heart,
 .md-typeset .fora-heart {
-  color: #ff8fc8;
+  color: #be185d;
 }
 
 /* Card image previews */
